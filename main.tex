@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+
+\title{An Economic Model of Section 230}
+\author{James Grimmelmann}
+\date{June 2021}
+
+\begin{document}
+
+
+
+
+
+\maketitle
+
+\section{Introduction}
+
+
+\section{A Basic Model without Liability}
+
+A platform receives $n$ pieces of user-submitted content. Of them, a fraction $\gamma$ are ``good'' content that benefit society, and a fraction $\beta$ are ''bad'' that harm society. Since every piece of content is one or the other, $\gamma + \beta = 1$. Each item of good content creates a social benefit of $G$ and each item of bad content creates a social harm of $B$. The platform can distinguish between bad and good content at a cost of $C$ per item. It can block any piece of content costlessly, and receives revenue of $R$ per item that it allows. We assume that $n,\gamma, \beta, C,R,G,B \ge 0$.
+
+The platform has three strategies available to it:
+
+\begin{itemize}
+    \item It can allow all content to stay up. In this case, it receives revenue from all content, good and bad, and pays no costs, for a total profit of $nR$. Society receives benefits from the good content but suffers harms from the bad content, for a total welfare of $G\gamma - B\beta$.
+    \item It can make the effort to filter out the bad content. It incurs a cost $C$ for every item (to distinguish which is which) and it also foregoes revenue of $R$ for each bad item it removes, for a total profit of $nR\gamma - nC$. Society realizes benefits from the good content, but suffers no harms from the bad content for a total welfare of $nG\gamma$.
+    \item It can shut down completely. The platform's profit is $0$, and so is society's welfare.
+\end{itemize}
+
+Under this simple model, the platform's incentives are clear. It gives up $nR\beta + C$ profit by filtering, so it will leave all content up. But this is not the optimal result from society's perspective, which is $nB\beta$ worse off without filtering. So the absence of any liability gives platforms an incentive not to engage in socially valuable filtering.
+
+\section{A Basic Model with Liability}
+
+It might seem that society should simply force platforms to bear the costs of bad content. But this can backfire depending on the relative costs and the relative prevalence of good and bad content.  
+
+Suppose that society imposes a liability term on the platform. It now must pay $L$ per item of bad content that it leaves up. Society's welfare does not change under the platform's three options, but the platform's incentives do. If the platform allows all content to stay up, its total profit is now $nR - nL\beta$. (Its profit is unaffected if it takes down the bad content or shuts down, because now it incurs no liability.)
+
+The platform will now prefer to filter (rather than leaving all content up) if its profit with filtering $nR\gamma - nC$ exceeds its profit without filtering but with liability $nR - nL\beta$. Rearranging, this condition is equivalent to 
+$$
+L \;>\; R + C\frac{1}{\beta}
+$$
+That is, the liability $L$ for each item of bad content must not only exceed the platform's revenue $R$ for that item, but also the cost of filtering. That cost is not just $C$, the cost to inspect one item, since the platform must inspect \emph{every} item in order to find the bad ones. This filtering cost per bad item increases as the proportion of bad items decreases. If one half of all items are bad, then the  liability must be greater than $R + 2C$. If one millionth of all items are bad, the liability must be greater than $R + 1,000,000C$. Thus, when the prevalence of bad content is sufficiently low, a rational platform  will prefer to take the occasional liability hit rather than spend exorbitant sums searching for needles in haystacks.
+
+This might suggest that society should simply increase the liability $L$
+per bad item to the point at which a platform prefers to filter. But the platform's other option also functions as a constraint. If filtering is too expensive, the platform will prefer to shut down rather than bother. This constraint kicks in unless $nR\gamma - nC > 0$, i.e. when 
+$$
+R \;>\; C\frac{1}{1 - \beta}
+$$
+In words, unless the platform's revenue for each item of good content (all that it can leave up with filtering) exceeds its expected cost of filtering per item of good content, it is better off shutting down than filtering. This time the math of low-prevalence bad items cuts the other way, albeit not as strongly. If half of the items are bad, then its revenue must be greater than $2C$ for filtering to beat shutting down. But if one millionth of all items are bad, the platform's revenue per good item must be greater than about $1.000001C$. Notice that this value approaches from above a limit of $C$ as the prevalence of bad content decreases, and can never go below $C$. In the limit, if the platform's cost to filter per item exceeds its revenue per item --- if $C > R$ --- then it is never worthwhile for the platform to filter. It is better off just shutting down.
+
+These two constraints together mean that a high enough level of liability can force a platform to shut down.  Society would prefer that the platform filter rather than leaving all content up, and it can raise the liability $L$ high enough to make the platform prefer to filter, too. But if the platform also prefers to shut down rather than filter, because filtering would push its profits below zero, that level of liability will induce the platform to shut down. The threat of liability only works to induce filtering if it leaves the platform with a profitable option. 
+
+What society ought to do, then, depends on the relative magnitudes of $\gamma$, $\beta$, $R$, $C$, $G$, and $B$. Filtering is a feasible option as long as $R > C/(1 - \beta)$. If so, then any level of liability $L > R + C/\beta$ will cause the platform to shift from leaving all content up to filtering. The actual level of liability is irrelevant, because the platform, having chosen to filter, never actually incurs liability. 
+
+If filtering is unprofitable for the platform, then society must choose between no filtering and shutdown. Society is better off with an unfiltered platform as long as the benefits from good content $nG\gamma$ exceed the harms from bad content $nB\beta$. This is the case as long as
+$$
+\frac{\gamma}{\beta} > \frac{B}{G} 
+$$
+In other words, there must be enough good content as compared with bad to outweigh the cost of bad content as compared with good. If there is, society should tolerate the platform without filtering; if there is not, society should impose liability and accept that the platform will shut down.
+
+Putting this all together, the case for intermediary immunity is justified is when $C > R\gamma$ and $\gamma/\beta > B/G$. Effective filtering is cost-prohibitive, so that imposing liability will lead the platform to overcensor (from society's point of view) by shutting down.
+
+\end{document}
