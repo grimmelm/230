@@ -1,0 +1,56 @@
+
+
+
+
+
+
+
+\subsection{Inelastic Demand}
+In the last section, we assume that all content is \emph{ex-ante} homogeneous. We relax that assumption in this section.
+There are two types of content $\{G, B\}$ where $G$ stands for the good content, and $B$ stands for the bad content. Let $\lambda$ be the proportion of type $B$ content. The total amount of type $G$ content and type $B$ content are then $(1-\lambda)x$ and $\lambda x$ respectively. 
+
+Suppose a perfect filter is available such that the moderation will remove all the type $B$ content. Social welfare from moderation is $\int_0^{(1-\lambda)x} P(z)dz-1$. Social welfare without moderation is $\int_0^x P(z)dz-\lambda xh$. A social planner prefers moderation if 
+\begin{equation}\label{eqn:efficiency_2}
+    \lambda xh - \int_{(1-\lambda)x}^x P(z)dz \gs 1,
+\end{equation}
+where $\lambda xh$ is the expected harm, $\int_{(1-\lambda)x}^x P(z)dz$ is the loss of total surplus because of the reduction in content, and $1$ is the marginal cost of moderation.
+
+The platform's profit from moderation is $P((1-\lambda)x)(1-\lambda)x-1$. The profit with no moderation is $P(x)x-\lambda xd$. The platform prefers moderation if 
+\begin{equation}\label{eqn:platform_2}
+    \lambda xd - [P(x)x-P((1-\lambda)x)(1-\lambda)x] \gs 1,
+\end{equation}
+where $P(x)x-P((1-\lambda)x)(1-\lambda)x$ is the change in profits because of the reduction in content. 
+
+Notice that the loss in profit is always smaller than the loss in total surplus since 
+\begin{equation*}
+    P(x)x-P((1-\lambda)x)(1-\lambda)x \ls P((1-\lambda)x)\lambda x \ls \int_{(1-\lambda)x}^x P(z)dz.
+\end{equation*}
+Therefore, $d<h$ so that the strict liability is \emph{never} optimal. If $d=h$, the platform will more likely to moderate than desired. 
+The optimal liability can be written as 
+\begin{equation}\label{eqn:liability_1}
+    d=\min \left\{h-\frac{\int_{(1-\lambda)x}^x [P(z)-\hat{P}]dz}{\lambda x}, 0\right\},
+\end{equation}
+which is the harm minus the normalized per-item loss in consumer surplus conditional on the quantity is non-negative. 
+
+When, if ever, will platform immunity $d=0$ be optimal ? It must be that the first part of equation \ref{eqn:liability_1} is less or equal to zero. And observe that 
+\begin{equation*}
+    \lambda xh < \int_{(1-\lambda)x}^x [P(z)-\hat{P}]dz < \int_{(1-\lambda)x}^x P(z)dz + 1.
+\end{equation*}
+Hence, it must be that efficiency requires no moderation. This will be true under one of the two conditions: either (i) the harm $h$ is small, or (ii) the fraction of problematic content $\lambda$ is neither too small nor too large. 
+
+Intuitively, moderation is not socially optimal if the harm is too small or the number of problematic item is too few such that the marginal social benefit cannot justify the cost. Interestingly, when the platform is overwhelmed with problematic content while each of them generates negligible harm, moderation is also sub-optimal because moderation in that case virtually means shutting down a platform with positive consumer welfare (Napster is arguably one such case). 
+To see the second point more clearly, the first order derivative of the marginal social benefit (on the left-hand side of equation \ref{eqn:efficiency_2}) with respect to $\lambda$ is $x[h-P((1-\lambda)x)]$, which is positive if $P((1-\lambda)x)<h$ and negative if $P((1-\lambda)x)\gs h$. It follows that as $\lambda$ increases, the social benefit of moderation first goes up and above $1$, reaches its peak, and then goes down and below $1$. 
+
+%%% Adding a graph, regions of liability
+
+
+\subsection{Imperfect Filter and Investment in Filter}
+The analysis in the last section assumed no ``false positives''. That is, the moderation technology does not erroneously remove type $G$ content and keep type $B$ content. In reality, such errors happened all the time.\footnote{There are accumulating evidence on over-removal of content by mistakes. See for example, \url{https://cyberlaw.stanford.edu/blog/2021/02/empirical-evidence-over-removal-internet-companies-under-intermediary-liability-laws}}
+
+Let $\pi(s)\in [\frac{1}{2},1]$ be the accuracy of the filter given the expenditure on moderation $s$. If an item is of type $B$, it will be removed with probability $\pi(s)$ and kept with probability $1-\pi(s)$. If an item is of type $G$, it will be kept with probability $\pi(s)$ and removed with probability $1-\pi(s)$. As a consequence, the remaining type-$G$ content after moderation is $\pi(s)(1-\lambda)x$ and the remaining type-$B$ content is $(1-\pi(s))\lambda x$. The expected harm is then $(1-\pi(s))\lambda xh$.
+
+\section{Notice and Takedown}
+motivation to send a notice: avoid further harm
+
+\section{User submitted content}
+$\lambda(x)$ is endogenous

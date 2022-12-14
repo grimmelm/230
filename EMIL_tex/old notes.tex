@@ -1,0 +1,131 @@
+
+
+\section{An Economic Model of Intermediary Liability}
+
+A platform receives $n > 0$ items of user-submitted content. Of them, a fraction $0 \le \beta \le 1$  are ``bad'' content, each item of which imposes a harm $B \ge 0$ on society. The remaining fraction $1 - \beta$ consists of ``good'' content, each item of which creates a benefit $G \ge 0$ for society. The platform receives a revenue of $R \ge 0$ for each item it carries, good or bad. It can tell the difference between the two types at a cost of $C \ge 0$ per item. If it decides to remove an item of content, it gives up the revenue associated with that item.
+
+A regulator would like to maximize the social benefit from the content carried on the platform. It cannot directly control which items are carried and which are removed. Instead, it can impose a liability $L \ge 0$ on the platform for each item of bad content the platform carries. The regulator's job is to choose a value of $L$ that will induce the platform to maximize the social benefit.
+
+The platform has three viable strategies:
+\begin{itemize}
+
+\item  \emph{First}, the platform can carry all content, good and bad, and make no attempt to tell the two apart. If it does so, it receives $nR$ in revenue (for all the content) but pays $n\beta L$ in liability (for the bad content) for a net profit of
+\begin{equation}
+\label{profitnofilter}
+nR - n\beta L
+\end{equation}
+If the platform carries all content, society realizes a total benefit of $n(1-\beta)G$ from the good items, but a harm of $n\beta B$ from the bad items. Overall social welfare is thus
+\begin{equation}
+\label{welfarenofilter}
+n(1-\beta)G - n \beta B
+\end{equation}
+
+\item \emph{Second}, the platform can pay $nC$ to inspect every item of content to discover whether it is good or bad. Once it has done so, it carries the good items for a total of $n(1-\beta)R$ in revenue, but removes the bad items (forgoing $n\beta R$ in revenue). Its net profit is therefore 
+\begin{equation}
+\label{profitfilter}
+n(1 - \beta)R - nC    
+\end{equation}
+If the platform filters, society still realizes the benefit of  $n(1-\beta)G$ from the good items of content, but no harm because the bad items have been removed. Social welfare is
+\begin{equation}
+\label{welfarefilter}
+n(1-\beta)G
+\end{equation}
+
+\item \emph{Third}, the platform can shut down and carry no content. It receives no revenue, but incurs no liability, so its net profit is simply
+\begin{equation}
+\label{profitshutdown}
+0  
+\end{equation}
+Similarly, society receives no benefit from the good content and harms from the bad content, so social welfare is also simply 
+\begin{equation}
+\label{welfareshutdown}
+0  
+\end{equation}
+\end{itemize}
+
+\section{The Regulator's Goals}
+
+Filtering (equation~\ref{welfarefilter}) is always the regulator's preferred outcome. It is better than no filtering (equation~\ref{welfarenofilter}) as long as there is any bad content ($\beta > 0$) and that content causes harm ($B > 0$). It is better than shutdown (equation~\ref{welfareshutdown}) as long as there is any good content ($\beta < 1$) and that content creates benefits ($G > 0$).
+
+The regulator's second choice, however, depends on the prevalence $\beta$ of bad content. Social welfare is higher with no filtering than with shutdown as long as $n(1-\beta)G - n \beta B > 0$. In words, an unfiltered platform does more good than harm as long as there is enough good content as compared with bad to outweigh the cost of bad content as compared with good. Rearranging and solving for $\beta$, this indicates that the regulator should prefer to have the platform operate as long as
+\begin{equation}
+\label{welfarefvs}
+\beta \;<\; \frac{G}{B+G}
+\end{equation}
+When $B=G$, i.e. the cost of an item of bad content exactly equals the benefit of an item of good content, equation~\ref{welfarefvs} indicates that $\beta < \frac{1}{2}$, i.e. there must be less bad content then good. When $B \gg G$, i.e., each item of bad content causes much more harm than each item of good content creates benefit, $\beta$ approaches $0$, i.e., there must be much less bad content than good. When $B \ll G$, i.e. each item of bad content causes much less harm than each item of good content creates benefit, $\beta$ approaches $1$, i.e., there can be much more bad content than good.
+
+\section{The Platform's Incentives}
+
+Now consider things from the platform's perspective.  Its choices depend on the value of $L$. The platform will prefer to filter (rather than leaving all content up) if its profit with filtering (equation \ref{profitfilter}) exceeds its profit without filtering but with liability (equation \ref{profitnofilter}), i.e. if $nR(1 - \beta) - nC >  nR - nL\beta$. Rearranging and solving for $L$,  this condition is equivalent to 
+\begin{equation}
+\label{dofilter}
+L \;>\; R + C\frac{1}{\beta}
+\end{equation}
+That is, the liability $L$ for each item of bad content must not only exceed the platform's revenue $R$ for that item, but also the cost of filtering. That cost is not just $C$, the cost to inspect one item, since the platform must inspect \emph{every} item in order to find the bad ones. This filtering cost per bad item increases as the proportion of bad items decreases. If one half of all items are bad, then the  liability must be greater than $R + 2C$. If one millionth of all items are bad, the liability must be greater than $R + 1,000,000C$. Thus, when the prevalence of bad content is sufficiently low, a rational platform  will prefer to take the occasional liability hit rather than spend exorbitant sums searching for needles in haystacks.  
+
+Since the regulator always prefers filtering to no filtering, it might seem that it should simply set $L$ high enough to induce filtering. Unfortunately, this strategy can backfire, since the platform has a third option open: shutting down. It will operate with filtering only as long as its expected profits with filtering are positive, i.e. when $n(1 - \beta)R - nC > 0$. Solving for $C$ gives 
+\begin{equation}
+\label{doshutdown}
+C \;<\; (1 - \beta) R
+\end{equation}
+I.e., operating with filtering is uneconomical if the revenue from the good items is insufficient to pay for filtering all of the items. For any given $\beta$ and $R$, there is some critical upper limit of $C$ at which the platform cannot break even with filtering. Call this limit $C^*$; it is equal to $(1-\beta) R$. If $L$ has been set so high that the platform is better of filtering than not filtering, the platform is also better off shutting down than not filtering.
+
+That is, if the per-item cost of filtering $C$ is above the critical value $C^*$ there is no value of $L$ through which the regulator can induce the platform to filter. The platform is always better off either leaving all the content up or taking all of it down. The cost of sifting through it to distinguish the good content from the bad is simply too high.
+
+Society would prefer that the platform filter rather than leaving all content up, and it can raise the liability $L$ high enough to make the platform prefer to filter, too. But if the platform also prefers to shut down rather than filter, because filtering would push its profits below zero, that level of liability will induce the platform to shut down. The threat of liability only works to induce filtering if it leaves the platform with a profitable option. 
+
+In this situation where $C > C^*$, the regulator still has a choice to make. It can set $L$ high enough to actually force the platform to shut down, or it can set $L$ low enough to allow the platform to operate and accept that it will not filter out the bad items of content. It should choose based on equation~\ref{welfarefvs}, i.e. based on whether the platform overall is beneficial or harmful.
+
+Putting this all together, the case for intermediary immunity is justified when $C > C^*$ and $\beta < G/(B+G)$ Effective filtering is cost-prohibitive, so that imposing liability will lead the platform to overfilter (from society's point of view) by shutting down. But since society prefers to have the platform to not having it (because the good content still outweighs the bad), it is better off with underfiltering than overfiltering.
+
+
+\section{Extensions}
+
+Only a subset of good and bad content can be confused.
+
+$\alpha$ is unambiguously bad.
+$\beta$ is ambiguously bad.
+$\gamma$ is ambiguously good.
+$\delta$ is unambiguously good.
+
+Filtering costs $L_0 + nL$ where $n$ is the number of items filtered.
+
+The platform has fixed costs $F$, regardless of how many items of content it allows.
+
+Different levels of liability (e.g. loss of safe harbor)
+
+
+
+
+
+
+
+
+
+\subsection{Model I}
+A platform hosts $x\gs 0$ items of user-generated content. 
+The inverse demand curve for the content is $P(x)$, interpreted as the marginal benefit from consuming the $x$-th unit of the content. 
+Let $s$ be the expenditures or the value of effort on moderating one item of content.
+Given $s$, each item might cause harm $h$ with probability $\pi(s)\in[0,1]$, where $\pi(s)$ is decreasing and convex in $s$. It follows that $\pi(s)hx$ is the expected harm given the amount of content $x$, and $(s+\pi(s)h)x$ is the total cost of moderation and harm, thus the social cost.
+
+Social welfare is given by 
+\begin{equation}
+    \int_0^x [P(z)-s-\pi(s)h]dz.
+\end{equation}
+Suppose moderation is a binary choice $s\in\{0,1\}$. Social welfare from moderation is $\int_0^x P(z)dz-\pi(0)hx$. Social welfare without moderation is $\int_0^x P(z)dz-1-\pi(1)hx$. It follows that a social planner prefers moderation if 
+\begin{equation}\label{eqn:efficiency_1}
+    [\pi(0)-\pi(1)]hx\gs 1,
+\end{equation}
+where $[\pi(0)-\pi(1)]hx$ is the marginal social benefit from moderation, and $1$ is the marginal cost of moderation. 
+
+The platform is profit-maximizing. Since the prevailing market price is $P(x)$, the profit function is given by 
+\begin{equation}
+    P(x)x-[s+\pi(s)d]x.
+\end{equation}
+Profits from moderation is $P(x)x-\pi(0)dx$. Profits without moderation is $P(x)x-1-\pi(1)dx$. Thus, the platform chooses to moderate if 
+\begin{equation}\label{eqn:platform_1}
+    [\pi(0)-\pi(1)]dx\gs 1.
+\end{equation}
+Comparing equation \ref{eqn:efficiency_1} and equation \ref{eqn:platform_1}, we have that platform's moderation decision is efficient if $d=h$. That is, strict liability rule on the platform leads to social optimum. 
+
+Notice that the optimality of strict platform liability builds upon the fact that the moderation technology does not \emph{reduce} the amount of content. This is not true for the popular moderation approach of content removal. But it might be true if the moderation remedy is to edit or redact content. Interestingly, under the definition of Section 230, editing or redacting undermines the platform's eligibility for immunity and may hold the platform liable for tortious content. Our economic model shows that this aspect on the scope of Section 230 is in fact consistent with efficiency.
