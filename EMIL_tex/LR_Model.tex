@@ -1,0 +1,366 @@
+\subsection{Model 1: Harmless Content}
+
+We begin with a trivially simple model. Users of a platform submit some large number $N$ items of content. We let the variable $x$ range from $0$ to $N$, so that $x_i$ represents the $i$-th item for $0 \le i \le N$. Although technically each item is distinct, for simplicity we treat the range $[0,N]$ as a continuum, so that $x$ and any functions of $x$ are continuous.\footnote{In the  case of a large platform, where the number of individual items is enormous, in the millions or even billions, a continuous approximation is quite reasonable.} As the variable $x$ ranges from $0$ to $1$, it indexes each item of content.
+ 
+Next, we assume that each item of content has constant value $P$ to the user who posts it. This leads to the following simple diagram:
+
+% Figure here with constant P
+
+The shaded area is the total value to users of posting their content to the platform. It has height $P$ and width $N$, for total value $PN$. This the value to users of having the platform, if it were free to them.
+
+Now, consider the platform's incentives. For now, we assume that the platform can capture all of the value to users of posting their content. We also assume that the platform has infinite capacity, but incurs fixed costs $F$, which it must pay to operate all. Then the platform's profit if it operates is $PN - F$. The following diagram shows the platform's profits if it operates as a function of $N$.
+
+% Diagram
+
+It starts at $-F$ and crosses the $x$ axis at $N = F/P$. Beneath that level, the platform is unprofitable and will not operate at all, so that the value to society is $0$. Above that level, the platform recovers its costs and hosts all the content, so that the value to society is $PN - F $.(We must of course include the costs of operating the platform in the 
+
+Because the platform captures all of the users' value, it fully internalizes all of the costs and benefits to society of operating. Thus, society's overall welfare function is the same as the platform's profits. If $PN < F$, the platform is a net negative because it costs more to operate than the value it delivers, and a regulator should prefer that it not operate. If $PN > F$, the platform is a net positive and a regulator should prefer it to operate. No regulation is required; the platform's incentives match the regulator's goals.
+
+\subsection{Model 2: Harmful Content}
+ 
+Now we consider the fact that some content is harmful. Suppose that \emph{some} of the items of content cause constant harm $H$ if the platform hosts them. In this model, we assume that everyone (including the regulator and the platform) knows which items these are. Thus, without loss of generality, \emph{we order the items of content by how harmful they are, from least harmful to most harmful}. Since the harm cause by harmful content is constant, this means we can define a step function $h(x)$:
+
+\begin{equation}
+h(x)=
+\lt\{\begin{array}{ll}
+    0 & \mbox{if $x>\hat{x}$}, \\
+    H & \mbox{otherwise}.
+\end{array}\rt.
+\end{equation}
+
+In the case where $H>P$, each item of harmful content is a net negative for society. This results in the following diagram:
+
+% Step function h
+
+The shaded area on the left, with area $\hat{x}P$, consists of the beneficial content. The shaded area on the right, with area $(N - \hat{x})(H-P)$, consists of the harmful content. The socially efficient outcome is achieved when the platform hosts only the beneficial content.
+
+We introduce new notation for the idea that the platform can set a threshold: for $x$ beneath the threshold, the platform leaves the content up, for $x$ greater than the threshold, the platform takes the content down. We define $x^e$ (the $e$ is for ``efficient'') to be the cutoff point at which the threshold is efficient. It is obvious by inspection that in this model $x^e = \hat{x}$ -- subject to the same condition as above, that it is efficient for the platform to operate at all. If $\hat{x}P < F$, the game is not worth the candle, and society prefers that the platform not operate at all. Otherwise, social welfare is $\hat{x}P - F$.
+
+Now consider the platform's incentives, which can diverge from the regulator's goals because the platform internalizes $P$ (the value of content to users) but not $H$ (the harm caused by the content).  In the absence of liability, the platform will host \emph{all} the content, beneficial and harmful, for net profits of $NP - F$, as above. But now social welfare equals $\hat{x}P - F - (N - \hat{x})(H - P)$, which is smaller than the social welfare at $x^e$ because of the extra term.
+
+What should the regulator do? One option is to prohibit all platforms. This is an improvement on the no-regulation baseline in the case where $\hat{x}P - (N - \hat{x})(H - P) - F < 0$. But it is not efficient in the case where $\hat{x}P > F$, and it would be profitable to have  platform operate.
+
+Instead -- and this is the classic starting point of law-and-economics analysis of tort liability -- the regulator should impose liability on the platform for the harmful content it carries. This fixes the platform's incentives by making it internalize both the costs and the benefits of its conduct. One rule, of strict liability, holds the platform liable for all the harm it causes. Under this rule, for $x <\hat{x}$, the platform has marginal profit of $P$, which is positive, so it will add more content until it reaches $\hat{x}$. But for $x > \hat{x}$, the platform's marginal profit is $P - H$, which is negative, so it will remove content until it reaches $\hat{x}$.  Introducing the notation $x^*$ for the platform's optimum, we say that $x^* = x^e = \hat{x}$.
+
+Another classic rule, of negligence, sets a level of care $x^n$ and imposes liability $L$ for each item of content if the platform operates above that level. But here, the efficient level of care is just $x^n = \hat{x}$ again, so as long as $L>P$, the platform will again set its threshold at the efficient point of $\hat{x}$ and the two rules are effectively identical.
+
+Before moving on, consider another variation in the parameters. We have been discussing the case where $H > P$. But there is also the case where $H < P$ -- i.e., the content is beneficial on net, but causes harms the platform does not internalize.
+
+% diagram
+
+Here, the efficient level of operation is $x^e = N$, i.e. society prefers that all of the content remain available. Under the no-liability baseline, the platform will do just that. But if the regulator imposes liability, matters are more complicated. If the platform must pay compensation $H$ for each item of harmful content, its profits are $NP - (N - \hat{x})(P - H) - F $. This can cause the platform to shut down if the need to pay compensation makes it unviable, i.e., when 
+
+\begin{equation}
+NP - (N - \hat{x})(P - H) < F <  NP
+\end{equation}
+
+% Diagram platform's profits as a function of $x^c$.
+
+This concern puts regulators to a choice: in some cases, \emph{without the profits attributable to harmful content, a platform cannot operate to serve beneficial content}. In this model with $H < P$, the problem is avoidable, because even the content that causes harms is still beneficial on net. But we will soon see models in which the tradeoff is sharper.
+
+
+\subsection{Model 3: Variably Harmful Content}
+
+In the previous model, $h(x)$ was a step function: some content is harmless with $h(x) = 0$ and some content is harmful with $h(x) = H$. Now we extend this model by making $h(x)$ a more general function. Once again, we order the content by increasing harmfulness, so that $h(x) \le h(y)$ for $x < y$. We also assume that $h(0) =0$ (i.e., there is some content that is unambiguously good). To simplify the case analysis, we also require that $h(N) => P$, i.e. there is some content that is unambiguously harmful. Now the diagram of the benefits and harms from content looks like the following:
+
+% diagram
+
+The regulator would prefer the content to carry all content $x$ for which $h(x) <P$ and to remove all content for which $h(x) > P$. By the intermediate value theorem, there is some point $x^e$ for which $h(x^e) = P$. Because $h(x)$ is weakly increasing, it follows that $h(x) \le P$ for all $x< x^e$ and $h(x) \ge P$ for all $x > x^e$. Thus, the same result as in the previous model follows: the regulator wants the platform to allow content exactly up to $x = x^e$. The actual expression for social welfare is more complicated because $h(x)$ is no longer constant. If the platform leaves up all content through $\hat{x}$, then the social welfare function is
+
+\begin{equation}
+\int_{0}^{\hat{x}} P - h(x) dx - F
+\end{equation}
+
+In the absence of liability, however, the platform fails to internalize the harms. Its profit function is 
+
+\begin{equation}
+\int_{0}^{\hat{x}} P dx - F
+\end{equation}
+
+which it maximizes by setting $\hat{x} = N$, i.e. leaving up all content. Once again, the regulator can impose strict liability. If it does so, then the platform's profit function equals the social welfare function, and the platform will set the efficient threshold $\hat{x} = x^e$. Similarly, the regulator could impose a threshold-based liability $h(x)$ starting at at threshold $x^n$. In this case, the platform's marginal profit will be $P$ for $x < x^n$ and $P - h(x)$ for $x > x^n$, and the platform has efficient incentives for $x^n = x^e$. 
+
+The difference between the two regimes is that in the former, the platform compensates those who are harmed for $x < x^e$; in the latter it does not. In diagram XXX, this compensation is the difference between the two shaded regions 1 and 2, and just the upper one. In the case where
+
+XXX equation
+
+the choice can affect the viability of the platform, just as in the previous model.
+
+\subsection{Model 4: Unknown Content}
+
+All of the previous models assumed perfect information about the harms caused by content. It is time to relax this assumption, because several of the most interesting and important consequences for content moderation depend on the difficulty of distinguishing between beneficial and harmful content.
+
+We return to a fixed harm: each item of harmful content causes harm $H$. But now we make the \emph{probability} of harm variable. The function $\lambda(x)$ represents the probability that the item of content $x$ is harmful. That is, with probability $\lambda(x)$, item $x$ causes harm $H$, and with probability $1 - \lambda(x)$, it causes harm $0$. We assume that the platform and regulator have perfect information about $H$ and $\lambda()$, that $\lambda(x)$ is weakly increasing in $x$, and that there is some content known to be harmless and some known to be harmful, i.e. $\lambda(0) = 0$ and $\lambda(N) = 1$. The following diagram illustrates:
+
+% diagram
+
+This diagram should look familiar. It is the same as diagram XXX, except that the harm curve is now labeled $\lambda(x)H$ rather than $h(x)$. But the shape of the curves are the same. Each individual piece of content $x$ is either harmful or not with probability $\lambda(x)$, but in the continuous limit of an infinitely large $H$, this is the same as if the content in the neighborhood of $x$ is all equally harmful with harm $\lambda(x)$.
+
+In particular, the regulator and platform have exactly the same welfare and utility functions as before.  If the platform leaves up all content through $\hat{x}$, then the social welfare function is
+
+\begin{equation}
+\int_{0}^{\hat{x}} P - \lambda(x)H dx - F
+\end{equation}
+
+so that social optimum where the marginal harm and marginal benefit from additional content exactly cancel is at $x^e$ such that $P = \lambda(x^e)H$. As before, however, the platform's profit function in the absence of liability is
+
+\begin{equation}
+\int_{0}^{\hat{x}} P dx - F
+\end{equation} 
+
+which is again maximized for $\hat{x} = N$. The same argument as above shows that either strict liability for all harms caused or liability for all harmful content above the threshold $x^e$ is efficient -- subject to the constraint that in the former case the platform must be profitable, i.e. $\int_0^{x^e} P dx = x^eP \ge F$.
+
+\subsection{Model 5: Platform Investigation}
+
+
+A platform hosts a continuum of user-generated content, with each item indexed by $x\in[0,1]$. 
+Each item might cause harm $h$ with probability $\lambda(x)\in[0,1]$. Without loss of generality, we assume $\lambda(x)$ is a weakly increasing function such that the content is ordered by the ascending likelihood of causing harm. We also assume that there is no-harm content ($\lambda(0)=0$) and unambiguously harmful content ($\lambda(1)=1$).
+
+% And items are heterogeneous in their probability of being harmful.
+
+The inverse demand curve for the content is $Px$, interpreted as the marginal benefit from consuming the $x$-th unit of the content. We assume the demand curve is perfectly elastic such that the marginal consumer benefit is constant at $P$.
+There is a fixed cost $F$ of starting up the platform, regardless of how many items of content it hosts.
+
+Content removal decision is modeled as a threshold $\hat{x}\in[0,1]$ such that items $x>\hat{x}$ are removed and items $x\ls\hat{x}$ remains on the platform. 
+\footnote{Choosing a threshold is without loss of generality. One can show that removing any subset of the content $\mathcal{X}\subset[0,1]$ is a weakly dominated strategy.}
+Given $\hat{x}$, $\int_0^{\hat{x}}\lambda(x)hdx$ is the expected harm given the amount of content $\hat{x}$, and $P\hat{x}$ is the consumer welfare.
+The social welfare function is given by 
+\begin{equation}\label{eqn:efficiency_1}
+    \max\{\max_{\hat{x}}P\hat{x} - \int_0^{\hat{x}}h\lambda(x)dx-F, 0\}.
+\end{equation}
+Suppose the platform does not shut down, 
+the efficient moderation decision $x^e$ is such that
+\begin{equation}
+    \lambda(x^e)=\frac{P}{h},
+\end{equation}
+where $P$ is the marginal cost of removing the marginal item $x^e$, and $\lambda(x^e)h$ is the marginal social benefit of removing $x^e$. 
+If the triple $(h,P,F)$ is such that $Px^e - \int_0^{x^e}h\lambda(x)dx < F$, social efficiency requires the platform to shut down and carry no content. If instead the triple $(h,P,F)$ is such that $Px^e - \int_0^{x^e}h\lambda(x)dx \gs F$, social efficiency requires the platform to operate but only carries content $[0,x^e]$.
+
+Intermediary immunity $d=0$.
+The platform is profit-maximizing. Since the prevailing market price is $P$, the revenue is $P\hat{x}$, the profit function is given by 
+\begin{equation}
+    \max\{\max_{\hat{x}}P\hat{x}-F,0\}.
+\end{equation}
+Suppose $P<F$, the platform shuts down. Suppose $P\gs F$, the profit-maximizing choice is $x^{\ast}=1$ such that the platform keeps all of the content. Without the threat of liability, the platform has no incentive to remove any of the harmful content. 
+
+
+A regulator would like to maximize social welfare from the content carried on the platform. It cannot directly control which items are carried and which are removed. Instead, it can impose a liability $d\ge 0$ on the platform for each item of harmful content the platform carries. The regulator's optimization problem is to choose a value of $d$ that will induce the platform to maximize the social welfare.
+
+Under strict liability, the platform always pays damages $d$ due to the harm caused by the content it hosts. 
+The platform's profit maximization problem then becomes
+\begin{equation}\label{eqn:platform_1}
+    \max\{\max_{\hat{x}}P\hat{x} - \int_0^{\hat{x}}d\lambda(x)dx-F, 0\}.
+\end{equation}
+Comparing the objective function \ref{eqn:efficiency_1} and the profit function \ref{eqn:platform_1}, we have that the platform's moderation decision $x^{\ast}$ is efficient if $d=h$. 
+That is, the optimal level of damages paid by the platform is equal to the harm.
+If so, strict liability rule on the platform leads to social optimum. 
+
+\begin{proposition}
+Strict liability leads to the efficient moderation outcome.
+\end{proposition}
+
+Other parameters may determine whether it is socially efficient to remove none, part, or all of the content. But no matter what that efficient outcome is, strict liability (d=h) will perfectly align the incentive of the platform with that of a social planner.
+
+Safe harbor provision combines both features of strict liability and immunity. 
+\begin{equation}
+d=
+\lt\{\begin{array}{ll}
+    h & \mbox{if $\int_0^{\hat{x}}\lambda(x)hdx>s$}, \\
+    0 & \mbox{otherwise}.
+\end{array}\rt.
+\end{equation}
+If the total harm on the platform exceeds the threshold $s$, the platform loses its safe harbor status and will be held strictly liable for the content. Otherwise, the platform will be immune from any liability. 
+
+Must remove rule
+\begin{equation}
+d=
+\lt\{\begin{array}{ll}
+    h & \mbox{if $\hat{x}>x^e$}, \\
+    0 & \mbox{otherwise}.
+\end{array}\rt.
+\end{equation}
+Safe harbor provision also leads to social optimum. Q. loss of safe harbor means all the content is liable for $d$, or only part of the content liable for $d$.
+
+Positive externality . The postive externality could be the knowledge spillover, the democratic value of the institution, etc.
+
+\begin{proposition}
+If $\delta\gs h-P$, intermediary immunity leads to the efficient moderation outcome.    
+\end{proposition}
+
+
+Platform 
+
+
+
+
+HERE
+
+
+
+
+
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \draw[->] (-0.2,0) -- (4.5,0) node[right]{$x$}; 
+    \draw[->] (0,-0.2) -- (0,4) node[above]{};
+    \draw[thick] (0,0) to (0.5,0) parabola (2,2) parabola[bend at end] (3.5,3.5) to (4.5,3.5) node[above]{$\lambda(x)$};
+    \draw[thin] (0,1.5) to (4.5,1.5) node[right]{$\frac{P}{h}$};
+    \draw[dashed, thin] (1.8,1.5) -- (1.8,0) node[below]{$x^*$}; 
+    \draw[thin] (0,3) to (4.5,3) node[right]{$\frac{P+\delta}{h}$};
+    \draw[dashed, thin] (2.7,3) -- (2.7,0) node[below]{$x^e$}; 
+\end{tikzpicture}
+    \caption{Platform Over-Removal under Strict Liability if $\delta>0$}
+    \label{fig:removal}
+\end{figure}
+
+
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \draw[->] (-0.2,0) -- (4.5,0) node[right]{$x$}; 
+    \draw[->] (0,-0.2) -- (0,4.5) node[above]{};
+    \draw[thick] (0,0) to (0.5,0) parabola (2,2) parabola[bend at end] (3.5,3.8) to (4.5,3.8) node[above]{$\lambda(x)$};
+    %% next four \draw are efficiency
+    \draw[thin] (0,0.5) to (4.5,0.5) node[right]{$\frac{c}{h-P+\delta}$};  
+    \draw[thin] (0,3.4) to (4.5,3.4) node[right]{$1-\frac{c}{P+\delta}$};
+    \draw[dashed, thin] (1.2,0.5) -- (1.2,0) node[below]{$\underline{x}^e$};
+    \draw[dashed, thin] (2.8,3.4) -- (2.8,0) node[below]{$\overline{x}^e$};
+    %% next four \draw are profit
+    \draw[thin] (4.5,1.2) to (0,1.2) node[left]{$\frac{c}{h-P}$};  
+    \draw[thin] (4.5,2.9) to (0,2.9) node[left]{$1-\frac{c}{P}$};
+    \draw[dashed, thin] (1.7,1.2) -- (1.7,0) node[below]{$\underline{x}^{\ast}$};
+    \draw[dashed, thin] (2.4,2.9) -- (2.4,0) node[below]{$\overline{x}^{\ast}$};   
+\end{tikzpicture}
+    \caption{Platform Under-investigate under Strict Liability if $\delta>0$}
+    \label{fig:investigation}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+%% The platform receives a revenue of $R \ge 0$ for each item it carries, good or bad. It can tell the difference between the two types at a cost of $C \ge 0$ per item. If it decides to remove an item of content, it gives up the revenue associated with that item.
+
+
+
+
+
+
+\iffalse
+
+
+The platform has three viable strategies:
+\begin{itemize}
+
+\item  \emph{First}, the platform can carry all content, good and bad, and make no attempt to tell the two apart. If it does so, it receives $nR$ in revenue (for all the content) but pays $n\beta L$ in liability (for the bad content) for a net profit of
+\begin{equation}
+\label{profitnofilter}
+nR - n\beta L
+\end{equation}
+If the platform carries all content, society realizes a total benefit of $n(1-\beta)G$ from the good items, but a harm of $n\beta B$ from the bad items. Overall social welfare is thus
+\begin{equation}
+\label{welfarenofilter}
+n(1-\beta)G - n \beta B
+\end{equation}
+
+Suppose the platform can pay an inspection cost $c$ per item to observe a signal of item $x$ indicating whether $x$ is harmful or not. In this case, if the platform chooses to investigate, it can condition its removal decision upon the realization of the signal. 
+
+The signal is useful only if the 
+For $x\ls \hat{x}$, the signal is useful if it reveals the item $x$ is harmful and thus should be removed instead. In this case, investigation prevents the welfare loss of under-removal. 
+
+
+
+\item \emph{Second}, the platform can pay $nC$ to inspect every item of content to discover whether it is good or bad. Once it has done so, it carries the good items for a total of $n(1-\beta)R$ in revenue, but removes the bad items (forgoing $n\beta R$ in revenue). Its net profit is therefore 
+\begin{equation}
+\label{profitfilter}
+n(1 - \beta)R - nC    
+\end{equation}
+If the platform filters, society still realizes the benefit of  $n(1-\beta)G$ from the good items of content, but no harm because the bad items have been removed. Social welfare is
+\begin{equation}
+\label{welfarefilter}
+n(1-\beta)G
+\end{equation}
+
+%% platform pay cost c to observe a signal
+
+\end{itemize}
+
+\section{The Regulator's Goals}
+
+Filtering (equation~\ref{welfarefilter}) is always the regulator's preferred outcome. It is better than no filtering (equation~\ref{welfarenofilter}) as long as there is any bad content ($\beta > 0$) and that content causes harm ($B > 0$). It is better than shutdown (equation~\ref{welfareshutdown}) as long as there is any good content ($\beta < 1$) and that content creates benefits ($G > 0$).
+
+The regulator's second choice, however, depends on the prevalence $\beta$ of bad content. Social welfare is higher with no filtering than with shutdown as long as $n(1-\beta)G - n \beta B > 0$. In words, an unfiltered platform does more good than harm as long as there is enough good content as compared with bad to outweigh the cost of bad content as compared with good. Rearranging and solving for $\beta$, this indicates that the regulator should prefer to have the platform operate as long as
+\begin{equation}
+\label{welfarefvs}
+\beta \;<\; \frac{G}{B+G}
+\end{equation}
+When $B=G$, i.e. the cost of an item of bad content exactly equals the benefit of an item of good content, equation~\ref{welfarefvs} indicates that $\beta < \frac{1}{2}$, i.e. there must be less bad content then good. When $B \gg G$, i.e., each item of bad content causes much more harm than each item of good content creates benefit, $\beta$ approaches $0$, i.e., there must be much less bad content than good. When $B \ll G$, i.e. each item of bad content causes much less harm than each item of good content creates benefit, $\beta$ approaches $1$, i.e., there can be much more bad content than good.
+
+\section{The Platform's Incentives}
+
+Now consider things from the platform's perspective.  Its choices depend on the value of $L$. The platform will prefer to filter (rather than leaving all content up) if its profit with filtering (equation \ref{profitfilter}) exceeds its profit without filtering but with liability (equation \ref{profitnofilter}), i.e. if $nR(1 - \beta) - nC >  nR - nL\beta$. Rearranging and solving for $L$,  this condition is equivalent to 
+\begin{equation}
+\label{dofilter}
+L \;>\; R + C\frac{1}{\beta}
+\end{equation}
+That is, the liability $L$ for each item of bad content must not only exceed the platform's revenue $R$ for that item, but also the cost of filtering. That cost is not just $C$, the cost to inspect one item, since the platform must inspect \emph{every} item in order to find the bad ones. This filtering cost per bad item increases as the proportion of bad items decreases. If one half of all items are bad, then the  liability must be greater than $R + 2C$. If one millionth of all items are bad, the liability must be greater than $R + 1,000,000C$. Thus, when the prevalence of bad content is sufficiently low, a rational platform  will prefer to take the occasional liability hit rather than spend exorbitant sums searching for needles in haystacks.  
+
+Since the regulator always prefers filtering to no filtering, it might seem that it should simply set $L$ high enough to induce filtering. Unfortunately, this strategy can backfire, since the platform has a third option open: shutting down. It will operate with filtering only as long as its expected profits with filtering are positive, i.e. when $n(1 - \beta)R - nC > 0$. Solving for $C$ gives 
+\begin{equation}
+\label{doshutdown}
+C \;<\; (1 - \beta) R
+\end{equation}
+I.e., operating with filtering is uneconomical if the revenue from the good items is insufficient to pay for filtering all of the items. For any given $\beta$ and $R$, there is some critical upper limit of $C$ at which the platform cannot break even with filtering. Call this limit $C^*$; it is equal to $(1-\beta) R$. If $L$ has been set so high that the platform is better of filtering than not filtering, the platform is also better off shutting down than not filtering.
+
+That is, if the per-item cost of filtering $C$ is above the critical value $C^*$ there is no value of $L$ through which the regulator can induce the platform to filter. The platform is always better off either leaving all the content up or taking all of it down. The cost of sifting through it to distinguish the good content from the bad is simply too high.
+
+Society would prefer that the platform filter rather than leaving all content up, and it can raise the liability $L$ high enough to make the platform prefer to filter, too. But if the platform also prefers to shut down rather than filter, because filtering would push its profits below zero, that level of liability will induce the platform to shut down. The threat of liability only works to induce filtering if it leaves the platform with a profitable option. 
+
+In this situation where $C > C^*$, the regulator still has a choice to make. It can set $L$ high enough to actually force the platform to shut down, or it can set $L$ low enough to allow the platform to operate and accept that it will not filter out the bad items of content. It should choose based on equation~\ref{welfarefvs}, i.e. based on whether the platform overall is beneficial or harmful.
+
+Putting this all together, the case for intermediary immunity is justified when $C > C^*$ and $\beta < G/(B+G)$ Effective filtering is cost-prohibitive, so that imposing liability will lead the platform to overfilter (from society's point of view) by shutting down. But since society prefers to have the platform to not having it (because the good content still outweighs the bad), it is better off with underfiltering than overfiltering.
+
+
+\fi
+
+
+
+(i) If all the platform can do is content removal and no positive externality, strict liability leads to efficiency.
+(ii) content removal + positive externality, strict liability leads to over-removal and immunity might be justified if the externality is sufficiently large (though that means keeping all the content).
+(iii) If platform can first choose whether to investigate and then decide on removal, with no positive externality, strict liability again leads to efficiency !
+(iv) investigate + removal + positive externality, strict liability leads to under-investigation and over-removal.  
+(v) imperfect signal does not change (iii) and (iv). 
+
+
+
+
+Filtering costs $L_0 + nL$ where $n$ is the number of items filtered.
+
+
+
+% explain independent of h
+
+
+
+
+Different levels of liability (e.g. loss of safe harbor, conditional immunity)
+
+
+effort as investigation 
+notice upon takedown
+
+must carry or must remove rule
+
+Next steps:
+(1) Social planner chooses safe harbor level
+(2) Platform has fixed costs to operate
+(3) Platform can invest to create a better filter
