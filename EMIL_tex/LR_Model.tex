@@ -1,3 +1,24 @@
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \fill[green] (0,0) to (0.5,0) parabola (1.8,1.5) to (0,1.5) to (0,0);
+    \fill[red] (1.8,1.5) parabola bend (3.5,3.5) (2.7,3) to (2.7,1.5) to (1.8,1.5);
+    \draw[->] (-0.2,0) -- (4.5,0) node[right]{$x$}; 
+    \draw[->] (0,-0.2) -- (0,4) node[above]{};
+    \draw[thick] (0,0) to (0.5,0) parabola (2,2) parabola[bend at end] (3.5,3.5) to (4.5,3.5) node[above]{$\lambda(x)$};
+    \draw[thin] (0,1.5) to (4.5,1.5) node[right]{$\frac{P}{h}$};
+    \draw[dashed, thin] (1.8,1.5) -- (1.8,0) node[below]{$x^*$}; 
+    \draw[thin] (0,3) to (4.5,3) node[right]{$\frac{P+\delta}{h}$};
+    \draw[dashed, thin] (2.7,3) -- (2.7,0) node[below]{$x^e$}; 
+    %\fill[thin] (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+\end{tikzpicture}
+    \caption{Test diagram}
+    \label{fig:removal}
+\end{figure}
+
+
+
+
 \subsection{Model 1: Harmless Content}
 
 We begin with a trivially simple model. Users of a platform submit some large number $N$ items of content. We let the variable $x$ range from $0$ to $N$, so that $x_i$ represents the $i$-th item for $0 \le i \le N$. Although technically each item is distinct, for simplicity we treat the range $[0,N]$ as a continuum, so that $x$ and any functions of $x$ are continuous.\footnote{In the  case of a large platform, where the number of individual items is enormous, in the millions or even billions, a continuous approximation is quite reasonable.} As the variable $x$ ranges from $0$ to $1$, it indexes each item of content.
