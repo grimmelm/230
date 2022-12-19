@@ -133,4 +133,43 @@ There are also good reasons to believe that in typical cases, the value $P$ extr
 
 \subsection{Model 4: Platform Investigations}
 
+For simplicity, let us return to the one-dimensional case. Now we consider the possibility that the platform can obtain (costly) information about whether content is harmful. We hold the harm $H = h(x)$ fixed, omit the speaker-value term $S$, and focus on the variable $\lambda(y)$. All else is as before, except that the platform can pay a cost $c \ge 0$ per unit of content to investigate and determine with certain whether it is actually harmful (i.e. acquire the same knowledge that speakers have).
 
+Start with the boundary conditions. When $c = \inf$, this model collapses into the previous model from the \emph{platform}'s perspective: investigation is infeasibly costly to ever undertake, strict liability is inefficient, and threshold liability at $y^e$ is socially optimal. Indeed, this result holds whenever $c > P + \delta$, becuase the game is not worth the candle. When $c=0$, this model collapses into the previous one from the \emph{speaker}'s perspective: the platform has perfect information costlessly, so it can perfectly filter out harmful content, and strict liability is socially optimal.
+
+Now consider what happens for intermediate $c$. The platform has three options for any given item of content: it can leave it up, take it down, or investigate -- where it will take the content down if the investigation reveals it to be harmful, and leave it up otherwise. Thus the expected value to society for a given $y$ is $0$ if the platform takes down the content, $P + \delta - \lambda(y)H$ per unit if it leaves the content up, and $(P + \delta)(1 - \lambda(y)) - c$ per unit if it investigates -- i.e., the value of a non-harmful piece of content times the probability that the content is non-harmful. Intuitively, the platform should prefer takedown for content with $\lambda(y)$ close to $1$ and should prefer leaving up for content with $\lambda(y)$ close to $0$, with an interval of investigation somewhere in the middle. The following diagram illustrates:
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \draw[->] (-0.2,0) -- (4.5,0) node[right]{$y$}; 
+    \draw[->] (0,-0.2) -- (0,4.5) node[above]{};
+    \draw[thick] (0,0) to (0.5,0) parabola (2,2) parabola[bend at end] (3.5,3.8) to (4.5,3.8) node[above]{$\lambda(y)h(x)$};
+    %% next four \draw are efficiency
+    \draw[thin] (0,0.5) to (4.5,0.5) node[right]{$\frac{c}{h-P+\delta}$};  
+    \draw[thin] (0,3.4) to (4.5,3.4) node[right]{$1-\frac{c}{P+\delta}$};
+    \draw[dashed, thin] (1.2,0.5) -- (1.2,0) node[below]{$\underline{y}^e$};
+    \draw[dashed, thin] (2.8,3.4) -- (2.8,0) node[below]{$\overline{y}^e$};
+    %% next four \draw are profit
+    \draw[thin] (4.5,1.2) to (0,1.2) node[left]{$\frac{c}{h-P}$};  
+    \draw[thin] (4.5,2.9) to (0,2.9) node[left]{$1-\frac{c}{P}$};
+    \draw[dashed, thin] (1.7,1.2) -- (1.7,0) node[below]{$\underline{y}^{\ast}$};
+    \draw[dashed, thin] (2.4,2.9) -- (2.4,0) node[below]{$\overline{y}^{\ast}$};   
+\end{tikzpicture}
+    \caption{Platforms under-investigate under strict liability if $\delta>0$}
+    \label{fig:investigation}
+\end{figure}
+
+The regulator is indifferent between takedown and investigation when $(P + \delta)(1 - \lambda(y)) - c = 0$, which is the case when $\lambda(y) = 1 - \frac{c}{P + \delta}$. When $c$ approaches $0$, this converges to $\lambda(y) = 1$, i.e., so the right end of the investigation interval approaches $m$. That is, it is almost always better to investigate than to take down the content without first checking. 
+
+The regulator is indifferent between investigation and leaving up when $(P + \delta)(1 - \lambda(y)) - c = P + \delta - \lambda(y)H$, which is the case when $\lambda(y) = \frac{c}{H - P - \delta}$. When $c$ approaches $0$, this converges to $\lambda(x) = 0$, i.e., the left end of the investigation interval approaches $0$. That is, it almost always better to investigate than to leave up the content without first checking. On the other hand, for increasing $c$, the investigation interval shrinks. It vanishes when (XXX check my algebra XXX)
+\begin{equation}
+c = (P + \delta)\frac{H - P - \delta}{2P + 2\delta - H}
+\end{equation} 
+which is a sharper bound (XXX check).
+
+These two results show that a rational regulator should want platforms to invest resources in investigating only when the costs of investigation are sufficiently low, and then only for a range of intermediate cases where the harmfulness of the content is sufficiently unclear. For content that is highly likely or highly unlikely to be harmful, individual investigation is unnecessary and inefficient. In notation, we can say that the efficient range of investigation is $[\underline{x}^e, \overline{y}^e$, where the lower limit  is given by $\lambda(\underline{y}^e) = \frac{c}{H - P - \delta} $ and the upper limit by $\lambda(\overline{x}^e) = 1 - \frac{c}{P + \delta}$.
+
+What the \emph{platform} will do, however, is more complicated. Start with the case of strict liability, where the platform internalizes all the harm that it causes. The platform's profit for item $x$ is the same as the overall social value, except without the $\delta$ term for the uninternalized spillover benefits. Thus its interval of investigation is $[\underline{y}^*, \overline{y}^*$, where the lower limit  is given by $\lambda(\underline{y}^*) = \frac{c}{H - P} $ and the upper limit by $\lambda(\overline{y}^*) = 1 - \frac{c}{P}$.
+
+The key result is that the platform's preferred interval of investigation is always \emph{narrower} than the regulator's preferred interval. (Algebraically.this is because  $\frac{c}{H - P - \delta} < \frac{c}{H - P}$ at the lower end and $1 - \frac{c}{P} < 1 - \frac{c}{P + \delta}$ at the upper end.) Intuitively, because the platform has less at stake, it is less willing to expend effort to separate sheep from goats, and will be comfortable with more approximate strategies for content that looks sufficiently harmful or harmless.
