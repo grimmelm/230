@@ -1,29 +1,134 @@
+
+
+\subsection{Model 1: Non-Speech Liability}
+
+There are two distinctive features of platform liability for third-party speech: it involves liability for \emph{speech} rather than conduct, and it involves liability for the speech of \emph{others} rather than the platform's own speech. Both of these features are essential to the economic case for intermediary immunity. To see why, it is useful to start with a model in which they are absent.
+
+We start with a model of a non-speech first-party actor. A widget factory chooses its level of production from the interval $[0,n]$. It has a constant marginal revenue $P$ per unit of widgets produced. But as its level of production increases, it must resort to increasingly harmful techniques to make its production target. Let the marginal harms from the factory's pollution be $h(x)$ for $x \in [0,n]$, where $h(x)$ is a weakly increasing function (i.e. $x < y$ implies $h(x) \le h(y)$). For simplicity of exposition, we assume that initial production is completely harmless (i.e. $h(0) =0$) and that some production is unambiguously harmful (i.e. $h(n) > P$). Then the following simple diagram illustrates social welfare as a function of the factory's output:
 \begin{figure}[h]
     \centering
 \begin{tikzpicture}[scale=1]
-    \fill[green] (0,0) to (0.5,0) parabola (1.8,1.5) to (0,1.5) to (0,0);
-    \fill[red] (1.8,1.5) parabola bend (3.5,3.5) (2.7,3) to (2.7,1.5) to (1.8,1.5);
-    \draw[->] (-0.2,0) -- (4.5,0) node[right]{$x$}; 
-    \draw[->] (0,-0.2) -- (0,4) node[above]{};
-    \draw[thick] (0,0) to (0.5,0) parabola (2,2) parabola[bend at end] (3.5,3.5) to (4.5,3.5) node[above]{$\lambda(x)$};
-    \draw[thin] (0,1.5) to (4.5,1.5) node[right]{$\frac{P}{h}$};
-    \draw[dashed, thin] (1.8,1.5) -- (1.8,0) node[below]{$x^*$}; 
-    \draw[thin] (0,3) to (4.5,3) node[right]{$\frac{P+\delta}{h}$};
-    \draw[dashed, thin] (2.7,3) -- (2.7,0) node[below]{$x^e$}; 
-    %\fill[thin] (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+    \fill[green] (0,0) to (.5,0) parabola (2.15,1) to (0,1) to (0,0);
+    \fill[red] (2.15,1) parabola[bend at end] (4.5,3) to (5,3) to (5,1) to (2,1);
+    \draw[-|] (-0.2,0) -- (5,0) node[below]{$n$}; 
+    \draw[->] (0,-0.2) -- (0,3.5) node[above]{};
+    \draw[thick] (0,0) to (.5,0) parabola (2.5,1.5) parabola[bend at end] (4.5,3) to (5,3) node[above]{$h(x)$};
+
+    \draw[thin] (0,1) to (5,1) node[right]{$P$};
+    \draw[dashed, thin] (2.15,1) -- (2.15,0) node[below]{$x^e$}; 
+
+%    \draw[thin] (0,2) to (5,2) node[right]{$S+P$};
+%    \draw[dashed, thin] (1.75,1.5) -- (1.75,0) node[below]{$x^p$}; 
+    
+%    \draw[thin] (0,3) to (5,3) node[right]{$S+P+L$};
+%    \draw[dashed, thin] (3.55,3) -- (3.55,0) node[below]{$x^e$}; 
+    
 \end{tikzpicture}
-    \caption{Test diagram}
+    \caption{Non-Speech Torts}
+    \label{fig:nonspeech}
+\end{figure}
+The net benefit or harm to society from the factory's production at $x$ is given between the signed difference between $P$ and $h(x)$. Production in the green region, where $P > h(x)$ is net beneficial. Although there are harms from pollution, they are outweighed by the value of the corresponding widgets. Production in the red region, where $P < h(x)$, is net harmful. Here, the harms from pollution are worse than the value of the corresponding widgets; society would be better off if these widgets were not produced at all. If that the factory produces up to a level $\hat{x}$, social welfare will be given by:
+\begin{equation}
+\int_{0}^{\hat{x}} P - h(x) dx
+\end{equation}
+It is easy to see that the efficient outcome is when the factory produces just up to the threshold $x^e$ defined by $h(x^e) = P$. At $x_e$, all of the beneficial widgets and none of the harmful widgets are produced. The question is how to get there. Write $x^{\ast}$ for the production level that maximizes the factory's profits, and consider the following legal regimes:
+\begin{itemize}
+\item \textbf{No liability}: If the factory faces no liability for the pollution it causes, it will set $x^{\ast} = n$, making a profit of $nP$. But since $n > x^e$, social welfare will be less than the efficient level, and may even (as in the diagram above) be negative.
+\item \textbf{Prohibition}: If society bans widgets, the factory will set $x^{\ast} = 0$ and make a profit of $0$. But since $0 < x^e$, social welfare will be less than the efficient level. For some values of $h$ and $P$, prohibition will be better than no liability; for other values, it will be worse.
+\item \textbf{Strict Liability}: If the factory is forced to pay compensation for all of the harms that it causes, the factory's marginal profit will be $P - h(x)$, which is identical to the social welfare function. The factory's marginal profit will become zero at $x^e$, exactly when social welfare does. Thus $x^{\ast} = x^e$ and the factory will act efficiently.
+\end{itemize}
+This is the standard law-and-economics case for strict liability. But one of its essential assumptions fails when the product is not widgets, but speech.
+
+
+\subsection{Model 2: Speech Liability}
+
+Speech consists of information, and information is a public good. Once it has been shared with one listener, the speaker cannot easily prevent them from sharing it with others.\footnote{Arrow, Lemley, Frischmann, Baker} This third-party value is an externality from the speaker's perspective. We model it by adding an additional term $\delta > 0$ to the value created by carrying a given piece of content. Like $P$, we assume that $\delta$ is constant across all content. Thus, while each unit of widget production generates $P$ in marginal profit for the factory, each unit of speech generates $P$ in value for the speaker and $\delta$ in value for society at large, for a total of $P + \delta$. Again for simplicity, assume that $h(n) > P + \delta$. Now the diagram looks like:
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \fill[green] (0,0) to (.5,0) parabola (2.15,1) to (0,1) to (0,0);
+    \fill[red] (3.1,2.25) parabola[bend at end] (4.5,3) to (5,3) to (5,2.25) to (3.1,2.25);
+    \fill[blue] (0,1) to (2.15,1) to (2.15,2.25) to (0,2.25) to (0,1);
+    \fill[yellow] (2.15,1) parabola bend +(-1.65,-1) (2.5,1.5) parabola bend +(2,1.5) (3.1,2.25) to (2.15,2.25) to (2.15,1);
+    \draw[-|] (-0.2,0) -- (5,0) node[below]{$n$}; 
+    \draw[->] (0,-0.2) -- (0,3.5) node[above]{};
+    \draw[thick] (0,0) to (.5,0) parabola (2.5,1.5) parabola[bend at end] (4.5,3) to (5,3) node[above]{$h(x)$};
+
+    \draw[thin] (0,1) to (5,1) node[right]{$P$};
+    \draw[dashed, thin] (2.15,1) -- (2.15,0) node[below]{$x^*$}; 
+
+    \draw[thin] (0,2.25) to (5,2.25) node[right]{$P+\delta$};
+    \draw[dashed, thin] (3.1,2.25) -- (3.1,0) node[below]{$x^e$}; 
+    
+%    \draw[thin] (0,3) to (5,3) node[right]{$S+P+L$};
+%    \draw[dashed, thin] (3.55,3) -- (3.55,0) node[below]{$x^e$}; 
+    
+\end{tikzpicture}
+    \caption{Speech Torts}
+    \label{fig:nonspeech}
+\end{figure}
+The efficient level of speech $x^e$ is defined not by where $h(x)$ intersects the speaker's marginal profit curve $P$ but by where it intersects society's marginal benefit curve $P+\delta$. Under no liability, the speaker will still overproduce (producing the net-harmful speech in the red area); under prohibition, the speaker will still underproduce (failing to produce the net-beneficial speech in the green and blue areas) . But now also strict liability gets the incentives wrong. Under strict liability, the speaker will produce speech up to $x^*$ where $h(x^*) = P$. But because $P + \delta > P$ and $h(x)$ is a weakly increasing function, $x^* \le x^e$. Pictorially, the platform will produce up to $x^*$, generating profits in the green region and spillover social benefits in the blue region. But there it will stop, even though the speech from $x^*$ to $x^e$ would have been beneficial to society: the yellow region represents foregone social welfare. \footnote{Strict liability is strictly better than prohibition, which also gives up the green and blue regions. Whether strict liability is better than full immunity is indeterminate without more constraints on $h(x)$, $P$, and $\delta$; the yellow region could be larger than the red, or vice versa.}
+
+Instead, free speech law typically follows the negligence strategy of defining an objective standard of care that a reasonable person is expected to follow when acting. One who acts according to that standard of care faces no liability, even if others are harmed. But one who fails to meet that standard is held liable for the resulting harms. In our model, this approach corresponds to defining a threshold of liability $t$ and subjecting the actor to marginal liability:
+\begin{equation}
+\lt\{\begin{array}{ll}
+    0 & \mbox{for $x <t$}, \\
+    h(x) & \mbox{for $x \ge t$}.
+\end{array}\rt.
+\end{equation}
+It is easy to see that if the threshold is set at $t=x^e$, then the actor's incentives again align with social welfare.\footnote{Cooter, prices and sanctions} This is a standard argument for treating speech torts differently than other types of torts. Because the speaker creates value for listeners and for society by spreading information, the value of the speech \emph{to them} must be weighed against the harm that it causes. Thus, harmful true speech is frequently protected (e.g. negative consumer reviews). Similarly, the public-disclosure tort contains a First-Amendment-driven exception when the information is of legitimate public concern, i.e., when $\delta$ is high.
+
+This model explains why speech law is more solicitous of speakers than of other actors. But notice that it cannot yet explain why speech law is even more solicitous of platforms than it is of speakers! The spillover critique of strict liability applies just as strongly to original speakers as it does to platforms. And the negligence strategy suggests that the threshold of liability should be based entirely on the overall \emph{social} costs and benefits of the speech: whatever that threshold is, it should apply equally to speakers and platforms, regardless of their private incentives. Something further is required to make sense of platform immunity.
+
+
+
+
+\subsection{Model 1: Beneficial and Harmful Content}
+
+Users of a platform submit some large number of items of content. Each of these items generates some value for the speaker who posted it, for the platform, and for its listeners. It also potentially generates some harms for third parties: copyright infringement harms copyright owners, defamation harms the defamed, and so on. We are interested in the platform's responses to content of varying harmfulness, so we treat the benefits as fixed parameters and the harms as variable. We can model how the platform's responses change for different categories of content by changing the parameters.
+
+The users of the platform submit some large number $n$ of items of content. Let the variable $x \in [0,n]$ range over the content. For each $x$, the platform has the option either to leave it up or to take it down. If the platform leaves it up, there are four effects:
+\begin{itemize}
+\item It generates fixed value $S \ge 0$ for the speaker who posted it.
+\item It generates fixed value $P \ge 0$ for the platform.
+\item It generates fixed value $L \ge 0$ for the listeners who read it, and for others in society.
+\item It causes variable harm $h(x)$ for other members of society.
+\end{itemize}
+Although technically each item is discrete, for simplicity we treat the range $[0,n]$ as a continuum, so that $x$ and any functions of $x$ are continuous.\footnote{In the  case of a large platform, where the number of individual items is enormous, in the millions or even billions, a continuous approximation is quite reasonable.} We also assume that the items are ordered by increasing harmful harmfulness, so that $h(x)$ is a weakly increasing function of $x$. That is, if $x < y$, then $h(x) \le h(y)$. We also assume that the least harmful content is completely harmless, i.e. $h(0) = 0$. The following diagram illustrates for the case when the most harmful content is unambiguously harmful, i.e.  $h(n) > S + P + L$:
+
+\begin{figure}[h]
+    \centering
+\begin{tikzpicture}[scale=1]
+    \fill[green] (0,0) to (1,0) parabola (3,2) parabola bend +(2,2) (3.55,3) to (0,3) to (0,0);
+    \fill[red] (3.55,3) parabola[bend at end] (5,4) to (6,4) to (6,3) to (3.55,3);
+    \draw[-|] (-0.2,0) -- (3,0) -- node[below]{$x$} (6,0) node[below]{$n$}; 
+    \draw[->] (0,-0.2) -- (0,4) node[above]{};
+    \draw[thick] (0,0) to (1,0) parabola (3,2) parabola[bend at end] (5,4) to (6,4) node[above]{$h(x)$};
+
+    \draw[thin] (0,1) to (6,1) node[right]{$S$};
+%    \draw[dashed, thin] (1.75,1.5) -- (1.75,0) node[below]{$x^s$}; 
+
+    \draw[thin] (0,2) to (6,2) node[right]{$S+P$};
+%    \draw[dashed, thin] (1.75,1.5) -- (1.75,0) node[below]{$x^p$}; 
+    
+    \draw[thin] (0,3) to (6,3) node[right]{$S+P+L$};
+    \draw[dashed, thin] (3.55,3) -- (3.55,0) node[below]{$x^e$}; 
+    
+\end{tikzpicture}
+    \caption{Social benefits and harms of content}
     \label{fig:removal}
 \end{figure}
 
 
+The net benefit or harm to society of the content on the platform is given by the signed difference between $h(x)$ and $S+P+L$. The green region represents the content that is net beneficial, i.e. $S+P+L > h(x)$. The red region represents the content that is net harmful, i.e. $h(x) > S+P+L$. The diagram shows that there is a unique efficient outcome defined by setting a threshold $x^e$ defined by $h(x^e) = S + P + L$, in which all of the net beneficial content (with $x < x^e$) stays up and all of the net harmful content (with $x > x^e$) is removed.
+
+In a standard tort-liability model, an actor chooses a level of activity that causes both private benefits and harms to identifiable victims. A regime of strict liability, in which the actor must compensate the victims for the harms they suffer, leads to an efficient outcome. And if there were a single actor that realized the full social value $S + P +L$ from the content $x$ that it leaves up, a strict liability regime requiring it to pay compensation $h(x)$ for the harms caused by that content would be efficient. 
+
+In our model, this is the case when the platform captures all of 
 
 
-\subsection{Model 1: Harmless Content}
 
-We begin with a trivially simple model. Users of a platform submit some large number $N$ items of content. We let the variable $x$ range from $0$ to $N$, so that $x_i$ represents the $i$-th item for $0 \le i \le N$. Although technically each item is distinct, for simplicity we treat the range $[0,N]$ as a continuum, so that $x$ and any functions of $x$ are continuous.\footnote{In the  case of a large platform, where the number of individual items is enormous, in the millions or even billions, a continuous approximation is quite reasonable.} As the variable $x$ ranges from $0$ to $1$, it indexes each item of content.
- 
-Next, we assume that each item of content has constant value $P$ to the user who posts it. This leads to the following simple diagram:
+
 
 % Figure here with constant P
 
@@ -122,7 +227,7 @@ We model these externalities by adding an additional term $\delta$ to the value 
 
 Assuming the platform operates, the efficient level of moderation is at $x^e$ where $h(x^e) = P + \delta$. With immunity, the platform undermoderates, just as before, and hosts all content. Under strict liability, the platform moderates at $x^*$ such that $h(x^*) = P$, which is to the left of $x^e$, i.e., the platform undermoderates. The shaded triangle in diagram XXX illustrates the lost social value: this is content that is positive-value for society (because $h(x) < P + \delta$ but which is unprofitable for the platform to host (because $h(x) > P$). Compare the result under a threshold liability rule: the regulator will set the threshold at $x^e$ rather than at $x^e$, leading the platform to set its cutoff at $x^e$.
 
-This is a standard argument for treating speech torts differently than other types of torts. Because the speaker creates value for listeners and for society by spreading information, the value of the speech \emph{to them} must be weighed against the harm that it causes. Thus, harmful true speech is frequently protected (e.g. negative consumer reviews). Similarly, the public-disclosure tort contains a First-Amendment-driven exception when the information is of legitimate public concern, i.e., when $\delta$ is high.
+
 
 
 \subsection{Model 5: Unknown Content}
