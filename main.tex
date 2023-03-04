@@ -95,12 +95,20 @@
 
 \maketitle
 \begin{abstract}
-\noindent This paper presents an economic model of intermediary liability. \\
+\noindent 
+% This paper presents an economic analysis of intermediary liability. We develop a simple model of a platform's trade-off to moderate content, and use the model to analyze five liability rules on the intermediary: immunity, strict liability, free speech, safe harbor, and liability upon notice. The efficiency of the legal rules depends upon the social benefit of content and the platform's information regarding harm. 
+% When the platform has perfect information on the harm and its content imposes no externalities on society, all the liability rules except immunity are efficient. Intermediary immunity is efficient only if the positive externality of content is sufficiently strong. However, with imperfect information and positive externalities, none of the rules is efficient, but a safe harbor conditional on a threshold of screening effort might lead to an efficient outcome.
+In the debates about intermediary liability, numerous scholars have given informal economic arguments about the costs and benefits of different liability rules. Some scholars, for example, have argued that broad immunity is justified because platforms fail to internalize the social benefits of the content they carry -- so that strict liability predictably results in overmoderation. Others, however, have claimed that platforms fail to internalize the social harms of the content they carry -- so that blanket immunity predictably results in undermoderation.
+
+In this paper, we seek to illuminate these debates by giving a more formal economic model of intermediary liability. The key feature of our model is \emph{imperfect information}: the platform observes the probability that each item of content is harmful, and can choose to take the content down, leave it up, or incur a cost to determine with certainty whether the content is harmful. The platform's choice reflects the tradeoffs inherent in content moderation: between false positives and false negatives, and between scalable but more error-prone processes and more intensive but costly human review.
+
+We analyze five plausible legal regimes: (1) strict liability, in which the platform is liable for all harmful content; (2) blanket immunity, in which the platform is never liable; (3) negligence, in which the platform is liable for the harms caused by content whose expected harms exceed its expected benefits \emph{ex ante}; (4) reasonable efforts, in which the platform is immune, unless the overall harms from content it carries exceed a socially defined threshold, in which case it is strictly liable; and (5) liability on notice, in which the platform is liable for any harmful content it fails to remove upon (costly) notice from a user. We show that none of these regimes is always efficient, but that a reasonable-efforts law is sometimes efficient, provided that the overall level of effort is correctly calibrated.
+
 \vspace{0in}\\
-\noindent\textbf{Keywords:} Intermediary Liability, Content Moderation, Section 230 \\
+\noindent\textbf{Keywords:} Intermediary Liability, Content Moderation, Section 230, Digital Platform, Externalities, Imperfect Information \\
 \vspace{0in}\\
 %\noindent\textbf{JEL Codes:} D74, K13, K24, L51.\\
-
+% if, when, with, for, there is no
 \bigskip
 \end{abstract}
 
@@ -112,11 +120,15 @@
 \section{Background and Related literature}\label{EMIL_Section:inst}
 \input{./EMIL_tex/S2_Background.tex}
 
+
+\section{Law Review Model}\label{EMIL_Section:lawreview}
+\input{./EMIL_tex/LR_Model.tex}
+
 \section{Model}\label{EMIL_Section:model}
 \input{./EMIL_tex/S3_Model.tex}
 
-\section{Extensions}\label{EMIL_Section:ext}
-\input{./EMIL_tex/S4_Extensions.tex}
+%\section{Extensions}\label{EMIL_Section:ext}
+%\input{./EMIL_tex/S4_Extensions.tex}
 
 \section{Conclusion}\label{EMIL_Section:conclude}
 \input{./EMIL_tex/S5_Conclusion.tex}
@@ -130,39 +142,4 @@
 
 
 
-
-% \section{Liability}
-
-% Shutting down a platform is easier said than done. There are serious Constitutional barriers to directly prohibiting a platform, including especially the First Amendment. Regulators may also not be confident in their ability to assess the overall balance of costs and benefits from the content on the platform.
-
-% For these reasons, it is more feasible to impose liability on platforms for the bad, i.e. illegal, content that they carry. Rather than being prohbiited entirely from operating, they are penalized if and only if they host content that society has chosen to prohibit. 
-
-
-
-% \section{Filtering}
-
-% Even better that shutting down a platform entirely merely because it has some bad content on it would be distinguishing the good content from the bad and removing the bad content while leaving up the good.  So ideally, from society's perspective, would be for platforms to implement filters that can distinguish wheat, sheep, and babies from chaff, goats, and bathwater.
-
-% We model filtering by giving the platform a new option. It can distinguish between good and bad content at a cost of $C > 0$ per item. It must forego the revenue $R$ from any item of content that it removes, but otherwise blocking is costless. 
-
-% Now the platform has three options instead of two. As before, it has the option of allowing all content to stay up for a total profit of $nR - nL\beta$. As before, it has the option of shutting down for a profit of $0$. It will still choose between them according to equation~\ref{shutdown1}, shutting down if $L$ is too high.
-
-
-
-% Note that it is never rational for the platform to pay to examine content and then leave the bad items up. In the case where $R > L$, the platform is better off not paying $C$ at all and leaving the bad items up without even looking at them. So there are three options -- no filtering, filtering, and shutdown -- and not four.
-
-
-% This might suggest that society should simply increase the liability $L$
-% per bad item to the point at which a platform prefers to filter. But the platform's other option also functions as a constraint. If filtering is too expensive, the platform will prefer to shut down rather than bother. This constraint kicks in unless $nR\gamma - nC > 0$, i.e. when 
-% \begin{equation}
-% \label{shutdown2}
-% R \;>\; C\frac{1}{1 - \beta}
-% \end{equation}
-% In words, unless the platform's revenue for each item of good content (all that it can leave up with filtering) exceeds its expected cost of filtering per item of good content, it is better off shutting down than filtering. This time the math of low-prevalence bad items cuts the other way, albeit not as strongly. If half of the items are bad, then its revenue must be greater than $2C$ for filtering to beat shutting down. But if one millionth of all items are bad, the platform's revenue per good item must be greater than about $1.000001C$. Notice that this value approaches from above a limit of $C$ as the prevalence of bad content decreases, and can never go below $C$. In the limit, if the platform's cost to filter per item exceeds its revenue per item --- if $C > R$ --- then it is never worthwhile for the platform to filter. It is better off just shutting down.
-
-% These two constraints together mean that a high enough level of liability can force a platform to shut down.  
-
-% What society ought to do, then, depends on the relative magnitudes of $\gamma$, $\beta$, $R$, $C$, $G$, and $B$. Filtering is a feasible option as long as $R > C/(1 - \beta)$. If so, then any level of liability $L > R + C/\beta$ will cause the platform to shift from leaving all content up to filtering.If filtering is unprofitable for the platform, then society must choose between no filtering and shutdown per equation \ref{shutdown1}. 
-
-%
 
