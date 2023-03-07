@@ -52,22 +52,22 @@
     \draw[thick] (0,2.5) to (10,2.5) node[right]{#1};
 }
 
-\NewDocumentCommand\drawarrows{O{0.5}mmO{-latex}mm}{
-\def\Step{#1}
-\pgfmathsetmacro{\Second}{#5+\Step}
-\foreach \Value [count=\xi] in {#5,\Second,...,#6}
-  {
-  \path[overlay,name path=line\xi] 
-    (\Value,100) -- (\Value,-100);
-  \path[name intersections={of=#2 and line\xi,by={1\xi}}];
-  \path[name intersections={of=#3 and line\xi,by={2\xi}}];
-  \ifdim#5pt<\Value pt\relax
-    \ifdim\Value pt<#6pt\relax
-    \draw[#4]
-      (1\xi) -- (2\xi); 
-  \fi\fi
-  }
- }
+% \NewDocumentCommand\drawarrows{O{0.5}mmO{-latex}mm}{
+% \def\Step{#1}
+% \pgfmathsetmacro{\Second}{#5+\Step}
+% \foreach \Value [count=\xi] in {#5,\Second,...,#6}
+%   {
+%   \path[overlay,name path=line\xi] 
+%     (\Value,100) -- (\Value,-100);
+%   \path[name intersections={of=#2 and line\xi,by={1\xi}}];
+%   \path[name intersections={of=#3 and line\xi,by={2\xi}}];
+%   \ifdim#5pt<\Value pt\relax
+%     \ifdim\Value pt<#6pt\relax
+%     \draw[#4]
+%       (1\xi) -- (2\xi); 
+%   \fi\fi
+%   }
+%  }
 
 There are two distinctive features of platform liability for harmful third-party content. The content can have \emph{positive externalities} not captured by the platform itself, and the platform has \emph{imperfect information} about which content is harmful. These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the 
 platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the thread of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content. To see how these effects arise, it is useful to start with a model in which they are absent.
