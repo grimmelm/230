@@ -1,4 +1,73 @@
+% TikZ macros
+\usetikzlibrary{arrows.meta, intersections, patterns}
 
+\newenvironment{econ}[2]
+{
+  \begin{figure}[h]
+      \centering
+  \caption{#1}
+  \label{#2}
+  \begin{tikzpicture}[scale=1]
+}
+{
+  \end{tikzpicture}
+  \end{figure}
+}
+
+\newcommand{\drawaxes}[2] { 
+    \draw[name path = xaxis, -|] (-0.2,0) -- (10,0) node[below]{}; 
+    \draw[name path = yaxis, ->] (0,-0.2) -- (0,5.5) node[left]{} ;
+}
+
+\newcommand{\harmfunction}[1] {
+    \draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) node[right]{#1};
+}
+
+\newcommand{\harmline}[1] {
+    \draw[name path=harm, thick] (0,5) -- node[above]{#1} (10,5);
+}
+
+\newcommand{\revenueline}[1] {
+    \draw[name path=revenue, thick] (0,1.5) to (10,1.5) node[right]{#1};
+}
+
+\newcommand{\dropline}[3]{
+  \draw[dashed, thin] (#1, #2) -- (#1, 0) node[below]{#3};
+}
+
+\newcommand{\xe} {
+    \draw[dashed, thin] (4.1,1.5) -- (4.1,0) node[below]{$x^e$}; 
+}
+
+\newcommand{\xexhat} {
+    \draw[dashed, thin] (4.1,1.5) -- (4.1,0) node[below]{$\hat{x} = x^e$}; 
+}
+
+
+\newcommand{\xhat}[1]{
+   \draw[dashed, thin] (#1,1.5) -- (#1,0) node[below]{$\hat{x}$}; 
+}
+
+\newcommand{\spilloverline}[1] {
+    \draw[thick] (0,2.5) to (10,2.5) node[right]{#1};
+}
+
+\NewDocumentCommand\drawarrows{O{0.5}mmO{-latex}mm}{
+\def\Step{#1}
+\pgfmathsetmacro{\Second}{#5+\Step}
+\foreach \Value [count=\xi] in {#5,\Second,...,#6}
+  {
+  \path[overlay,name path=line\xi] 
+    (\Value,100) -- (\Value,-100);
+  \path[name intersections={of=#2 and line\xi,by={1\xi}}];
+  \path[name intersections={of=#3 and line\xi,by={2\xi}}];
+  \ifdim#5pt<\Value pt\relax
+    \ifdim\Value pt<#6pt\relax
+    \draw[#4]
+      (1\xi) -- (2\xi); 
+  \fi\fi
+  }
+ }
 
 There are two distinctive features of platform liability for harmful third-party content. The content can have \emph{positive externalities} not captured by the platform itself, and the platform has \emph{imperfect information} about which content is harmful. These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the 
 platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the thread of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content. To see how these effects arise, it is useful to start with a model in which they are absent.
@@ -18,28 +87,177 @@ if it operates and total social welfare is given by:
 \end{equation}
 If the factory cannot operate profitably, it shuts down, and both its profit and social welfare are $0$.
 
-\begin{figure}[ht]
-    \centering
-\begin{tikzpicture}[scale=1]
-%    \fill[green] (0,0) to (.5,0) parabola (2.15,1) to (0,1) to (0,0);
-%    \fill[red] (2.15,1) parabola[bend at end] (4.5,3) to (5,3) to (5,1) to (2,1);
-    \draw[-|] (-0.2,0) -- (5,0) node[below]{$n$}; 
-    \draw[->] (0,-0.2) -- (0,3.5) node[above]{};
-    \draw[thick] (0,0) to (.5,0) parabola (2.5,1.5) parabola[bend at end] (4.5,3) to (5,3) node[above]{$h(x)$};
 
-    \draw[thin] (0,1) to (5,1) node[right]{$P$};
-    \draw[dashed, thin] (2.15,1) -- (2.15,0) node[below]{$x^e$}; 
 
-%    \draw[thin] (0,2) to (5,2) node[right]{$S+P$};
-%    \draw[dashed, thin] (1.75,1.5) -- (1.75,0) node[below]{$x^p$}; 
-    
-%    \draw[thin] (0,3) to (5,3) node[right]{$S+P+L$};
-%    \draw[dashed, thin] (3.55,3) -- (3.55,0) node[below]{$x^e$}; 
-    
-\end{tikzpicture}
-    \caption{Non-Speech Torts}
-    \label{fig:factory}
-\end{figure}
+
+
+\begin{econ}{Strict liability}{fig:liability1}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (1,0) parabola (5,2.5) to (5,0) to (1,0);
+\end{econ}
+
+\begin{econ}{Blanket immunity}{fig:liability2}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$\hat{x}$}
+\end{econ}
+
+\begin{econ}{Prohibition}{fig:liability3}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{0}{0}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (0,0) to (10,0) to (10,5.2) to (0,5.2) to (0,0);
+\end{econ}
+
+
+\begin{econ}{Negligence}{fig:liability4}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{7}{4.35}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola bend (9,5) (7,4.35) to (7,0) to (5,0) to (5,2.5);
+\end{econ}
+
+\begin{econ}{Reasonable efforts (below threshold)}{fig:liability5}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+\end{econ}
+
+\begin{econ}{Reasonable efforts (above threshold)}{fig:liability6}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{5.9}{3.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (1,0) parabola (5, 2.5) parabola bend (9,5) (5.9, 3.5) to (5.9, 0) to (1, 0);
+\end{econ}
+
+
+
+\begin{econ}{Widget production}{fig:factory1}
+  \drawaxes{production}{\$}
+  \revenueline{revenue}
+  \dropline{6}{1.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (6,0) to (6,1.5) to (0,1.5) to (0,0);
+\end{econ}
+
+\begin{econ}{Social welfare for widgets}{fig:factory2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,1.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \harmfunction{harm}
+  \xe
+\end{econ}
+
+\begin{econ}{Strict liability is efficient for widgets}{fig:factory3}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \revenueline{revenue}
+  \harmfunction{harm}
+  \xexhat
+\end{econ}
+
+
+\begin{econ}{Speech production}{fig:speech1}
+  \drawaxes{production}{\$}
+  \dropline{6}{2.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (6,0) to (6,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (6,1.5) to (6,2.5) to (0,2.5) to (0,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+\end{econ}
+
+\begin{econ}{Social welfare for speech}{fig:speech2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (5,2.5) to (0,2.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola [bend at end] (9,5) to (10,5) to (10,2.5) to (5,2.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+
+\begin{econ}{Strict liability chills valuable speech}{fig:speech3}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (4.1,1.5) to (4.1,2.5) to (0,2.5) to (0,1.5);
+  \fill[pattern=north west lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) to (4.1,2.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmfunction{harm}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+
+\begin{econ}{Imperfect information about harm}{fig:imperfect1}
+  \drawaxes{}{}
+  \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
+  \fill[pattern=sixpointed stars, pattern color=green] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (0,5) to (0,0);
+  \draw (.425,0) to (.425,5) to (.625,5) to (.625,0) to (.425,0) node[below]{$\lambda = 0$};
+  \draw (4.025,0) to (4.025,5) to (4.225,5) to (4.225,0) to (4.025,0) node[below]{$\lambda = .3$};
+  \draw (9.15,0) to (9.15,5) to (9.35,5) to (9.35,0) to (9.15,0) node[below]{$\lambda = 1$};
+\end{econ}
+
+
+
+\begin{econ}{Strict liability chills valuable speech}{fig:imperfect2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (4.1,1.5) to (4.1,2.5) to (0,2.5) to (0,1.5);
+  \fill[pattern=north west lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) to (4.1,2.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmline{$H$}
+  \draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end]   (9,5) to (10,5);
+  \node at (7.5,4) {$\lambda(x)H$};
+  \dropline{4.1}{1.5}{$\hat{x}$}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+\begin{econ}{Investigation of intermediate content}{fig:investigate1}
+  \drawaxes{production}{\$}
+%  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+%  \fill[pattern=dots, pattern color=blue] (0,1.5) to (4.1,1.5) to (4.1,2.5) to (0,2.5) to (0,1.5);
+%  \fill[pattern=north west lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) to (4.1,2.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmline{$H$}
+  \draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end]   (9,5) to (10,5);
+  \draw[domain = .9:10, samples=200] plot (\x,{5- 5/\x});
+  \draw[domain = 0:9.1, samples=200] plot (\x,{5 /(10 -\x)});
+  \draw[thick, color=blue] (2,2.5) to (8,2.5);
+  \dropline{2}{2.5}{$\underline{x^e}$};
+  \dropline{8}{2.5}{$\overline{x^e}$};
+  \draw[thick, color=red] (1.425,1.5) to (6.61,1.5);
+  \dropline{1.425}{1.5}{$\underline{x^*}$};
+  \dropline{6.61}{1.5}{$\overline{x^*}$};
+  \node at (6.7,3.4) {$\lambda(x)H$};
+  \draw[thin, |-|] (.2,.05) to node[right]{$c$} (.2,.45) ;
+  \draw[thin, |-|] (9.8,4.55) to node[right]{$c$} (9.8,4.95) ;
+%  \dropline{4.1}{1.5}{$\hat{x}$}
+  \dropline{5}{2.5}{$x^e$}
+  
+\end{econ}
+
+% \begin{econ}{Non-Speech Torts}{fig:factory2}
+%   \drawaxes{widget production}{\$}
+%   \harmfunction{harm to society}
+%   \revenueline{factory revenue}
+%   \drawarrows[.25]{revenue}{harm}[green,-{Triangle}]{0}{4}
+%   \drawarrows[.25]{revenue}{harm}[red, -{Triangle}]{4}{10} 
+%   \xe
+% \end{econ}
+
 
 
 Figure~\ref{fig:factory} illustrates social welfare as a function of the factory's output. The net benefit or harm to society from the factory's production at $x$ is given between the signed difference between $p(x)$ and $h(x)$. To the left of the point at which $p$ and $h$ cross, where $p(x) > h(x)$, is net beneficial. Although there are harms from pollution, they are outweighed by the value of the corresponding widgets. Production beyond that point, where $p(x) < h(x)$, is net harmful. Here, the harms from pollution are worse than the value of the corresponding widgets; society would be better off if these widgets were not produced at all. The socially efficient outcome, which we denote $x^e$, occurs when $p(x) = h(x)$. 
@@ -177,7 +395,7 @@ On the one hand, the profit it makes from each additional widget
 The factory earns a constant revenue for each widget it makes. But the more widgets it makes, the greater the probability that each additional widget is defective and harms the consumer who buys it. (For example, the widget-stamping machine might work perfectly at the start of a production run, but gradually deteriorate, so that eventually every widget it makes is defective.) The amount of harm caused by a defective widget is constant, and the factory can tell how likely a widget is to be defective but not which specific widgets are defective, and the factory can and does make the more-likely-to-good widgets first.
 
 
-We assume that $H > P$.\footnote{In the case where $H \le P$, it is socially optimal for the factory to maximize production, so the only question for a legal regime is how to allocate the costs and benefits of widget production.} Let the probability that a given widget is defective be $\lambda(x)$ for $\x \in [0,n]$, where $\lambda(x)$ is a weakly increasing function (i.e. $x < y$ implies $h(x) \le h(y)$). For simplicity of exposition, we assume that some widgets are known to be good (i.e. $\lambda(0) = 0$), and that some widgets are known to be defective (i.e. $\lambda(n) = 1$). 
+We assume that $H > P$.\footnote{In the case where $H \le P$, it is socially optimal for the factory to maximize production, so the only question for a legal regime is how to allocate the costs and benefits of widget production.} Let the probability that a given widget is defective be $\lambda(x)$ for $x \in [0,n]$, where $\lambda(x)$ is a weakly increasing function (i.e. $x < y$ implies $h(x) \le h(y)$). For simplicity of exposition, we assume that some widgets are known to be good (i.e. $\lambda(0) = 0$), and that some widgets are known to be defective (i.e. $\lambda(n) = 1$). 
 
 For example, if $P = \$100$ and $H = \$200$, then $\lambda(\hat{x}) = \frac{1}{2}$, i.e., society is best off if the factory shuts down widget production when exactly half of the widgets coming off the line are defective. At this level of production, every widget the factory produces is likely to be beneficial; every widget it foregoes is likely to be harmful.
 
@@ -274,7 +492,7 @@ Formally, under a \textbf{Conditional Immunity} regime \ldots details t/k.
 
 To summarize, the five limitations on the Section 512(c) safe harbor all function in different ways, and they all have to do with investigative costs. The actual-knowledge provision deals with cases where $c = 0$ and no investigation is required; the red-flag provision deals with cases where $\lambda(x)$ is high and the content is likely to infringe; the financial-benefit provision deals with cases where $c$ is low and $P$ is high so the platform has bad incentives not to investigate; the notice-and-takedown provision deals with cases where the copyright owner has taken on the investigative costs $c$ itself; and the R.I.P. provision t/k summarize.
 
-Another way of looking at these exceptions is from the perspective of what society \emph{wants} a platform do to. In terms of our model, a regulator's ideal is that a platform will (1) remove all infringing content at or above $\underbar{x^e}$, (2) leave up all non-infringing content at or below $\overbar{x^e}$, (3) investigate only in cases between $\underbar{x^e}$ and $\overbar{x^e}$ where it is cost-justified to do so, and (4) remove infringing content, even below $\underbar{x^e}$, in cases where someone else has done the investigation more efficiently. The design of the Section 512(c) conditions reflects an imperfect attempt to achieve these goals.
+Another way of looking at these exceptions is from the perspective of what society \emph{wants} a platform do to. In terms of our model, a regulator's ideal is that a platform will (1) remove all infringing content at or above $\underline{x^e}23$, (2) leave up all non-infringing content at or below $\overline{x^e}$, (3) investigate only in cases between $\underline{x^e}$ and $\overline{x^e}$ where it is cost-justified to do so, and (4) remove infringing content, even below $\underline{x^e}$, in cases where someone else has done the investigation more efficiently. The design of the Section 512(c) conditions reflects an imperfect attempt to achieve these goals.
 
 
 

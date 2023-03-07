@@ -177,3 +177,26 @@ The next model is the same as the previous one -- content causes harm $H$  with 
 
 
 % diagram
+
+
+
+\begin{figure}[ht]
+	\centering
+\begin{tikzpicture}[scale=1]
+%    \fill[green] (0,0) to (.5,0) parabola (2.15,1) to (0,1) to (0,0);
+%    \fill[red] (2.15,1) parabola[bend at end] (4.5,3) to (5,3) to (5,1) to (2,1);
+	\drawaxes{factory production}
+	\harmfunction{harm to society}
+	\revenuefunction{factory revenue}
+	\drawarrows[.25]{revenue}{harm}[green,-{Triangle}]{0}{2}
+	\drawarrows[.25]{revenue}{harm}[red, -{Triangle}]{2}{5} 
+	\xelevel
+%    \draw[dashed, thin] (1.75,1.5) -- (1.75,0) node[below]{$x^p$}; 
+	
+%    \draw[thin] (0,3) to (5,3) node[right]{$S+P+L$};
+%    \draw[dashed, thin] (3.55,3) -- (3.55,0) node[below]{$x^e$}; 
+	
+\end{tikzpicture}
+	\caption{Non-Speech Torts}
+	\label{fig:factory}
+\end{figure}
