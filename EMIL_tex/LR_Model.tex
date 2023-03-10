@@ -31,6 +31,10 @@
     \draw[name path=revenue, thick] (0,1.5) to (10,1.5) node[right]{#1};
 }
 
+\newcommand{\revenuecurve}[1] {
+    \draw [name path=revenue] (0,3) to (2, 3) parabola (6,1.75) to (10, -1) node[right]{#1};
+}
+
 \newcommand{\dropline}[3]{
   \draw[dashed, thin] (#1, #2) -- (#1, 0) node[below]{#3};
 }
@@ -46,6 +50,10 @@
 
 \newcommand{\xhat}[1]{
    \draw[dashed, thin] (#1,1.5) -- (#1,0) node[below]{$\hat{x}$}; 
+}
+
+\newcommand{\spilloverfunction}[1] {
+      \draw [name path=welfare] (0,4.25) to (2, 4.25) parabola (6,3) to (10, 0.25) node[right]{#1};
 }
 
 \newcommand{\spilloverline}[1] {
@@ -221,6 +229,15 @@ If the factory cannot operate profitably, it shuts down, and both its profit and
   \node at (7.5,4) {$\lambda(x)H$};
   \dropline{4.1}{1.5}{$\hat{x}$}
   \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+\begin{econ}{Decreasing platform revenue}{fig:test1}
+  \drawaxes{}{}
+  \revenuecurve{$p(x)$}
+  %\harmline{$H$}
+  \harmfunction{$H\lambda(x)$}
+  \spilloverfunction{$s(x)$}
 \end{econ}
 
 
