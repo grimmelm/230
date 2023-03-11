@@ -1,81 +1,87 @@
-% TikZ macros
-\usetikzlibrary{arrows.meta, intersections, patterns}
-
-\newenvironment{econ}[2]
-{
-  \begin{figure}[h]
-      \centering
-  \caption{#1}
-  \label{#2}
-  \begin{tikzpicture}[scale=1]
-}
-{
-  \end{tikzpicture}
-  \end{figure}
-}
-
-\newcommand{\drawaxes}[2] { 
-    \draw[name path = xaxis, -|] (-0.2,0) -- (10,0) node[below]{}; 
-    \draw[name path = yaxis, ->] (0,-0.2) -- (0,5.5) node[left]{} ;
-}
-
-\newcommand{\harmfunction}[1] {
-    \draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) node[right]{#1};
-}
-
-\newcommand{\harmline}[1] {
-    \draw[name path=harm, thick] (0,5) -- node[above]{#1} (10,5);
-}
-
-\newcommand{\revenueline}[1] {
-    \draw[name path=revenue, thick] (0,1.5) to (10,1.5) node[right]{#1};
-}
-
-\newcommand{\revenuecurve}[1] {
-    \draw [name path=revenue] (0,3) to (2, 3) parabola (6,1.75) to (10, -1) node[right]{#1};
-}
-
-\newcommand{\dropline}[3]{
-  \draw[dashed, thin] (#1, #2) -- (#1, 0) node[below]{#3};
-}
-
-\newcommand{\xe} {
-    \draw[dashed, thin] (4.1,1.5) -- (4.1,0) node[below]{$x^e$}; 
-}
-
-\newcommand{\xexhat} {
-    \draw[dashed, thin] (4.1,1.5) -- (4.1,0) node[below]{$\hat{x} = x^e$}; 
-}
 
 
-\newcommand{\xhat}[1]{
-   \draw[dashed, thin] (#1,1.5) -- (#1,0) node[below]{$\hat{x}$}; 
-}
 
-\newcommand{\spilloverfunction}[1] {
-      \draw [name path=welfare] (0,4.25) to (2, 4.25) parabola (6,3) to (10, 0.25) node[right]{#1};
-}
+\subsection{Positive Externalities}
 
-\newcommand{\spilloverline}[1] {
-    \draw[thick] (0,2.5) to (10,2.5) node[right]{#1};
-}
+Imagine the content submitted by users to a platform arranged on a spectrum from worthwhile to worthless. At one end, the content is entertaining and informative -- cat pictures and civics lessons. At the other end, the content is stomach-churning or worse -- gross-out pictures and badly-written spam. A platform sets its moderation policy by deciding where along this spectrum to draw the line.
 
-% \NewDocumentCommand\drawarrows{O{0.5}mmO{-latex}mm}{
-% \def\Step{#1}
-% \pgfmathsetmacro{\Second}{#5+\Step}
-% \foreach \Value [count=\xi] in {#5,\Second,...,#6}
-%   {
-%   \path[overlay,name path=line\xi] 
-%     (\Value,100) -- (\Value,-100);
-%   \path[name intersections={of=#2 and line\xi,by={1\xi}}];
-%   \path[name intersections={of=#3 and line\xi,by={2\xi}}];
-%   \ifdim#5pt<\Value pt\relax
-%     \ifdim\Value pt<#6pt\relax
-%     \draw[#4]
-%       (1\xi) -- (2\xi); 
-%   \fi\fi
-%   }
-%  }
+More formally, let the marginal profit that the platform can make from hosting the $x$-th unit of content be $p(x)$. To capture the idea that the content is ordered from best to worst, assume that $p(x)$ is weakly decreasing -- i.e. is flat or slopes down as $x$ increases. Content for which $p(x) <0$ generates negative marginal profit -- that is, this content costs the platform more to host than it brings in. The platform chooses a moderation level $\hat{x}$. It hosts all content for which $x \le \hat{x}$ and takes down all content for which $x > \hat{x}$. As Figure \ref{fig:host1} illustrates, the platform's total profit will be the area under the curve $p(x)$ between $0$ and $\hat{x}$. 
+
+\begin{pgfecon}{A platform chooses its moderation level}{fig:host1}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \dropline{4.28}{1.65}{$\hat{x}$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
+  % \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.28}];
+\end{pgfecon}
+
+In this situation, a rational platform will choose the value of $\hat{x}$ that maximizes its profits. As Figure \ref{fig:host2} illustrates, this occurs at the point $x^*$ where $p(x)$ crosses the $x$ axis and becomes negative. If the platform chooses $hat{x}$ to the left of $x^*$, each unit of content it adds will generate positive marginal profit, so it could make more money by hosting more content. But if the platform chooses $hat{x}$ to the right of $x^*$, the marginal unit of content generates negative marginal profit, so the platform can save money by hosting less content. Thus, $x^*$ is the profit-maximizing level of moderation. 
+
+By the same reasoning, the point where $p(x)$ crosses the $x$ axis is also the socially efficient level of moderation. Because there are no externalities from hosting content, overall social welfare simply is the platform's profits. Thus, $x^e$, the socially efficient level of moderation, is equal to $x^*$, and the platform's incentives are aligned with society's.
+
+\begin{pgfecon}{Without externalities, the platform has efficient incentives}{fig:host2}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*=x^e$};
+\end{pgfecon}
+
+Regulation potentially becomes appropriate when the platform's incentives diverge from society's. The first source of divergence is that the content platforms carry systematically has positive spillovers for society. A widget factory might come close to capturing the full social value of the widgets it makes. But a platform does not, for at least two reasons.
+
+First, a platform's ``product'' is often not widgets but speech. Speech consists of information, and information is a public good. Once it has been shared with one listener, the speaker cannot easily prevent them from sharing it with others.\footnote{Arrow, Lemley, Frischmann, Baker} A dance video that goes viral on TikTok will be reposted to Twitter and YouTube; the information in a plumbing tutorial will be retained in the minds of viewers and shared with others. All of this third-party value is an externality from the speaker's perspective.
+
+The second source of positive externalities is that platforms do not even capture the full value to speakers of the content they host. As Felix Wu convincingly argues, the value to a user of \emph{posting} content to a platform is typically much larger than the value to the platform of \emph{hosting} that content. A platform does not have an original speaker's incentives. And this point holds true even for non-speech platforms: Airbnb captures only part of the value that apartment hosts extract from rentals made through the platform.
+
+We model these positive externalities by introducing an additional function $s(x)$, which captures the total value to society of the platform's hosting the $x$-th unit of content. We assume that the ordering of content from best to worst is the same for the platform and for society -- so that $s(x)$ is also weakly decreasing. We also assume that this spillover value is never negative, so that $s(x) \ge p(x)$.
+
+As Figure \ref{fig:host3} illustrates, the positive spillover means that the platform will systematically overmoderate compared to the social optimum. As before, the green gridded region is the platform' profits. The blue dotted region above it is the positive spillovers for society created by the content the platform hosts. But the red striped region represents content that would have been socially beneficial, but which was not privately profitable for the platform to host.
+
+\begin{pgfecon}{With positive externalities, the platform overmoderates}{fig:host3}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
+  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:8}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
+\end{pgfecon}
+
+There are several ways that a regulator could attempt to fix the platform's misaligned incentives, many of which are familiar from telecommunications and intellectual-property law. For example, the regulator could directly subsidize the platform in the region between $x^*$ and $x^e$, paying it to host content it otherwise would not. Or it could subsidize the users who create that content, allowing them to increase the price they pay the platform to host the content.
+
+More relevantly, a regulator could also impose a \emph{must-carry} rule, in which the platform must host all content submitted to it, i.e. force it to set $\hat{x}$ to the far right edge of the diagram. In the case where $s(x)$ never goes negative, must-carry is obviously efficient. But there can be an argument for must-carry even when it results in hosting some negative-value content. The logic here is that a flat must-carry system might be substantially easier to implement than trying to nail down $x^e$ precisely. Something like this, for example, might be an argument for network neutrality: the game of investigating whether content an ISP wants to block is socially harmful is not worth the candle.
+
+A must-carry rule, however, must satisfy two conditions to be justified. First, it must actually result in hosting more worthwhile than worthless content. In Figure \ref{fig:mustcarry1}, the green gridded region is the positive-value content that must-carry causes to be hosted, and the red striped region is the negative-value content it also causes to be hosted. If the red region is larger than the green one, must-carry is counter-productive; the bad additional content outweighs the good.
+
+\begin{pgfecon}{Must-carry from society's point of view}{fig:mustcarry1}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
+  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and welfare, soft clip={domain=9.25:10}];
+\end{pgfecon}
+
+A little more subtly, must-carry can also counter-productively drive a platform out of the market. In Figure \ref{fig:mustcarry2}, the green gridded region is the profit's profits from hosting the content it wants to, and the red striped region it is losses from hosting the content it is forced to. If the red region is larger than the green one, it is unprofitable for the platform to operate at all, and it will rationally shut down rather than comply with a must-carry mandate.
+
+\begin{pgfecon}{Must-carry from the platform's point of view}{fig:mustcarry2}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
+  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+\end{pgfecon}
+
+
+\subsection{Imperfect Information}
+
+
+
+
+
+
+
+
 
 There are two distinctive features of platform liability for harmful third-party content. The content can have \emph{positive externalities} not captured by the platform itself, and the platform has \emph{imperfect information} about which content is harmful. These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the 
 platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the thread of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content. To see how these effects arise, it is useful to start with a model in which they are absent.
@@ -232,13 +238,16 @@ If the factory cannot operate profitably, it shuts down, and both its profit and
 \end{econ}
 
 
-\begin{econ}{Decreasing platform revenue}{fig:test1}
-  \drawaxes{}{}
-  \revenuecurve{$p(x)$}
-  %\harmline{$H$}
-  \harmfunction{$H\lambda(x)$}
-  \spilloverfunction{$s(x)$}
-\end{econ}
+\begin{pgfecon}{Decreasing platform revenue}{fig:test1}
+  \lambdaplot
+  \plotvalue{welfare}{4}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \dropline{4.28}{1.65}{$x^*$};
+  \dropline{5.4}{3}{$x^e$};
+  \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.28}];
+\end{pgfecon}
 
 
 \begin{econ}{Investigation of intermediate content}{fig:investigate1}
@@ -307,11 +316,7 @@ This is the standard law-and-economics case for strict liability: it is automati
 
 A key assumption of the polluting-factory model was that the factory captures all of the social benefit from widget production. There are good reasons to believe that this assumption fails for platforms. In fact, for many platforms it fails twice over.
 
-The first source of positive externalities is that the ``product'' produced on platforms is not wiedgets but speech. Speech consists of information, and information is a public good. Once it has been shared with one listener, the speaker cannot easily prevent them from sharing it with others.\footnote{Arrow, Lemley, Frischmann, Baker} This third-party value is an externality from the speaker's perspective.
-
-The second source of positive externalities is that platforms do not even capture the full value to speakers of the content they host. As Felix Wu convincingly argues, the value to a user of \emph{positing} content to a platform is typically much larger than the value to the platform of \emph{hosting} that content. A platform does not have an original speaker's incentives. And this point holds true even for non-speech platforms: Airbnb captures only part of the value that apartment hosts extract from rentals made through the platform.
-
-We model these positive externalities by introducing an additional function in our model. Now our factory produces content at a level $\hat{x} \in [0,n]$. As before, it has  marginal profit $p(x)$ and the content causes harms $h(x)$, with the same assumptions on $p(x)$ and $h(x)$. But now we let the positive externalities  of the content be $\delta(x)$, where $\delta(x)$ is weakly decreasing and always positive or zero.\footnote{It may seem artificial to separate $\delta(x)$ and $h(x)$; the reasons will be apparent soon.} We retain the condition that there is still some unambiguously harmful content -- i..e., $h(n) > p(n) + \delta(n)$. The factory's profit function (if it operates) is still 
+ Now our factory produces content at a level $\hat{x} \in [0,n]$. As before, it has  marginal profit $p(x)$ and the content causes harms $h(x)$, with the same assumptions on $p(x)$ and $h(x)$. But now we let the positive externalities  of the content be $\delta(x)$, where $\delta(x)$ is weakly decreasing and always positive or zero.\footnote{It may seem artificial to separate $\delta(x)$ and $h(x)$; the reasons will be apparent soon.} We retain the condition that there is still some unambiguously harmful content -- i..e., $h(n) > p(n) + \delta(n)$. The factory's profit function (if it operates) is still 
 \begin{equation}
 \int_{0}^{\hat{x}} p(x) dx - F
 \end{equation}

@@ -1,4 +1,7 @@
 \documentclass[openbib,12pt]{article}  % Comments shown
+\usepackage{linlib}
+\usepackage{lawreview}
+
 \usepackage{amsmath,amssymb,amsthm,mathabx}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -8,7 +11,7 @@
 \usepackage{natbib}
 %\usepackage[utf8x]{inputenc}
 %\usepackage[colorinlistoftodos]{todonotes}
-\usepackage[margin=1in]{geometry}
+%\usepackage[margin=1in]{geometry}
 \usepackage{mathpazo}
 %\usepackage{dsfont}
 \usepackage[multiple]{footmisc}
@@ -28,9 +31,12 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows, intersections, patterns}
 \usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
 % We will externalize the figures
-%\usepgfplotslibrary{external}
-%\tikzexternalize
+\usepgfplotslibrary{external}
+%\tikzexternalize[prefix=figures/]
+\tikzset{external/optimize=false}
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{intersections}%, pgfplots.fillbetween}
@@ -41,8 +47,6 @@
 \usepackage[all]{xy}
 \usepackage[english]{babel}
 \usepackage{adjustbox}
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
 \DeclareGraphicsRule{*}{mps}{*}{}
 \newtheorem{assumption}{Assumption}
 \newtheorem{claim}{Claim}
@@ -74,15 +78,15 @@
 \newcommand{\ls}{\leqslant}
 %% specific to this paper
 
-\renewcommand{\baselinestretch}{1.4} 
+%\renewcommand{\baselinestretch}{1.4} 
 \renewcommand{\vec}[1]{\mathbf{#1}}
-\oddsidemargin=0truein
-\evensidemargin=0truein
-\topmargin=0truein\headheight=0truein\headsep=0truein
-\textheight=9truein\textwidth=6.5truein
-\parskip=12pt
-\parindent=1cm
-\baselineskip=25pt
+% \oddsidemargin=0truein
+% \evensidemargin=0truein
+% \topmargin=0truein\headheight=0truein\headsep=0truein
+% \textheight=9truein\textwidth=6.5truein
+% \parskip=12pt
+% \parindent=1cm
+% \baselineskip=25pt
 
 \title{An Economic Model of Intermediary Liability}
 \author{James Grimmelmann\footnote{Cornell Law School and Cornell Tech, Cornell University, james.grimmelmann@cornell.edu}
@@ -123,20 +127,23 @@ We analyze five plausible legal regimes: (1) strict liability, in which the plat
 
 
 \section{Law Review Model}\label{EMIL_Section:lawreview}
+
+\input{./EMIL_tex/LR_diagrams.tex}
+
 \input{./EMIL_tex/LR_Model.tex}
 
-\section{Model}\label{EMIL_Section:model}
-\input{./EMIL_tex/S3_Model.tex}
+%\section{Model}\label{EMIL_Section:model}
+%\input{./EMIL_tex/S3_Model.tex}
 
 %\section{Extensions}\label{EMIL_Section:ext}
 %\input{./EMIL_tex/S4_Extensions.tex}
 
-\section{Conclusion}\label{EMIL_Section:conclude}
-\input{./EMIL_tex/S5_Conclusion.tex}
+%\section{Conclusion}\label{EMIL_Section:conclude}
+%\input{./EMIL_tex/S5_Conclusion.tex}
 
 \newpage
 \appendix
-\input{./EMIL_tex/S6_AppendixA.tex}\label{Appendix:proofs}
+%\input{./EMIL_tex/S6_AppendixA.tex}\label{Appendix:proofs}
 
 
 \end{document}
