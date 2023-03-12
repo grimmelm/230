@@ -3,7 +3,7 @@
 
 \newenvironment{econ}[2]
 {
-  \begin{figure}[ht]
+  \begin{figure}[h]
 	  \centering
   %\caption{#1}
   \label{#2}
@@ -16,7 +16,7 @@
 
 \newenvironment{pgfecon}[2]
 {
-  \begin{figure}[t]
+  \begin{figure}[h]
   \centering
   \caption{#1}
   \label{#2}
@@ -56,17 +56,19 @@
   node[very near start, above]{$H$};
 }
 
-
-\newcommand{\lambdaplot} {
+\newcommand{\scurveplot}[1] {
   \addplot [-, name path = lambda, thick,
   domain = 0:10,
   samples = 250] { \x < 1 ? 0 : 
-					(\x < 5 ? (\x - 1)^ 2 / 6.4 : 
-					(\x < 9 ? 5 - (9-\x)^2 / 6.4  :
-					5
-					))} 
-  node[near end, below right]{$H\lambda(x)$};
+        (\x < 5 ? (\x - 1)^ 2 / 6.4 : 
+        (\x < 9 ? 5 - (9-\x)^2 / 6.4  :
+        5
+        ))}  node[right]{#1};
 }
+
+\newcommand{\hplot}{\scurveplot{$h(x)$}}
+
+\newcommand{\lambdaplot} {\scurveplot{$H\lambda(x)$}}
 
 \newcommand{\testplot}[1] {
 \addplot [-, name path = profit, thick,
@@ -94,10 +96,10 @@ node[very near end, above]{$s(x)$};
 
 
 \newcommand{\plotline}[3] {
-\addplot [-, name path = #1, thick,
+\addplot [-, name path = #1, dotted,
 domain = 0:10,
 samples = 250] {#2}
-node[right]{#3};
+node[at start, left]{#3};
 }
 
 \newcommand{\plotvalue}[4] {
@@ -110,6 +112,14 @@ samples = 250] {
 node[right]{#4};
 }
 
+\newcommand{\plotpartialvalue}[5] {
+\addplot [-, thick, color=#5,
+domain = #3:#4,
+samples = 250] {
+ \x < 1.5 ? #1 : 
+ (\x < 6.5 ? #1 - (\x - 1.5)^2 / #2 : 
+ #1 - (25 / #2) - (10 * (\x - 6.5)) / #2 }
+}
 
 \newcommand{\harmfunction}[1] {
 	\draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) node[right]{#1};

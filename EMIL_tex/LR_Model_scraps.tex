@@ -200,3 +200,212 @@ The next model is the same as the previous one -- content causes harm $H$  with 
 	\caption{Non-Speech Torts}
 	\label{fig:factory}
 \end{figure}
+
+
+
+
+
+
+\begin{econ}{Blanket immunity}{fig:liability2}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$\hat{x}$}
+\end{econ}
+
+\begin{econ}{Prohibition}{fig:liability3}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{0}{0}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (0,0) to (10,0) to (10,5.2) to (0,5.2) to (0,0);
+\end{econ}
+
+
+\begin{econ}{Negligence}{fig:liability4}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{7}{4.35}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola bend (9,5) (7,4.35) to (7,0) to (5,0) to (5,2.5);
+\end{econ}
+
+\begin{econ}{Reasonable efforts (below threshold)}{fig:liability5}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+\end{econ}
+
+\begin{econ}{Reasonable efforts (above threshold)}{fig:liability6}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{5.9}{3.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (1,0) parabola (5, 2.5) parabola bend (9,5) (5.9, 3.5) to (5.9, 0) to (1, 0);
+\end{econ}
+
+
+
+\begin{econ}{Widget production}{fig:factory1}
+  \drawaxes{production}{\$}
+  \revenueline{revenue}
+  \dropline{6}{1.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (6,0) to (6,1.5) to (0,1.5) to (0,0);
+\end{econ}
+
+\begin{econ}{Social welfare for widgets}{fig:factory2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,1.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \harmfunction{harm}
+  \xe
+\end{econ}
+
+\begin{econ}{Strict liability is efficient for widgets}{fig:factory3}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \revenueline{revenue}
+  \harmfunction{harm}
+  \xexhat
+\end{econ}
+
+
+\begin{econ}{Speech production}{fig:speech1}
+  \drawaxes{production}{\$}
+  \dropline{6}{2.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (6,0) to (6,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (6,1.5) to (6,2.5) to (0,2.5) to (0,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+\end{econ}
+
+\begin{econ}{Social welfare for speech}{fig:speech2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (5,2.5) to (0,2.5) to (0,0);
+  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola [bend at end] (9,5) to (10,5) to (10,2.5) to (5,2.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+
+\begin{econ}{Strict liability chills valuable speech}{fig:speech3}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (4.1,1.5) to (4.1,2.5) to (0,2.5) to (0,1.5);
+  \fill[pattern=north west lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) to (4.1,2.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmfunction{harm}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+
+\begin{econ}{Imperfect information about harm}{fig:imperfect1}
+  \drawaxes{}{}
+  \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
+  \fill[pattern=sixpointed stars, pattern color=green] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (0,5) to (0,0);
+  \draw[thick] (.425,0) to (.425,5) to (.625,5) to (.625,0) to (.425,0) node[below]{$\lambda = 0$};
+  \draw[thick] (4.025,0) to (4.025,5) to (4.225,5) to (4.225,0) to (4.025,0) node[below]{$\lambda = .3$};
+  \draw[thick] (9.15,0) to (9.15,5) to (9.35,5) to (9.35,0) to (9.15,0) node[below]{$\lambda = 1$};
+\end{econ}
+
+
+
+\begin{econ}{Strict liability chills valuable speech}{fig:imperfect2}
+  \drawaxes{production}{\$}
+  \fill[pattern=vertical lines, pattern color=green] (0,0) to (1,0) parabola (4.1,1.5) to (0,1.5) to (0,0);
+  \fill[pattern=dots, pattern color=blue] (0,1.5) to (4.1,1.5) to (4.1,2.5) to (0,2.5) to (0,1.5);
+  \fill[pattern=north west lines, pattern color=red] (4.1,1.5) parabola bend +(-3,-1.5) (5,2.5) to (4.1,2.5) to (4.1,1.5);
+  \revenueline{revenue}
+  \spilloverline{social value}
+  \harmline{$H$}
+  \draw[name path=harm, thick] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end]   (9,5) to (10,5);
+  \node at (7.5,4) {$\lambda(x)H$};
+  \dropline{4.1}{1.5}{$\hat{x}$}
+  \dropline{5}{2.5}{$x^e$}
+\end{econ}
+
+
+\begin{pgfecon}{Decreasing platform revenue}{fig:test1}
+  \lambdaplot
+  \plotvalue{welfare}{4}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \dropline{4.28}{1.65}{$x^*$};
+  \dropline{5.4}{3}{$x^e$};
+  \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.28}];
+\end{pgfecon}
+
+
+
+% \begin{econ}{Non-Speech Torts}{fig:factory2}
+%   \drawaxes{widget production}{\$}
+%   \harmfunction{harm to society}
+%   \revenueline{factory revenue}
+%   \drawarrows[.25]{revenue}{harm}[green,-{Triangle}]{0}{4}
+%   \drawarrows[.25]{revenue}{harm}[red, -{Triangle}]{4}{10} 
+%   \xe
+% \end{econ}
+
+
+
+
+\subsection{Traditional Liability}
+
+A widget factory must decide how many widgets to make. As it increases production, it must use increasingly hazardous manufacturing techniques, with two effects.  On the one hand, this increased production is less and less profitable: the cost to make each widget rises. On the other hand, the increased production has worse and worse environmental effects: the amount of pollution the factory emits increases.
+
+Mathematically, we say that the factory chooses a level of production $\hat{x} \in [0,n]$. The factory's marginal revenue per unit of widgets sold is a weakly nonincreasing function $p(x)$ (i.e. $x < y$ implies $p(x) \ge p(y)$), and the the marginal environmental harm caused per unit of widgets sold is a weakly nondecreasing function $h(x)$ (i.e. $x < y$ implies $h(x) \le h(y)$). For simplicity of exposition, we assume that the first widgets are profitable and harmless (i.e. $p(0) > 0$ and $h(0) = 0$ and that the last possible widgets cause more harm than good (i.e. $h(n) > p(n)$).  The factory has fixed costs $F$, so the factory's profits are given by 
+\begin{equation}
+\int_{0}^{\hat{x}} p(x) dx - F
+\end{equation}
+if it operates and total social welfare is given by:
+\begin{equation}
+\int_{0}^{\hat{x}} p(x) - h(x) dx - F
+\end{equation}
+If the factory cannot operate profitably, it shuts down, and both its profit and social welfare are $0$.
+
+
+
+
+
+
+\begin{pgfecon}{A platform chooses its moderation level in the presence of harm}{fig:harm1}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \dropline{3.5}{3.25}{$\hat{x}$};
+  \dropline{5.1}{2.6}{$x^e$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
+  % \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:3.5}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
+\end{pgfecon}
+
+
+
+
+As Figure \ref{fig:host3} illustrates, the positive spillover means that the platform will systematically overmoderate compared to the social optimum. As before, the green gridded region is the platform' profits. The blue dotted region above it is the positive spillovers for society created by the content the platform hosts. But the red striped region represents content that would have been socially beneficial, but which was not privately profitable for the platform to host.
+
+\begin{pgfecon}{With positive externalities, the platform overmoderates}{fig:host3}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
+  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:8}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
+\end{pgfecon}
+
+
+
+We refer to this legal regime as \emph{blanket immunity}. 
