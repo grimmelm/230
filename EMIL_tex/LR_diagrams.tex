@@ -70,6 +70,11 @@
 
 \newcommand{\lambdaplot} {\scurveplot{$H\lambda(x)$}}
 
+\newcommand{\lambdaline} {
+ \addplot [-, name path = lambda, thick, domain = 0:10, samples = 250] { \x /2 )}  node[right]{$H\lambda(x)$};
+}
+
+
 \newcommand{\testplot}[1] {
 \addplot [-, name path = profit, thick,
 domain = 0:10,
