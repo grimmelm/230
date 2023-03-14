@@ -359,17 +359,6 @@ If the factory cannot operate profitably, it shuts down, and both its profit and
 
 As Figure \ref{fig:host3} illustrates, the positive spillover means that the platform will systematically overmoderate compared to the social optimum. As before, the green gridded region is the platform' profits. The blue dotted region above it is the positive spillovers for society created by the content the platform hosts. But the red striped region represents content that would have been socially beneficial, but which was not privately profitable for the platform to host.
 
-\begin{pgfecon}{With positive externalities, the platform overmoderates}{fig:host3}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
-  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
-  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:8}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
-\end{pgfecon}
-
 
 
 We refer to this legal regime as \emph{blanket immunity}. 

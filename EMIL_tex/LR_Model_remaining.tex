@@ -1,15 +1,58 @@
+\begin{itemize}
+\item \textbf{Prohibition}: If society bans widgets, it compels the factory to set $\hat{x} = 0$ and make a profit of $0$. But since $0 < x^e$, social welfare will be less than the efficient level. For some values of $h$ and $p$, prohibition will be better than no liability; for others, it will be worse.
+\item \textbf{Negligence}: The regulator sets a threshold $t$. The platform faces no liability for content below that threshold, but is liable for the harms caused by production above that threshold. It is a standard law-and-economics result that setting $t = x^e$ gives the platform the same incentives as strict liability. Setting $t < x^e$ also produces the right marginal incentives at $x^e$, but can cause the factory to fail in some cases where it cannot cover its fixed costs $F$.
+\item \textbf{Reasonable Efforts}: The regulator sets a harm threshold $T$. The factory faces no liability as long as the total harms it causes are beneath this threshold, i.e. $\int_0^{\hat{x}} h(x) dx \le T$. But if the harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those beneath the threshold. If the regulator sets $T = \int_0^{t} h(x)$, then the factory sets $\hat{x} = x^e$ and acts efficiently. As above, setting $T$ beneath this value also produces the right marginal incentives at $x^e$, but can cause the factory to fail if it cannot cover its fixed costs.
+\end{itemize}
+
+
+\begin{econ}{Blanket immunity}{fig:liability2}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$\hat{x}$}
+\end{econ}
+
+% \begin{econ}{Prohibition}{fig:liability3}
+%   \drawaxes{production}{\$}
+%   \harmfunction{harm}
+%   \dropline{0}{0}{$\hat{x}$}
+%   \fill[pattern=vertical lines, pattern color=red] (0,0) to (10,0) to (10,5.2) to (0,5.2) to (0,0);
+% \end{econ}
+
+\begin{econ}{Negligence}{fig:liability4}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{7}{4.35}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola bend (9,5) (7,4.35) to (7,0) to (5,0) to (5,2.5);
+\end{econ}
+
+\begin{econ}{Conditional immunity (below threshold)}{fig:liability5}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+\end{econ}
+
+\begin{econ}{Conditional immunity (above threshold)}{fig:liability6}
+  \drawaxes{production}{\$}
+  \harmfunction{harm}
+  \dropline{5}{2.5}{$t$}
+  \dropline{5.9}{3.5}{$\hat{x}$}
+  \fill[pattern=vertical lines, pattern color=red] (1,0) parabola (5, 2.5) parabola bend (9,5) (5.9, 3.5) to (5.9, 0) to (1, 0);
+\end{econ}
+
+
+\subsection{Strict Liability}
 
 
 
 
 
+\subsection{Blanket Immunity}
 
 
 
 
-
-
-This is also why the naive solution -- strict liability -- fails for platforms. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. Strict liability does not just cause the platform to take down content that is actually harmful. It also causes the platform to remove content that is actually harmless, but which the platform cannot easily distinguish from harmful content. Society, which compares the expected harms $H\lambda(x)$ to the full benefits $s(x)$, is willing to allow content to stay up as long as $lambda(x) \le \frac{s(x)}{H}$. But the platform facing strict liability, which compares the expected harms $H\lambda(x)$ to its lesser private benefits $p(x)$ is willing to allow content to stay up only as long as  $lambda(x) \le \frac{p(x)}{H}$. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
 
 
 

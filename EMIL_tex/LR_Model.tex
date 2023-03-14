@@ -1,6 +1,7 @@
 \newcommand{\xmax}{x_{\text{max}}}
 \newcommand{\xbi}{x_{\text{BI}}^*}
 \newcommand{\xsl}{x_{\text{SL}}^*}
+\newcommand{\xsubi}{x_{\text{I}}^*}
 
 \section{An Economic Model of Moderation}
 
@@ -15,7 +16,7 @@ More formally, let the spectrum of content run from $0$ to $\xmax$ and let the m
 
 \begin{pgfecon}{A platform chooses its moderation level}{fig:host1}
   \plotvalue{profit}{2}{20}{$p(x)$}
-  \dropline{4.28}{1.65}{$\hat{x}$};
+  \dropline{4.28}{1.65}{$\hat{x}$}
   %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
   % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
   % \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
@@ -44,8 +45,8 @@ Figure \ref{fig:harm1} also illustrates how the platform no longer has appropria
 %  \plotline{harmline}{5}{$H$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   %\plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.5}{$x^e$};
-  \dropline{5.1}{2.6}{$\hat{x}$};
+  \dropline{4.25}{1.5}{$x^e$}
+  \dropline{5.1}{2.6}{$\hat{x}$}
   \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*$};
   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.1}];
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:5.1}];
@@ -57,7 +58,7 @@ The same reasoning shows that strict liability gives the platform efficient ince
 
 \begin{pgfecon}{Strict liability}{fig:liability1}
   \hplot
-  \dropline{7.5}{4}{$\hat{x}$};
+  \dropline{7.5}{4}{$\hat{x}$}
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:7.5}];
 \end{pgfecon}
 
@@ -81,8 +82,8 @@ The point of framing harmfulness this way -- in terms of a probability function 
   \plotline{harmline}{5}{$H$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   %\plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.5}{$x^e$};
-  \dropline{5.1}{2.6}{$\hat{x}$};
+  \dropline{4.25}{1.5}{$x^e$}
+  \dropline{5.1}{2.6}{$\hat{x}$}
   \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*$};
   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.1}];
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:5.1}];
@@ -123,8 +124,8 @@ We model these positive externalities by introducing a function $s(x)$, which ca
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \dropline{4.25}{1.625}{$\xsl$}
-  \dropline{5.1}{2.6}{$x^e$};
-  \dropline{6.5}{4}{$\hat{x}$};
+  \dropline{5.1}{2.6}{$x^e$}
+  \dropline{6.5}{4}{$\hat{x}$}
   \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
   % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:6.5}];
@@ -134,9 +135,6 @@ We model these positive externalities by introducing a function $s(x)$, which ca
  % \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
  % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
 \end{pgfecon}
-
-This is the fundamental challenge of platform liability law. Content has both harms and benefits to society that the platform does not internalize. A profit-maximizing platform makes its decisions based on how much it can make from hosting content, paying no attention to either positive or negative spillovers. Whether this results in overmoderation or undermoderation depends on the exact balance of harms and benefits. Liability and other regulations can change the platform's calculus. But there is no simple solution that automatically lines up the platform's incentives with society's.
-
 
 \subsection{Platform Investigations}
 
@@ -158,7 +156,7 @@ Thus the expected value to society for content at $x$ is $0$ if the platform tak
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \dropline{3.55}{1.73}{$\xsl$}
-  \dropline{5.2}{2.6}{$x^e$};
+  \dropline{5.2}{2.6}{$x^e$}
   \plotpartialvalue{2}{20}{0}{1.66}{green};
   \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
   \plotpartialvalue{2}{20}{5.63}{10}{red};
@@ -201,92 +199,26 @@ These results show that a rational regulator should want platforms to invest res
 
 \autoref{fig:investigate1} also illustrates the dependence of investigation on $c$. As $c$ decreases, the upper limit moves upwards and the lower limit moves downwards, increasing the size of the (yellow dotted) region where investigation is justified. As $c$ increases, the limits converge, until eventually the region vanishes entirely. In this case, investigation is never justified and we are back to the previous model, where $H\lambda(x)$ marks the dividing line between taking down and leaving up.
 
-A very similar analysis applies to a platform's incentives under strict liability.\footnote{Under blanket immunity, a platform will never investigate. Instead, it will always choose to leave all content up.} Because the platform internalizes all the harm that it causes, the only change is to substitute the platform's private profit $p(x)$ for the overall social value $s(x)$. If there is any range for which investigation is justified, it will contain  $\xsl$.) % \footnote{Its interval of investigation is \begin{equation*}[\frac{c}{H - p(x)}, 1 - \frac{c}{p(x)}]\end{equation*}} 
+% t/k higher c and lower c graphs
+
+A nearly identical analysis applies to a platform's incentives under strict liability.\footnote{Under blanket immunity, a platform will never investigate. Instead, it will always choose to leave all content up.} Because the platform internalizes all the harm that it causes, the only change is to substitute the platform's private profit $p(x)$ for the overall social value $s(x)$. If there is any range for which investigation is justified, it will contain  $\xsl$.) % \footnote{Its interval of investigation is \begin{equation*}[\frac{c}{H - p(x)}, 1 - \frac{c}{p(x)}]\end{equation*}} 
 A little algebraic manipulation shows that the platform's preferred interval of investigation is always \emph{shifted left} from the regulator's preferred interval.\footnote{To be precise, at the lower end \begin{equation*}\frac{c}{H - s(x)} < \frac{c}{H - p(x)},\end{equation*} and at the upper end \begin{equation*}1 - \frac{c}{p(x)} < 1 - \frac{c}{s(x)}.\end{equation*}} Intuitively, because the platform has less at stake, it will be more likely to remove content rather than investigating and also more likely to investigate content rather than leaving it up.
+
 
 
 \section{Platform Liability and Platform Immunity}
 
 We have already seen that neither blanket immunity nor strict liability is guaranteed to be efficient. This Part provides a comparative analysis of the arguments for and against other liability regimes. The point is not to definitely settle on one or another as optimal, but instead to bring out the intuitions behind each and to get a sense of the conditions they depend on.
 
-strict liability
-
-negligence
-conditional immunity
-
-blanket immunity
-
-must-carry (for non-harmful content)
-must-carry (absolute)
-
-(pre-230) must-carry OR strict liability
-
-Section 230
-  and reforms thereof
-
-Section 512
-
-DMA
-
-
-\begin{itemize}
-\item \textbf{Blanket Immunity}: If the factory faces no liability for pollution, it will produce until its marginal revenue from each additional widget is zero -- i.e., until $p(x) = 0$.\footnote{If the factory is not profitable at this point, there is no level of production at which it can possibly be profitable.} But if there are any pollution harms at all at this level of production, this point will be to the right of $x^e$, and social welfare will be less than the efficient level. If $h(x)$ is high enough, social welfare may even be negative.
-\item \textbf{Prohibition}: If society bans widgets, it compels the factory to set $\hat{x} = 0$ and make a profit of $0$. But since $0 < x^e$, social welfare will be less than the efficient level. For some values of $h$ and $p$, prohibition will be better than no liability; for others, it will be worse.
-\item \textbf{Must-Carry}: Society could also compel the factory to maximize production by setting $\hat{x} = n$. This regime is also inefficient. Indeed, it is even worse than blanket immunity in cases where the factory's marginal profit $p(x)$ goes negative for high enough production -- the factory is affirmatively compelled to produce unprofitable widgets. 
-\item \textbf{Negligence}: The regulator sets a threshold $t$. The platform faces no liability for content below that threshold, but is liable for the harms caused by production above that threshold. It is a standard law-and-economics result that setting $t = x^e$ gives the platform the same incentives as strict liability. Setting $t < x^e$ also produces the right marginal incentives at $x^e$, but can cause the factory to fail in some cases where it cannot cover its fixed costs $F$.
-\item \textbf{Reasonable Efforts}: The regulator sets a harm threshold $T$. The factory faces no liability as long as the total harms it causes are beneath this threshold, i.e. $\int_0^{\hat{x}} h(x) dx \le T$. But if the harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those beneath the threshold. If the regulator sets $T = \int_0^{t} h(x)$, then the factory sets $\hat{x} = x^e$ and acts efficiently. As above, setting $T$ beneath this value also produces the right marginal incentives at $x^e$, but can cause the factory to fail if it cannot cover its fixed costs.
-\end{itemize}
-
-
-\begin{econ}{Blanket immunity}{fig:liability2}
-  \drawaxes{production}{\$}
-  \harmfunction{harm}
-  \dropline{5}{2.5}{$\hat{x}$}
-\end{econ}
-
-% \begin{econ}{Prohibition}{fig:liability3}
-%   \drawaxes{production}{\$}
-%   \harmfunction{harm}
-%   \dropline{0}{0}{$\hat{x}$}
-%   \fill[pattern=vertical lines, pattern color=red] (0,0) to (10,0) to (10,5.2) to (0,5.2) to (0,0);
-% \end{econ}
-
-\begin{econ}{Negligence}{fig:liability4}
-  \drawaxes{production}{\$}
-  \harmfunction{harm}
-  \dropline{5}{2.5}{$t$}
-  \dropline{7}{4.35}{$\hat{x}$}
-  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola bend (9,5) (7,4.35) to (7,0) to (5,0) to (5,2.5);
-\end{econ}
-
-\begin{econ}{Conditional immunity (below threshold)}{fig:liability5}
-  \drawaxes{production}{\$}
-  \harmfunction{harm}
-  \dropline{5}{2.5}{$t$}
-  \dropline{4.1}{1.5}{$\hat{x}$}
-\end{econ}
-
-\begin{econ}{Conditional immunity (above threshold)}{fig:liability6}
-  \drawaxes{production}{\$}
-  \harmfunction{harm}
-  \dropline{5}{2.5}{$t$}
-  \dropline{5.9}{3.5}{$\hat{x}$}
-  \fill[pattern=vertical lines, pattern color=red] (1,0) parabola (5, 2.5) parabola bend (9,5) (5.9, 3.5) to (5.9, 0) to (1, 0);
-\end{econ}
-
-
-\subsection{Strict Liability}
-
-
-
 
 
 \subsection{Blanket Immunity}
 
+The fundamental challenge of platform liability law is that content has both harms and benefits to society that the platform does not internalize. A profit-maximizing platform makes its decisions based on how much it can make from hosting content, paying no attention to either positive or negative spillovers. In the absence of liability -- a legal regime we refer to as \emph{blanket immunity} -- either of these effects can dominate, so both overmoderation and undermoderation are possible.
 
-Figure \ref{fig:harm2} shows that blanket immunity can lead to undermoderation: the platform makes money from hosting content that is, on average, a net negative for society. In this region between $x^e$ and $x^*$ (red and striped), there are both harmful and harmless items of content, but the harm from the harmful items outweighs the benefits of all the content together. Making the platform liable for the harmful content it carries could potentially improve matters, by encouraging it to carry less content.
+Figure \ref{fig:harm2} shows that blanket immunity can lead a platform to \emph{undermoderate}: the platform makes money from hosting content that is, on average, a net negative for society.\footnote{For much of this section, for the sake of simplicity of exposition, we will discuss platform investigations only when directly relevant.} In this region between $x^e$ and $x^*$ (red and striped), there are both harmful and harmless items of content, but the harm from the harmful items outweighs the benefits of all the content together. Making the platform liable for the harmful content it carries could potentially improve matters, by encouraging it to carry less content.
 
-\begin{pgfecon}{Blanket immunity can lead to undermoderation}{fig:harm2}
+\begin{pgfecon}{Blanket immunity can lead to undermoderation}{fig:blanket1}
   \lambdaplot
   \plotline{harmline}{5}{$H$}
   \plotvalue{profit}{2}{20}{$p(x)$}
@@ -303,60 +235,174 @@ Figure \ref{fig:harm2} shows that blanket immunity can lead to undermoderation: 
  % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
 \end{pgfecon}
 
-Figure \ref{fig:harm3} shows that even under blanket immunity, a platform might still overmoderate. As above, if the platform's profits are small enough compared with the social value of the content it carries, it may simply not be economically feasible for the platform to carry all the content it would be socially valuable to. Making the platform liable for harmful content it carries would only make matters worse, by causing it to carry even less content. 
+But \ref{fig:blanket2} shows that even under blanket immunity, a platform might also \emph{overmoderate}. If the platform's revenues too small compared with the social value of the content it carries, it may simply not be economically feasible for the platform to carry all the content it would be socially valuable to.
 
-\subsection{Blanket Immunity}
-
-
-When the platform overmoderates in the presence of harm, a must-carry regime could potentially improve matters by causing it to carry more content. But it would need to satisfy the same two kinds of conditions as above. First, the harm due to the additional content it carries must not outweigh the value of the additional content -- that is, the signed area between $s(x)$ and $H\lambda(x)$  from $x^e$ to $\xmax$ but be positive. Second, it must not force the platform out of business -- that is, the signed area between $p(x)$ and the $x$ axis from $0$ to $\xmax$ must also be positive.
-
-\begin{pgfecon}{Blanket immunity can lead to overmoderation}{fig:harm3}
+\begin{pgfecon}{Blanket immunity can lead to undermoderation}{fig:blanket2}
   \lambdaplot
   \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{.5}{25}{$p(x)$}
-  \plotvalue{welfare}{4.5}{50}{$s(x)$}
-  \dropline{5.1}{4.25}{$x^*$};
-  \draw[dashed, thin] (6.5, 4) -- (6.5, 0) node[above right]{$x^e$};
+  \plotvalue{welfare}{4.5}{12}{$s(x)$}
+  \plotvalue{profit}{.25}{30}{$p(x)$}
+  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, 0) ;
   %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
-  \addplot [pattern= vertical lines, pattern color = cyan] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
-
- % \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
- % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:4.25}];
+  \addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.55}];
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:8}];
+%  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
 \end{pgfecon}
 
-Return now to the case of undermoderation, where the platform leaves up content that is socially harmful but privately profitable. T
+It is technically possible for these effects to cancel out, so that the platform arrives at an appropriate level of moderation on its own. But there is no particular reason to expect that this will be the case. Instead, a particular platform, hosting particular types of content, with particular harms and benefits, will typically fall on one side or the other.
+
+The policy responses to overmoderation and undermoderation are different. Overmoderation is typically addressed with subsidies or must-carry rules to force platforms to carry content they rather would not on their own. Undermoderation is typically addressed by imposing liability on platforms. We take up these two possibilities in turn, starting with overmoderation.
 
 
+\subsection{Overmoderation: Subsidies}
 
-There are several ways that a regulator could attempt to fix the platform's misaligned incentives, many of which are familiar from telecommunications and intellectual-property law. For example, the regulator could directly subsidize the platform in the region between $x^*$ and $x^e$, paying it to host content it otherwise would not. Or it could subsidize the users who create that content, allowing them to increase the price they pay the platform to host the content.
+Many responses to overmoderation are familiar from telecommunications and intellectual-property law. One of the most common is \emph{subsidies}, in which the government pays the platform to carry content. \autoref{fig:subsidies1} shows a case in which the government gives the platform a subsidy of $\epsilon$ for any content that it carries. This pushes the platform's profits up to the point that $x^* = x^e$ and it carries the socially optimal level of content. 
 
-More relevantly, a regulator could also impose a \emph{must-carry} rule, in which the platform must host all content submitted to it. (Visually, this amounts to i.e. forcing the platform to set $\hat{x}$ to the far right edge of the diagram.) In the case where $s(x)$ never goes negative, must-carry is obviously efficient, because every hosted item of content adds to social welfare.
+There are at least three challenges in providing subsidies. First, the regulator must accurately estimate $x^e$, which requires an understanding both of the value of content $s(x)$ and its harms $H\lambda(x)$. Second, the regulator must choose an appropriate subsidy $\epsilon$, which requires an understanding of the platform's revenues $p(x)$. And third, the subsidy must be one that the regulator is willing to pay. The orange dotted region in \autoref{fig:subsidies1} is money that must come from somewhere. It is not a welfare loss to society, just a wealth transfer (ignoring administrative costs and the distortionary effects of taxation, that is). Below-cost mail service is an example of this type of subsidy.
 
-There can even be an argument for must-carry even when it results in hosting some negative-value content. The logic here is that a flat must-carry system might be substantially easier to implement than trying to nail down $x^e$ precisely. Something like this, for example, might be an argument for network neutrality: the game of investigating whether content an ISP wants to block is socially harmful is not worth the candle.
 
-A must-carry rule, however, must satisfy two conditions to be justified. First, it must actually result in hosting more worthwhile than worthless content. In Figure \ref{fig:mustcarry1}, the green gridded region is the positive-value content that must-carry causes to be hosted, and the red striped region is the negative-value content it also causes to be hosted. If the red region is larger than the green one, must-carry is counter-productive; the bad additional content outweighs the good.
-
-\begin{pgfecon}{Must-carry from society's point of view}{fig:mustcarry1}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
-  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and welfare, soft clip={domain=9.25:10}];
+\begin{pgfecon}{Flat subsidies}{fig:subsidies1}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{12}{$s(x)$}
+  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
+  \plotvalue{profit}{.25}{30}{}
+  \draw (10, -2) node {$p(x)$};
+  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75) node[below]{$x^*$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
+  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=0:5.55}];
 \end{pgfecon}
 
-A little more subtly, must-carry can also counter-productively drive a platform out of the market. In Figure \ref{fig:mustcarry2}, the green gridded region is the profit's profits from hosting the content it wants to, and the red striped region it is losses from hosting the content it is forced to. If the red region is larger than the green one, it is unprofitable for the platform to operate at all, and it will rationally shut down rather than comply with a must-carry mandate.
+A partial solution to the third problem is \emph{targeted subsidies}. Here, the government subsidizes content only in the range where subsidies make a difference in the platform's decision of whether to carry it -- between $x^*$ and $x^e$. This reduces the size of the subsidies required, but it increases the difficulty of the regulatory problem, because now the regulator must be able to accurately estimate  $x^*$, and not just know the behavior of $p(x)$ in the neighborhood of $x^e$. The FCC's Universal Service Fund is a targeted subsidy. It helps make broadband Internet access more widely available by supporting its availability to people and communities who for whom it would not otherwise be profitable for telecom companies to provide it.
 
-\begin{pgfecon}{Must-carry from the platform's point of view}{fig:mustcarry2}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \draw[dashed, thin] (8, .75) -- (8, -0.5) node[below]{$x^*$};
-  \draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+\begin{pgfecon}{Targeted subsidies}{fig:subsidies2}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{12}{$s(x)$}
+  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
+  \plotvalue{profit}{.25}{30}{}
+  \draw (10, -2) node {$p(x)$};
+  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75);
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
+  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=4.25:5.55}];
 \end{pgfecon}
+
+Subsidies can also be provided indirectly, by subsidizing the users who create content and distribute it through platforms, and the consumers who receive it. The idea here is that if distribution is more valuable to creators and consumers, they will be willing to pay more to distributors, thus shifting the $p(x)$ curve upwards. There is an argument that the copyright system has some of these features, although it is not typically described in these terms.
+
+\subsection{Overmoderation: Must-Carry}
+
+Another response to overmoderation is to impose a \emph{must-carry} rule, in which the platform must host all content submitted to it. Formally, the regulator forces the platform to set $\hat{x} = \xmax$, i.e. the far right of the diagram. Compared to subsidies, a must-carry system is simpler to design and almost by definition requires less outlay. It also removes discretion from the platform, which may be a concern if the platform has a conflict of interest due to other business lines or does not agree with the regulator's understanding of which content is valuable. Something like this, for example, is a commonly advanced argument for network neutrality.
+
+A must-carry rule, however, must satisfy two conditions to be justified compared with the baseline. First, it must actually result in hosting more worthwhile than worthless content. In \autoref{fig:mustcarry1}, the upper green gridded region is the positive-value content that must-carry causes to be hosted, and the upper red striped region is the negative-value content it also causes to be hosted. If the red region is larger than the green one, must-carry is counter-productive; the bad additional content outweighs the good.\footnote{This analysis omits the investigation option, because it is never rational for a platform to investigate content it is just going to leave up anyway.}
+
+\begin{pgfecon}{Must-carry}{fig:mustcarry1}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{20}{$s(x)$}
+  \plotvalue{profit}{.25}{30}{$p(x)$}
+  \draw[dashed, thin] (4.25, 4) -- (4.25, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (5.9, 3.5) node[above]{$x^e$} -- (5.9, 0) ;
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=4.25:5.9}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.9:10}];
+
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.25}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=4.25:10}];
+  
+\end{pgfecon}
+
+A little more subtly, must-carry can also counter-productively drive a platform out of the market. In \autoref{fig:mustcarry1}, the lower green gridded region is the profit's profits from hosting the content it wants to, and the lower red striped region it is losses from hosting the content it is forced to. If the red region is larger than the green one, it is unprofitable for the platform to operate at all, and it will rationally shut down rather than comply with a must-carry mandate.
+
+\subsection{Overmoderation: Lawful Must-Carry}
+
+One common criticism of must-carry -- especially for application-layer platforms -- is that it compels platforms to carry content that society itself considers harmful, even illegal. So it is common to see must-carry mandates limited to ``lawful'' content. The FCC's Obama-era network neutrality regulations had such a carveout, as do the Texas and Florida social-media must-carry bills whose constitutionality is currently being litigated.\footnote{t/k}
+
+We can model a \emph{lawful must-carry} rule by stating that the platform \emph{must} host all harmless content, but has discretion whether or not to host harmful content. Of course, to know with certainty whether content is harmless, the platform must investigate it. Thus, under lawful must-carry, the platform has two choices: it can either leave the content up without investigation, or it can investigate it and take it down if harmful. 
+
+As \autoref{fig:mustcarry2} illustrates, the platform's marginal revenue from leaving up is $p(x)$, and its marginal revenue from investigation is $(1 - \lambda(x))p(x) -c $. Thus, the platform finds the two equivalent when $p(x) = \frac{-c}{\lambda(x)}$, which can only occur when the platform's profit $p(x)$ has gone negative. The intersection of these two curves (if they meet at all), which we call $\xsubi$, is to the right of $x^*$. To the left of $\xsubi$, the platform leaves up content, so its profits and social welfare are as above. But to the right of $\xsubi$, the platform investigates all content and takes down all harmful content. Compared with a flat must-carry requirement, the platform can reduce its losses from the content it is compelled to carry, and thus may be better able to keep operating in the face of a lawful must-carry requirement.
+
+Lawful must-carry can also be better for social welfare, because the platform will filter out some content that is both harmful and unprofitable.  \autoref{fig:mustcarry2} shows that the welfare effects can be subtle and complex. $\xsubi$ creates a discontinuity. To the left, social welfare is the benefits of all content $s(x)$ minus the harms of all content $H\lambda(x)$. To the right, 
+investigation eliminates the harms $H\lambda(x)$ but introduces two new costs: the cost of foregone benefits from removed harmful content $s(x)\lambda(x)$ and the costs of investigation $c$. 
+
+\begin{pgfecon}{Lawful must-carry}{fig:mustcarry2}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  %\plotline{hcline}{4.5}{$H - c$}
+  %\plotline{cline}{-.5}{$-c$}
+  \plotvalue{profit}{.5}{30}{$p(x)$}
+  \plotvalue{welfare}{4.5}{20}{$s(x)$}
+  \draw[dashed, thin] (5.4, 3.6)  -- (5.4, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (6.5, 3.2) node[above]{$x^e$} -- (6.5, 0) ;
+  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
+    
+  %\draw[domain = 2.5:10, samples=200, name path = lowerlimit] plot (\x,{-5/\x}) node[right]{$\frac{-c}{\lambda(x)$};
+  
+  \draw[domain = 0:10, samples=200, name path = filterprofit] plot 
+  (\x,{-.5 + (1 - (\x/10)) * (\x < 1.5 ? .5 : 
+   (\x < 6.5 ? .5 - (\x - 1.5)^2 / 30 : 
+   .5 - (25 / 30) - (10 * (\x - 6.5)) / 30 ))}) node[right]{$(1 - \lambda(x))p(x) -c$};
+
+  \draw[domain = 0:10, samples=200, name path = filterwelfare] plot 
+  (\x,{.5 + (\x / 10) * (\x < 1.5 ? 4.5 : 
+   (\x < 6.5 ? 4.5 - (\x - 1.5)^2 / 20 : 
+   4.5 - (25 / 20) - (10 * (\x - 6.5)) / 20 ))}) node[right]{$s(x)\lambda(x) + c$};
+  
+   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.4}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=5.4:7.5}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and filterprofit, soft clip={domain=7.5:10}];
+      
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=5.4:6.5}];   
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=6.5:7.5}];
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and filterwelfare, soft clip={domain=7.5:8}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = filterwelfare and welfare, soft clip={domain=8:10}];
+    
+\end{pgfecon}
+
+\subsection{Undermoderation: Strict Liability}
+
+We have seen that strict liability for platforms is not necessarily efficient. But it is possible to be more precise about how and why.
+
+First, while immunity can lead to overmoderation or undermoderation, strict liability always leads to overmoderation.  The reason is simple. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. This asymmetry between harms (for which it faces liability) and benefits (for which it is not compensated) pushes the platform to to remove more content than an omniscient regulator would.
+
+Second, this overmoderation fundamentally depends on the platform's imperfect information about content. If the platform could costlessly distinguish harmless and harmful content, then strict liability would be efficient, as it would be feasible to expect the platform to separate the two and remove only the harmful content. But given imperfect information, the platform \emph{cannot tell with certainty} which content is harmless and creates net positive externalities and which content is harmful and creates net negative externalities. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
+
+Thus, our model validates Felix Wu's argument for intermediary immunity. The combination of (1) positive externalities and (2) imperfect information causes a platform subject to strict liability to engage in collateral censorship. The platform has less at stake than an original speaker (positive externalities) and responds by removing good content as well as bad (imperfect information). These conditions are jointly necessary and sufficient; if there are no positive externalities (i.e. $(s(x) = p(x)$ or the platform has perfect information (i.e. $c = 0$), then strict liability is efficient.
+
+It is important to note that the positive externalities here are not just the positive externalities common to all speech. As Wu explains, speech law already provides heightened protections for original speakers -- and yet intermediaries have protections that are higher still.\footnote{Wu at 304.} Speakers have private motivations for speaking: financial, self-expression, reputation-building, community-building, or even revenge. Platforms share their speech but not their motivations.
+
+Platforms also differ from speakers in that speakers generally have much better information about the harmfulness of their speech. A speaker knows whether there is a factual basis for allegations of corruption or harassment; a platform does not. A speaker knows whether they wrote a song themselves or copied it from someone else; a platform does not. In terms of our model, a speaker has $c = 0$ or close to it for their own speech, and thus is much less likely to be chilled from harmless speech by the threat of liability for harmful speech.
+
+Whether social welfare is higher under strict liability or immunity depends on the parameters of the model:  $p(x)$, $s(x)$, $H$, $\lambda(x)$, and $c$. Strict liability always leads to overmoderation; immunity could either undershoot or overshoot the efficient level of moderation. Generally speaking, a blanket immunity regime is most justified when there there are large positive externalities (a large difference between $p(x)$ and $s(x)$), highly imperfect information ($c$ is high and $\lambda(x)$ has a large intermediate region that is not close to $0$ or to $1$), and socially harmful content is also unprofitable ($p(x) = 0$ at a point to the left of the point at which $s(x) = H\lambda(x)$). There is a strong argument that these conditions describe many categories of content moderation today.
+
+
+% 
+% negligence
+% - NYT v. Sullivan
+%
+% conditional immunity
+% 
+% notice and takedown
+% 
+% blanket immunity
+% 
+% (pre-230) must-carry OR strict liability
+% 
+% Section 230
+%   and reforms thereof
+% 
+% Section 512
+% 
+% DMA
+
+
+
+
+
 
 
 
