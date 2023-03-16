@@ -210,6 +210,39 @@ A nearly identical analysis applies to a platform's incentives under strict liab
 A little algebraic manipulation shows that the platform's preferred interval of investigation is always \emph{shifted left} from the regulator's preferred interval.\footnote{To be precise, at the lower end \begin{equation*}\frac{c}{H - s(x)} < \frac{c}{H - p(x)},\end{equation*} and at the upper end \begin{equation*}1 - \frac{c}{p(x)} < 1 - \frac{c}{s(x)}.\end{equation*}} Intuitively, because the platform has less at stake, it will be more likely to remove content rather than investigating and also more likely to investigate content rather than leaving it up.
 
 
+\begin{pgfecon}{Platform's profits and social welfare with investigation}{fig:investigate2}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  %\plotline{hcline}{4.5}{$H - c$}
+  %\plotline{cline}{.5}{$c$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \dropline{1.66}{2}{$\underline{x^*}$}
+  \dropline{5.63}{1}{$\overline{x^*}$}
+  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
+
+  
+  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  \addplot [-, name path = investigateprofit, dashed,
+  domain = 0:10,
+  samples = 250] { (1 - (\x/10)) * (
+     \x < 1.5 ? 2 : 
+     (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
+     2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
+  \addplot [-, name path = investigatewelfare, dashed,
+     domain = 0:10,
+     samples = 250] { (1 - (\x/10)) * (
+        \x < 1.5 ? 3.5 : 
+        (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
+        3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
+
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:1.66}];  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:1.66}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
+\end{pgfecon}
 
 
 \autoref{fig:investigate2} shows the platform's profits and social welfare under strict liability when the platform can investigate content. As before, the platform's profits are the green gridded region, and the additional positive externalities for society are the blue dotted region. Beneath the lower limit of investigation $\underline{x^*}$, matters are as before: the platform's marginal profit is $p(x)$ (income) minus $H\lambda(x)$ (expenses) and marginal social welfare is $s(x) - H\lambda(x)$. When $\lambda(x)$ crosses into the region where investigation is optimal, the platform's marginal revenue is now defined by the difference between $p(x)(1 - \lambda(x))$ (income) and $c$ (expenses). Both income and expenses shift discontinuously downward, but total profit is the same. Marginal social welfare discontinuously decreases -- intuitively, because society has more to gain from beneficial content, and would not have started investigating until later. In this region, both profits and welfare decrease faster than they did under leave-it-all-up, as more and more content is removed. But this steeper decrease is more than offset by the fact that costs are now constant at $c$, rather than increasing with $\lambda(x)$. At the upper limit of investigation $\overline{x^*}$, the platform's marignal profit is zero, so it switches to taking all content down, which zeroes out both marginal profit and marginal welfare going forward. Again it is visually apparent that the platform is making different tradeoffs than society -- it would still be socially beneficial at $\overline{x^*}$ for the platform to continue investigating content.
@@ -555,7 +588,73 @@ This is why Section 230(c) is titled ``Protection for `Good Samaritan' blocking 
 
 
 
-%\subsection{Negligence}
+\subsection{Undermoderation: Negligence}
+
+Strict liability is not the only form of liability. Another version, which is modeled on the negligence tort, sets an objective standard of care. If the actor complies with the standard of care, it is not liable, even if harm results. But if the actor's conduct falls beneath the standard of care, it is liable for any resulting harm. Although scholars dispute the extent to which the standard of care in negligence is actually defined mathematically, it is sometimes described in terms of the ``Hand formula,'' $B = PL$. Under this formula, an actor is liable for failure to invest in a precaution that would have prevented a harm if the cost of the precaution $B$ is less than the \emph{ex ante} probability of harm $B$ times the magnitude of the harm $L$.
+
+\begin{pgfecon}{Negligence}{fig:liability4}
+  \lambdaplot
+  \dropline{5}{2.5}{$t$}
+  \dropline{7}{4.35}{$\hat{x}$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=5:7}];
+\end{pgfecon}
+
+In our model, the regulator imposes negligence liability on the platform by setting a threshold $t$. The platform is liable for the full harm resulting from hosting any content with $t > x$, but it is not liable for any harm from content with $x \le t$. \autoref{fig:liability4} illustrates. Note the sharp discontinuity at $t$.
+
+The platform's behavior under a negligence regime is identical to its behavior under strict liability, except that it always chooses to leave content up for $x < t$. Thus the regulator should set $t$ equal to the value of $x$ for which the social benefit of leaving content up is equal to the social benefit of investigation. But this is just the socially optimal lower limit of investigation $\underline{x^e}$. Setting $t$ higher means that the platform will leave up content the regulator would prefer it to investigate (or even take down); setting $t$ lower means that the platform will investigate content the regulator would prefer it to leave up without investigation. 
+
+ \autoref{fig:investigate6} shows the consequences compared with strict liability (\autoref{fig:investigate3}). More importantly, a negligence rule pushes the platform's lower limit of investigation up from $\underline{x^*}$ (where $p(x)$ intersects the lower-limit curve) to $\underline{x^e}$ (where $s(x)$ intersects the lower-limit curve). This is welfare-improving because throughout this range, the value of leaving up ($s(x) - H\lambda(x)$) exceeds the value of investigation ($s(x)(1 - \lambda(x)) - c$). 
+
+There are also distributional consequences. The brown striped region represents uncompensated harm to victims -- this region is not part of the social surplus from content on the platform. But it is part of the platform's profits. Note that this is harm that it is socially optimal not to attempt to prevent -- imposing liability on the platform causes it to inefficiently spend resources investigating.  This is not a case where the platform takes down harmless content in ignorance of its harmless nature (that occurs in at higher values of $x$, at the right of the diagram, beyond the upper-limit curve). It is a case where the platform \emph{spends too much} on investigation under strict liability, and society is better off overall moving the threshold of liability upwards from $0$ (strict liability) to $\underline{x^e}$ (optimal standard of care under negligence).
+ 
+This system is still not efficient. It gets the platform's incentives right at the boundary between leaving up and investigating, but not at the boundary between investigating and taking down. The platform will still spend too little on investigation at that boundary (from the regulator's perspective), taking down harmless content because it is too similar to possibly harmful content. The optimal negligence rule still results in overmoderation.
+
+\begin{pgfecon}{Social welfare under negligence}{fig:investigate6}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  %\plotline{hcline}{4.5}{$H - c$}
+  \plotline{cline}{.5}{$c$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \dropline{1.66}{3.5}{$\underline{x^*}$}
+  \dropline{3}{3.4}{$\underline{x^e}$}
+  \dropline{5.63}{1}{$\overline{x^*}$}
+ % \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
+
+  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  \addplot [-, name path = investigateprofit, dashed,
+  domain = 0:10,
+  samples = 250] { (1 - (\x/10)) * (
+     \x < 1.5 ? 2 : 
+     (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
+     2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
+  \addplot [-, name path = investigatewelfare, dashed,
+     domain = 0:10,
+     samples = 250] { (1 - (\x/10)) * (
+        \x < 1.5 ? 3.5 : 
+        (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
+        3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
+
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3}];  
+  %\addplot [pattern= vertical lines, pattern color = orange] fill between [of = welfare and investigatewelfare, soft clip={domain=1.66:2.16}];
+  %\addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and profit, soft clip={domain=1.66:3}];  
+  %\addplot [pattern= vertical lines, pattern color = orange] fill between [of = welfare and lowerlimit, soft clip={domain=2.16:3}];  
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = lowerlimit and investigatewelfare, soft clip={domain=2.16:3}]; 
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:3}];
+  \addplot [pattern= horizontal lines, pattern color = brown] fill between [of = lambda and axis, soft clip={domain=0:3}];
+
+  %\addplot [pattern= vertical lines, pattern color = orange] fill between [of = cline and axis, soft clip={domain=1.66:3}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and investigateprofit, soft clip={domain=3:5.63}];  
+  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=3:5.63}];  
+  % \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
+  % \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
+\end{pgfecon}
+
+There is an additional challenge. A negligence regime improves on strict liability if the regulator can calculate $s(x)$, $H$, $\lambda(x)$, and $c$ to set the appropriate threshold. This is not necessarily an easy task, because it involves weighing the full benefits and harms of content, the \emph{ex ante} likelihood that given content is harmful, and the cost of investigation to make sure. If the regulator sets $t$ too low, it blends into strict liability. If the regulator sets $t$ too high, it blends into immunity. Negligence is always at least as good as one of these two, but it is not necessarily any better.
+
+An example of a negligence rule in platform law is Section 512(c)(1)(A)(ii), which removes the platform's immunity as to specific content if it is ``aware of facts or circumstances from which infringing activity is apparent'' and fails to remove the content.\footnote{17 U.S.C. § 512(c)(1)(A)(ii).} This exception, known in the caselaw and scholarship as the ``red flag'' provision, is best understood as a judgment that in certain cases, the probability of infringement is high enough to justify removal. In other words, the red flag provision is a negligence-style rule: beyond some threshold $t$ of high likelihood that content is infringing, the platform will be liable for all such infringing content. Caselaw confirms that $t$ is high. It is not enough that the platform is aware in general that some content is infringing; it must be awareness of ``facts that would have made the specific infringement `objectively' obvious to a reasonable person.''\footnote{Viacom v. YouTube at 31.} 
 
 
 % 
@@ -570,8 +669,6 @@ This is why Section 230(c) is titled ``Protection for `Good Samaritan' blocking 
 
 
 % 
-% 
-% (pre-230) must-carry OR strict liability
 % 
 % Section 230
 %   and reforms thereof

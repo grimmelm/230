@@ -18,13 +18,7 @@
 %   \fill[pattern=vertical lines, pattern color=red] (0,0) to (10,0) to (10,5.2) to (0,5.2) to (0,0);
 % \end{econ}
 
-\begin{econ}{Negligence}{fig:liability4}
-  \drawaxes{production}{\$}
-  \harmfunction{harm}
-  \dropline{5}{2.5}{$t$}
-  \dropline{7}{4.35}{$\hat{x}$}
-  \fill[pattern=vertical lines, pattern color=red] (5,2.5) parabola bend (9,5) (7,4.35) to (7,0) to (5,0) to (5,2.5);
-\end{econ}
+
 
 \begin{econ}{Conditional immunity (below threshold)}{fig:liability5}
   \drawaxes{production}{\$}
@@ -139,7 +133,7 @@ Now consider the liability regimes.
 
 If the platform is given a legal incentive to remove harmful content, the best it can do is to remove \emph{all} content beyond a threshold of expected harm, which includes both harmful and harmless content.  A strict liability scheme does not take into account the positive spillover benefits to society of harmless content that \emph{from the platform's perspective} is equally likely \emph{ex ante} to be harmful as the harmful content it removes. 
 
-A negligence regime can do better if the regulator can correctly calculate $P$, $\delta$, $H$, and $\lambda(x)$ to set an appropriate threshold. This is not an easy task! If the regulator sets $t$ incorrectly, then any of blanket immunity, strict liability, or negligence could be the most efficient.\footnote{Prohibition is always worse than strict liability, on the assumption that courts correctly calculate $H$. It can be better or worse than blanket immunity or negligence.}
+
 
 
 
@@ -190,7 +184,7 @@ A model in which the platform can optionally investigate content sheds light on 
 
 First, Section 512(c)(1)(A)(i) removes the platform's immunity as to specific material if it has ``actual knowledge that the material \ldots is infringing''\footnote{17 U.S.C. § 512(c)(1)(A)(i).} and the platform does not ``act[] expeditiously to remove, or disable access to, the material.''\footnote{17 U.S.C. § 512(c)(1)(A)(iii).} One way of looking at this exception is that reflects the intuition that where the platform \emph{has} performed an investigation into specific content, it can remove harmful items without affecting non-harmful items. It does not matter where along the $\lambda(x)$ curve the item falls -- the point is that once the platform has knowledge, it must act. 
 
-Second, Section 512(c)(1)(A)(ii) removes the platform's immunity as to specific content if it is ``aware of facts or circumstances from which infringing activity is apparent'' and fails to remove the content.\footnote{17 U.S.C. § 512(c)(1)(A)(ii).} This exception, known in the caselaw and scholarship as the ``red flag'' provision, is best understood as a judgment that in certain cases, the probability of infringement is high enough to justify removal. In other words, the red flag provision is a negligence-style rule: beyond some threshold $t$ of high likelihood that content is infringing, the platform will be liable for all such infringing content. Caselaw confirms that $t$ is high. It is not enough that the platform is aware in general that some content is infringing; it must be awareness of ``facts that would have made the specific infringement `objectively' obvious to a reasonable person.''\footnote{Viacom v. YouTube at 31.} 
+
 
 Third, Section 512(c)(1)(B) removes the platform's immunity if it ``receive[s] a financial benefit directly attributable to the infringing activity, in a case in which the service provider has the right and ability to control such activity.''\footnote{17 U.S.C. § 512(c)(1)(B).} This standard, which resembles but is not identical in application to the common-law vicarious-infringement standard,\footnote{Reese} is not in theory tied to the platform's knowledge at all. Instead, it is designed to smoke out situations in which a platform that could block infringement has especially bad incentives to turn a blind eye to it. In terms of our model, we think these are situations in which $c$ is small (so that the platform has the ``ability to control'' infringement) and $P$ is large (so that the platform has strong private incentives to allow as much infringement as it can). These are circumstances under which in the absence of liability, the platform might under-invest in investigating likely-to-be-infringing content.
 
