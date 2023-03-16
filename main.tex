@@ -36,8 +36,9 @@
 \usepgfplotslibrary{fillbetween}
 % We will externalize the figures
 \usepgfplotslibrary{external}
-%\tikzexternalize[prefix=figures/]
-\tikzset{external/optimize=false}
+\usepackage{environ}
+\tikzexternalize[prefix=figures/]
+%\tikzset{external/optimize=false}
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{intersections}%, pgfplots.fillbetween}

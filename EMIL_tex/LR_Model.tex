@@ -14,6 +14,8 @@ Imagine the content submitted by users to a platform arranged on a spectrum from
 
 More formally, let the spectrum of content run from $0$ to $\xmax$ and let the marginal profit that the platform can make from hosting the $x$-th unit of content be $p(x)$. To capture the idea that the content is ordered from best to worst, assume that $p(x)$ is weakly decreasing -- i.e. is flat or slopes down as $x$ increases. Content for which $p(x) <0$ generates negative marginal profit -- that is, this content costs the platform more to host than it brings in. The platform chooses a moderation level $\hat{x}$. It hosts all content for which $x \le \hat{x}$ and takes down all content for which $x > \hat{x}$. As Figure \ref{fig:host1} illustrates, the platform's total profit will be the area under the curve $p(x)$ between $0$ and $\hat{x}$. 
 
+
+
 \begin{pgfecon}{A platform chooses its moderation level}{fig:host1}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \dropline{4.28}{1.65}{$\hat{x}$}
@@ -214,7 +216,7 @@ A little algebraic manipulation shows that the platform's preferred interval of 
   \lambdaline
   \plotline{harmline}{5}{$H$}
   %\plotline{hcline}{4.5}{$H - c$}
-  %\plotline{cline}{.5}{$c$}
+  \plotline{cline}{.5}{$c$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \dropline{1.66}{2}{$\underline{x^*}$}
@@ -475,7 +477,7 @@ In terms of our model, the rule in \emph{Stratton Oakmont} puts platforms to a c
   \lambdaline
   \plotline{harmline}{5}{$H$}
   %\plotline{hcline}{4.5}{$H - c$}
-  %\plotline{cline}{.5}{$c$}
+  \plotline{cline}{.5}{$c$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \dropline{1.66}{2}{$\underline{x^*}$}
@@ -510,7 +512,7 @@ In terms of our model, the rule in \emph{Stratton Oakmont} puts platforms to a c
   \lambdaline
   \plotline{harmline}{5}{$H$}
   %\plotline{hcline}{4.5}{$H - c$}
-  %\plotline{cline}{.5}{$c$}
+  \plotline{cline}{.5}{$c$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
@@ -655,6 +657,28 @@ This system is still not efficient. It gets the platform's incentives right at t
 There is an additional challenge. A negligence regime improves on strict liability if the regulator can calculate $s(x)$, $H$, $\lambda(x)$, and $c$ to set the appropriate threshold. This is not necessarily an easy task, because it involves weighing the full benefits and harms of content, the \emph{ex ante} likelihood that given content is harmful, and the cost of investigation to make sure. If the regulator sets $t$ too low, it blends into strict liability. If the regulator sets $t$ too high, it blends into immunity. Negligence is always at least as good as one of these two, but it is not necessarily any better.
 
 An example of a negligence rule in platform law is Section 512(c)(1)(A)(ii), which removes the platform's immunity as to specific content if it is ``aware of facts or circumstances from which infringing activity is apparent'' and fails to remove the content.\footnote{17 U.S.C. § 512(c)(1)(A)(ii).} This exception, known in the caselaw and scholarship as the ``red flag'' provision, is best understood as a judgment that in certain cases, the probability of infringement is high enough to justify removal. In other words, the red flag provision is a negligence-style rule: beyond some threshold $t$ of high likelihood that content is infringing, the platform will be liable for all such infringing content. Caselaw confirms that $t$ is high. It is not enough that the platform is aware in general that some content is infringing; it must be awareness of ``facts that would have made the specific infringement `objectively' obvious to a reasonable person.''\footnote{Viacom v. YouTube at 31.} 
+
+
+\subsection{Undermoderation: Conditional Immunity}
+
+A hybrid of strict liability and immunity is \emph{conditional immunity}. Informally, the platform is immune  provided that it keeps total harm small enough. Formally, the regulator sets a harm threshold $t$. If the total harm caused by the content the platform hosts is less than $t$, the platform's liability is zero (\autoref{fig:conditional1}). But if the total harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those that by themselves are beneath the threshold (\autoref{fig:conditional2}).
+
+\begin{pgfecon}{Conditional immunity (below threshold)}{fig:conditional1}
+  \lambdaplot
+  \dropline{5}{2.5}{$t$}
+  \dropline{4.1}{1.5}{$\hat{x}$}
+\end{pgfecon}
+
+\begin{pgfecon}{Conditional immunity (above threshold)}{fig:conditional2}
+  \lambdaplot
+  \dropline{5}{2.5}{$t$}
+  \dropline{5.9}{3.5}{$\hat{x}$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=5:5.9}];
+\end{pgfecon}
+
+An example of conditional immunity is the repeat-infringer provision of Section 512. To be eligible for the safe harbor at all, a platform must ``adopt[] and reasonably implement[] \ldots a policy that provides for the termination in appropriate circumstances of \ldots repeat infringers.''\footnote{17 U.S.C. § 512(i)(1)(A).} If a platform doesn't do a good enough job at removing content posted by repeat infringers, it is not eligible for the safe harbor at all, even for material posted by others.
+
+Both negligence and conditional immunity use a threshold to shape the platform's liability. But they do so in different ways. Negligence imposes liability for \emph{specific content} that exceeds the threshold. Conditional immunity imposes liability for \emph{all content} if total harm exceeds the threshold.
 
 
 % 

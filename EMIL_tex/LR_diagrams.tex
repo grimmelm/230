@@ -14,7 +14,7 @@
   \end{figure}
 }
 
-\newenvironment{pgfecon}[2]
+\NewEnviron{pgfecon}[2]
 {
   \begin{figure}[h]
   \centering
@@ -34,8 +34,7 @@
 	  clip=false
   ]
   \path[name path=axis] (0,0) -- (10,0);
-}
-{
+  \BODY
   \end{axis}
   \end{tikzpicture}
   \end{figure}
