@@ -4,6 +4,7 @@
 \newcommand{\xsubi}{x_{\text{I}}^*}
 
 \section{An Economic Model of Moderation}
+\label{sec:model}
 
 There are two distinctive features of platform liability for harmful third-party content. The platform has \emph{imperfect information} about which content is harmful and which is not, and  content can have \emph{positive externalities} not captured by the platform itself, and  These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the thread of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content. To see how these effects arise, it is useful to start with a model in which they are absent.
 
@@ -23,6 +24,7 @@ More formally, let the spectrum of content run from $0$ to $\xmax$ and let the m
   % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
   % \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.28}];
+  
 \end{pgfecon}
 
 In this situation, a rational platform will choose the value of $\hat{x}$ that maximizes its profits. As Figure \ref{fig:host2} illustrates, this occurs at the point $x^*$ where $p(x)$ crosses the $x$ axis and becomes negative. If the platform chooses $hat{x}$ to the left of $x^*$, each unit of content it adds will generate positive marginal profit, so it could make more money by hosting more content. But if the platform chooses $hat{x}$ to the right of $x^*$, the marginal unit of content generates negative marginal profit, so the platform can save money by hosting less content. Thus, $x^*$ is the profit-maximizing level of moderation. 
@@ -76,6 +78,16 @@ To capture this point, we now shift from models in which it is the \emph{harmful
 Now, the platform does not know which specific items of content are harmful. Instead, it observes the probability $\lambda(x)$ that a given item of content is harmful. That is, on average, $\lambda(x)$ of the items of content at $x$ are harmful and $1 - \lambda(x)$ of them are harmless. Since the harmful items cause harm $H$ per unit, the expected harm from hosting the content at $x$ is therefore $H\lambda(x)$ per unit.
 
 As before, assume that the same spectrum from  $0$ to $\xmax$ that describes the platform's profits from content also describes the harm from content, except that now what varies is the probability of harm.  That is, $\lambda(x)$ is weakly increasing -- as one moves right along the $x$ axis, the content is increasingly likely to be harmful. It is also useful to assume that the most innocuous content is known with certainty to be harmless, so $\lambda(0) = 0$, and that the most suspicious content is known with certainty to be harmful, so $\lambda(\xmax) = 1$. As before, the model is uninteresting if the most ``harmful'' content is still beneficial overall, so we assume that $p(\xmax) H < 0$. This condition ensures that some content has positive social benefit and some content has negative social benefit, so that there is a real interest in treating them differently.
+
+\begin{pgfecon}{Probability of harm}{fig:imperfect1}
+  \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
+  \fill[pattern=sixpointed stars, pattern color=green] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (0,5) to (0,0);
+  \draw[thick] (.425,0) to (.425,5) to (.625,5) to (.625,0) to (.425,0) node[below]{$\lambda = 0$};
+  \draw[thick] (4.025,0) to (4.025,5) to (4.225,5) to (4.225,0) to (4.025,0) node[below]{$\lambda = .3$};
+  \draw[thick] (9.15,0) to (9.15,5) to (9.35,5) to (9.35,0) to (9.15,0) node[below]{$\lambda = 1$};
+\end{pgfecon}
+
+\autoref{fig:imperfect1} illustrates the platform's imperfect information. Think of the content presented to the platform as being divided into buckets. The platform knows what fraction of the content in each bucket is harmful (red five-pointed stars) or harmless (green six-pointed stars). But it does not know which specific items of content (individual stars) are harmful or harmless.
 
 The point of framing harmfulness this way -- in terms of a probability function $\lambda(x)$ that satisfies these conditions -- is that the resulting expected-harm function $H\lambda(x)$ satisfies exactly the same mathematical properties as $h(x)$ did in the previous model. It starts at $0$ and rises continuously to a value $h(\xmax)$ that is greater than $p(\xmax)$. Thus, the analysis of the platform's moderation decisions -- and especially the proof that strict liability is socially optimal -- is exactly the same.
 
@@ -253,6 +265,7 @@ A little algebraic manipulation shows that the platform's preferred interval of 
 
 
 \section{Platform Liability and Platform Immunity}
+\label{sec:liability}
 
 We have already seen that neither blanket immunity nor strict liability is guaranteed to be efficient. This Part provides a comparative analysis of the arguments for and against other liability regimes. The point is not to definitely settle on one or another as optimal, but instead to bring out the intuitions behind each and to get a sense of the conditions they depend on.
 
@@ -661,7 +674,7 @@ An example of a negligence rule in platform law is Section 512(c)(1)(A)(ii), whi
 
 \subsection{Undermoderation: Conditional Immunity}
 
-A hybrid of strict liability and immunity is \emph{conditional immunity}. Informally, the platform is immune  provided that it keeps total harm small enough. Formally, the regulator sets a harm threshold $t$. If the total harm caused by the content the platform hosts is less than $t$, the platform's liability is zero (\autoref{fig:conditional1}). But if the total harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those that by themselves are beneath the threshold (\autoref{fig:conditional2}).
+A hybrid of strict liability and immunity is \emph{conditional immunity}. Informally, the platform is immune  provided that it keeps total harm small enough. Formally, the regulator sets a harm threshold $t$. If the total harm caused by the content the platform hosts is less than or equal to $t$, the platform's liability is zero (\autoref{fig:conditional1}). But if the total harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those that by themselves are beneath the threshold (\autoref{fig:conditional2}).
 
 \begin{pgfecon}{Conditional immunity (below threshold)}{fig:conditional1}
   \lambdaplot
@@ -676,30 +689,25 @@ A hybrid of strict liability and immunity is \emph{conditional immunity}. Inform
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=5:5.9}];
 \end{pgfecon}
 
-An example of conditional immunity is the repeat-infringer provision of Section 512. To be eligible for the safe harbor at all, a platform must ``adopt[] and reasonably implement[] \ldots a policy that provides for the termination in appropriate circumstances of \ldots repeat infringers.''\footnote{17 U.S.C. § 512(i)(1)(A).} If a platform doesn't do a good enough job at removing content posted by repeat infringers, it is not eligible for the safe harbor at all, even for material posted by others.
+An example of conditional immunity is the repeat-infringer provision of Section 512. To be eligible for the safe harbor at all, a platform must ``adopt[] and reasonably implement[] \ldots a policy that provides for the termination in appropriate circumstances of \ldots repeat infringers.''\footnote{17 U.S.C. § 512(i)(1)(A).} If a platform doesn't do a good enough job at removing content posted by repeat infringers, it is not eligible for the safe harbor at all, even for material posted by others. Another example of conditional immunity is Danielle Citron and Benjamin Wittes's proposal to condition Section 230 immunity on the platform's making reasonable efforts to prevent the posting of illegal content.
 
 Both negligence and conditional immunity use a threshold to shape the platform's liability. But they do so in different ways. Negligence imposes liability for \emph{specific content} that exceeds the threshold. Conditional immunity imposes liability for \emph{all content} if total harm exceeds the threshold.
 
+Despite this difference, conditional immunity and negligence have similar incentive effects. Under conditional immunity, the platform in effect has a ``budget'' of harm it can cause without incurring liability. If the platform has the choice of two items of content at $x_1$ and $x_2$ to leave up rather than investigate, where $x_1 < x_2$, it is always better off picking $x_1$, because $H\lambda(x_1) \le H\lambda(x_2)$ (i.e., $x_1$ uses less of the harm budget) and $p(x_1) \ge p(x_2)$ (i.e. $x_1$ makes more profit for the platform). A similar argument shows that if the platform is choosing between two items to investigate rather than take down, it is always better off choosing the one to the left to investigate. And finally, the platform is best off spending all of its budget -- it should leave up content until the total harm equals $t$, and then use investigation and takedown to ensure that no further harm ensues.\footnote{t/k this argument is missing a few steps.}
 
-% 
-% negligence
-% - NYT v. Sullivan?
-%
-% conditional immunity
-% 
+It follows, therefore, that the optimal level threshold level is $t = \int_0^{\underline{x^e}} H\lambda(x) dx$. If the regulator does so, the platform's behavior and social welfare are exactly the same as under negligence.
 
+There are, however, meta-level concerns about conditional immunity. The first is that the calculation problem is more difficult. The regulator must be able evaluate $\lambda(x)$ and $p(x)$ at every point in $[0, \underline{x}]$, not just at $x^e$. A second is that conditional immunity is much more sensitive to errors in this calculation process. Small errors in setting the negligence threshold lead to small changes in the platform's liability. But small errors in setting the conditional immunity threshold can lead to large changes in liability as a platform that thought it qualified for the immunity discovers it did not. The ISP Cox, for example, was hit with a \$1 billion damage award after the court held that its repeat-infringer policy was insufficient to qualify for the Section 512(a) safe harbor. Where a negligence regime acts as a price, a conditional immunity has characteristics of a sanction. Prices are more appropriate when the harm can be quantified but the appropriate level of activity is uncertain.\footnote{Cooter}
 
+\section{Existing and Proposed Laws}
+\label{sect:laws}
 
-
-
-% 
-% 
-% Section 230
+% \subsection{Section 230}
 %   and reforms thereof
 % 
-% Section 512
+% \subsection{Section 512}
 % 
-% DMA
+% \subsection{The Digital Services Act}
 
 
 
