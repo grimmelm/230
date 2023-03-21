@@ -1,0 +1,68 @@
+%
+% This is titling.sty, by Charles Duan.
+%
+% Copyright 2015 Charles Duan. This program is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General Public
+% License as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{titling}[2015/09/19 v1.0 Document title parameters]
+%
+% This package provides for management of document parameters (title, author,
+% etc.) that may be typeset differently in different environments. Each
+% parameter is associated with one or more formatting macros to format that
+% parameter in a particular environment.
+%
+% The content of any parameter is assumed to be stored in a variable
+% \@[parameter-name]. This is consistent with LaTeX's default \@title, \@author,
+% and other such variables.
+%
+% This allows for setting the currently active titling environment.
+\def\titlingenv#1{\def\ttl@env{#1}}
+\titlingenv{normal}
+%
+% Define a titling parameter (#1) for an environment (#2). The definition should
+% follow as a normal macro definition taking one parameter as appropriate.
+\def\titling#1#2{\@namedef{ttl@for@#1@#2}}
+%
+% Convenience method for creating new titling macros.
+\def\newtitling#1{\@namedef{#1}##1{\@namedef{@#1}{##1}}}
+%
+% Uses the specified titling parameter, in the current environment. If the
+% parameter is unset, nothing is output, not even the formatting macro.
+\def\usetitling#1{%
+    \@ifundefined{@#1}{}{%
+        \expandafter\ttl@expand\csname @#1\endcsname{#1}%
+    }%
+}
+%
+% Tests if a titling value exists. If so, perform the first callback; if not,
+% perform the second.
+%
+\def\iftitling#1#2#3{%
+    \@ifundefined{@#1}{#3}{#2}%
+}
+\def\ttl@expand#1#2{%
+    \expandafter\ttl@do\expandafter{#1}{#2}%
+}
+\def\ttl@do#1#2{%
+    \expandafter\ttl@try
+        \csname ttl@for@#2@\ttl@env\endcsname
+        \csname ttl@for@#2@default\endcsname
+        \@iden\@iden
+        \@nil{#1}%
+}
+\def\ttl@try#1#2\@nil#3{%
+    \ifx#1\relax \expandafter\@firstoftwo \else \expandafter\@secondoftwo \fi
+    {\expandafter\ttl@try#2\@nil{#3}}%
+    {\begingroup #1{#3}\endgroup}%
+}
+\endinput

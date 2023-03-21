@@ -1,0 +1,502 @@
+%
+% This is bbtobib.sty, by Charles Duan.
+%
+% Copyright 2021 Charles Duan. This program is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General Public
+% License as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Provides macros for converting bluebook.sty citations into BibLaTeX.
+%
+\ProvidesPackage{bbtobib}[2021/02/26 Bluebook to BibLaTeX conversion]
+\RequirePackage{strings}
+\RequirePackage{etoolbox}
+\RequirePackage[datamodel=bbbl]{biblatex}
+%
+% 
+% Sets the file to be used for output.
+\def\bbBibFile#1{%
+    \newwrite\tf@bib
+    \immediate\openout \tf@bib #1.bib\relax
+}
+\let\tf@bib\relax
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% PROCESSING REFERENCE DEFINITIONS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Hook to inform biblatex of the references used by adding a \nocite command,
+% indicating to Biblatex that the reference should be included in the .bcf file.
+% We patch \bb@draw@sigvolref.
+%
+\apptocmd\bb@pse@sigvolref{%
+    \expandafter\ifx\csname fc@\@this@case\endcsname\fc@this \else
+        \expandafter\nocite\expandafter{\@this@case}%
+    \fi
+}{}{}
+% Hook to output the references. We patch \bb@param@set.
+%
+\pretocmd\bb@param@read{\let\bb@bib@paramlist\@empty}{}{}
+\apptocmd\bb@param@read{\bb@bib@output}{}{}
+%
+% After completion of \bb@param@set, saves the reference to the bibliography
+% file.
+%
+\def\bb@bib@output{%
+    \ifx\tf@bib\relax\else
+        \let\reserved@b\@empty
+        \@expand{\@unbrace{\@tfor\reserved@a:=}}\bb@bib@paramlist i\do{%
+            \@ifundefined{bb@bib@p@\reserved@a}{}{%
+                \protected@edef\reserved@b{%
+                    \reserved@b
+                    \space\space\reserved@a={%
+                        \csname bb@bib@p@\reserved@a \endcsname
+                    },^^J%
+                }%
+                \expandafter\let\csname bb@bib@p@\reserved@a\endcsname \relax
+            }%
+        }%
+        \immediate\write\tf@bib{%
+            @\expandafter\bb@bib@mapkind\expandafter{\bb@kv@kind}{%
+                \@this@case,^^J%
+                \reserved@b
+            }^^J%
+        }%
+    \fi
+}
+%
+% MAPPING REFERENCE TYPES
+%
+% Converts a bluebook reference type to a biblatex reference type.
+%
+\def\bb@bib@mapkind#1{%
+    \@ifundefined{bb@bib@kind@#1}{#1}{\csname bb@bib@kind@#1\endcsname}%
+}
+%
+% Establishes a mapping of bluebook to biblatex reference type.
+%
+\def\bb@bib@map#1#2{%
+    \@namedef{bb@bib@kind@#1}{#2}%
+    \csletcs{def#2}{def#1}%
+}
+\bb@bib@map{jrnart}{article}
+\bb@bib@map{website}{online}
+\bb@bib@map{case}{jurisdiction}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% PROCESSING REFERENCE PARAMETERS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% List of parameters to be included when printing a bibliography reference. This
+% is set to \@empty inside \bb@param@set and then augmented.
+%
+\let\bb@bib@paramlist\relax
+%
+% Hook to output the reference parameters. We patch each \KV@bb@[param] macro.
+%
+\def\do#1#2{%
+    \def\reserved@a##1{%
+        \@namedef{KV@bb@#1}####1{%
+            ##1\bb@bib@doparam{#1}{####1}%
+        }%
+    }%
+    \@expand\reserved@a{\csname KV@bb@#1\endcsname{##1}}{ii}%
+}
+\bb@params
+%
+% Upon setting a parameter in a reference definition, performs the work
+% necessary to have the parameter saved to the Bibtex output. If a macro
+% \bb@bib@param@[parameter] is defined, then that macro is executed with the
+% parameter value as the argument. Otherwise, the default \bb@bib@saveparam
+% macro is run. #1 is the parameter name; #2 the given value.
+%
+\def\bb@bib@doparam#1#2{%
+    %
+    % Only run if we are saving parameters
+    %
+    \ifx\bb@bib@paramlist\relax \else
+        \@ifundefined{bb@bib@param@#1}{%
+            \ifblank{#2}{%
+                %
+                % For blank parameters, if there is a default value then use
+                % that. Otherwise do not output to the .bib file (because biber
+                % will ignore it anyway).
+                %
+                \@ifundefined{KV@bb@#1@default}{}{%
+                    \@expand{\bb@bib@saveparam{#1}}{%
+                        \csname kv@bb@#1@default\endcsname
+                    }{ii}%
+                }%
+            }{%
+                \bb@bib@saveparam{#1}{#2}%
+            }%
+        }{%
+            \csname bb@bib@param@#1\endcsname{#2}%
+        }%
+    \fi
+}
+%
+% Note that the given parameter should be included in the bibliography
+% reference.
+%
+\def\bb@bib@addparam#1{\addto@macro\bb@bib@paramlist{{#1}}}%
+%
+% Save a given value for the parameter. #1 is the parameter; #2 the value. This
+% also notes that the parameter should appear in the bibliography reference.
+%
+\def\bb@bib@saveparam#1#2{%
+    \def\reserved@a{#2}%
+    \expandafter\edef\csname bb@bib@p@#1\endcsname{%
+        \expandafter\strip@prefix\meaning\reserved@a
+    }%
+    \bb@bib@addparam{#1}%
+}
+%
+% These are utility macros for changing how parameters are output to the Bibtex
+% file.
+%
+% Ignore a particular parameter.
+\def\bb@bib@ignore#1{\@namedef{bb@bib@param@#1}##1{}}%
+%
+% Rename a parameter.
+\def\bb@bib@rename#1#2{%
+    \@namedef{bb@bib@param@#1}##1{%
+        \bb@bib@saveparam{#2}{##1}%
+    }%
+}
+%
+% By default, the Bibtex parameter's value is the user's given value, regardless
+% of the Bluebook package's processing. This macro directs the output to be the
+% post-processed value.
+%
+\def\bb@bib@postval#1{%
+    \@namedef{bb@bib@param@#1}##1{%
+        \@expand{\bb@bib@saveparam{#1}}{\csname bb@kv@#1\endcsname}{ii}%
+    }%
+}
+%
+% Like \bb@bib@postval but allows changing the output parameter name (#2).
+%
+\def\bb@bib@postval@rename#1#2{%
+    \@namedef{bb@bib@param@#1}##1{%
+        \@expand{\bb@bib@saveparam{#2}}{\csname bb@kv@#1\endcsname}{ii}%
+    }%
+}
+%
+% For a parameter list #1, adds #2 to the list.
+%
+\def\bb@bib@list@add#1#2{%
+    \@ifundefined{bb@bib@p@#1}{%
+        \bb@bib@saveparam{#1}{#2}%
+    }{%
+        \expandafter\addto@macro\csname bb@bib@p@#1\endcsname{ and #2}%
+    }%
+}
+%
+% For parameter list #1, adds name #2 to the list.
+%
+\def\bb@bib@name@add#1#2{%
+    \bb@namesplit{#2}{\bb@bib@name@addsplit{#1}}%
+}
+%
+% We have to mangle the name parts in order to be approximately compatible with
+% Biblatex expectations. The translation is as follows:
+%
+% - Given name => Biblatex given name
+% - Family name + suffix => Biblatex family name
+% - Institution => Biblatex suffix
+%
+\def\bb@bib@name@addsplit#1#2#3#4#5#6{%
+    \def\reserved@a{given={#2}}%
+    \ifblank{#3}{%
+        % I don't have any way of doing a name suffix with no family name, so we
+        % just pretend that the suffix is the family name
+        \notblank{#4}{\appto\reserved@a{, family={#4}}}{}%
+    }{%
+        \ifblank{#4}{\appto\reserved@a{, family={#3}}}{%
+            \appto\reserved@a{, family={#3 {#4}}}%
+        }%
+    }%
+    \notblank{#5}{\appto\reserved@a{, "suffix={#5}"}}{}%
+    \@expand{\bb@bib@list@add{#1}}\reserved@a i%
+    \ifblank{#6}{}{\bb@bib@list@add{#1}{others}}%
+}
+%
+% Deal with a date parameter. This sets up both the .bib output and the .bbl
+% input. #1 is the prefix to the date parameter name.
+%
+\def\bb@bib@date#1{%
+    \bb@bib@ignore{#1date}% The date parameter is an alias
+    \bb@bib@rename{#1year}{#1datetext}%
+    \@namedef{bb@bib@bbl@#1datetext}{%
+        \expandafter\usefield\csname KV@bb@#1year\endcsname{#1datetext}%
+    }%
+    \@namedef{bb@bib@bbl@#1year}{%
+        \iffieldundef{#1datetext}{%
+            \immediate\write16{For \csfield{entrykey}, #1datetext is undefined}%
+            \edef\reserved@a{%
+                \expandafter\noexpand\csname KV@bb@#1year\endcsname{%
+                    \csname if#1datecirca\endcsname{c. }{}%
+                    \iffieldundef{#1month}{}{%
+                        \usefield\bb@bib@month{#1month}%
+                        \iffieldundef{#1endmonth}{}{%
+                            \iffieldsequal{#1month}{#1endmonth}{}{%
+                                -\usefield\bb@bib@month{#1endmonth}%
+                            }%
+                        }%
+                        \iffieldundef{#1day}{}{%
+                            \space
+                            \csfield{#1day}%
+                            \iffieldundef{#1endday}{}{-\csfield{#1endday}}%
+                            ,%
+                        }%
+                        \space
+                    }%
+                    \csfield{#1year}%
+                    \iffieldundef{#1endyear}{}{%
+                        \iffieldsequal{#1year}{#1endyear}{}{%
+                            -\csfield{#1endyear}%
+                        }%
+                    }%
+                }%
+            }%
+            \immediate\write16{Parsed date as \meaning\reserved@a}%
+            \reserved@a
+        }{}%
+    }%
+}
+\def\bb@bib@month#1{%
+    \ifcase#1\or
+        Jan.\or Feb.\or Mar.\or Apr.\or May\or June\or
+        July\or Aug.\or Sept.\or Oct.\or Nov.\or Dec.\or
+        13\or14\or15\or16\or17\or18\or19\or20\or % Next is 21
+        Spring\or Summer\or Fall\or Winter\or
+        Spring\or Summer\or Fall\or Winter\or % Northern hemisphere
+        Spring\or Summer\or Fall\or Winter\or % Southern hemisphere
+        Spring\or Summer\or Fall\or Winter\or % Southern hemisphere
+        Q1\or Q2\or Q3\or Q4\else ???%
+    \fi
+}
+%
+% INDIVIDUAL PARAMETER MAPPINGS
+%
+\def\bb@bib@param@agency#1{%
+    \bb@bib@saveparam{agency}{#1}%
+    \expandafter\let\csname bb@bib@p@court\endcsname\relax
+}
+\bb@bib@ignore{broadcaster}
+\bb@bib@ignore{bill}
+\bb@bib@ignore{cite}
+\bb@bib@ignore{comment}
+\bb@bib@ignore{docname}
+\bb@bib@ignore{jcite}
+\bb@bib@ignore{kind}
+\bb@bib@ignore{issuer}
+\bb@bib@ignore{journal}
+\bb@bib@ignore{parse}
+\bb@bib@ignore{parties}
+\bb@bib@ignore{producer}
+\bb@bib@ignore{publiclaw}
+\bb@bib@ignore{publno}
+\bb@bib@ignore{sameparties}
+\bb@bib@ignore{serial}
+\bb@bib@ignore{series}
+\bb@bib@ignore{slipop}
+\bb@bib@ignore{sponsor}
+\bb@bib@ignore{src}
+\bb@bib@ignore{state}
+\bb@bib@ignore{volume}
+\bb@bib@ignore{revparties}
+\bb@bib@rename{hyphenation}{hyphenate}
+\bb@bib@rename{name}{title}
+\bb@bib@rename{page}{pages}
+\bb@bib@rename{rep}{journaltitle}
+\bb@bib@rename{inline}{shorttitle}
+\bb@bib@date{}
+\bb@bib@date{orig}
+\bb@bib@date{issue}
+\def\bb@bib@param@author#1{\bb@bib@name@add{author}{#1}}
+\def\bb@bib@param@instauth#1{\bb@bib@list@add{author}{{#1}}}
+\def\bb@bib@param@editor#1{\bb@bib@name@add{editor}{#1}}
+\def\bb@bib@param@insted#1{\bb@bib@list@add{editor}{{#1}}}
+\def\bb@bib@param@to#1{\bb@bib@name@add{to}{#1}}
+\def\bb@bib@param@instto#1{\bb@bib@list@add{to}{{#1}}}
+\def\bb@bib@param@paren#1{\bb@bib@list@add{paren}{{#1}}}
+\def\bb@bib@param@country#1{\bb@bib@list@add{country}{{#1}}}
+\bb@bib@postval{citation}
+\bb@bib@postval{in}
+\bb@bib@postval{reprinted}
+\def\bb@bib@param@vol#1{%
+    \find@in{:}{#1}{%
+        \@tworun{\bb@bib@saveparam{volume}}{\bb@bib@saveparam{issue}}%
+    }{\bb@bib@saveparam{volume}{#1}}%
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% READING FROM BBL
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% Biblatex does not offer a way to collect all the parameters it reads from the
+% .bbl file. So first we patch the necessary methods.
+\apptocmd\blx@bbl@entry{\let\bb@bib@bblparams\@empty}{}{}
+\apptocmd\blx@bbl@fielddef{\listadd\bb@bib@bblparams{#1}}{}{}
+\apptocmd\blx@bbl@namedef{\listadd\bb@bib@bblparams{#1}}{}{}
+\apptocmd\blx@bbl@listdef{\listadd\bb@bib@bblparams{#1}}{}{}
+%
+% Now install a hook performed at the time the .bbl file is read.
+\AtDataInput{%
+    \begingroup
+    \def\bb@param@read#1{%
+        \forlistloop\bb@bib@setparams@do\bb@bib@bblparams
+    }%
+    \edef\reserved@a{%
+        \expandafter\noexpand \csname def\csfield{entrytype}\endcsname
+        {\thefield{entrykey}}{}%
+    }\reserved@a
+    \endgroup
+}
+\def\bb@bib@setparams@do#1{%
+    \@ifundefined{bb@bib@bbl@#1}{%
+        \@ifundefined{KV@bb@#1}{}{%
+            \iffieldundef{#1}{%
+                \PackageWarning\bb@pkgname{%
+                    Field #1 in .bbl file not found%
+                }%
+            }{%
+                \expandafter\usefield\csname KV@bb@#1\endcsname{#1}%
+            }%
+        }%
+    }{%
+        \csname bb@bib@bbl@#1\endcsname
+    }%
+}
+\def\bb@bib@bbl@paren{%
+    \gdef\bb@bib@tmp{}%
+    \indexlist[bbparenprint]{paren}%
+    \bb@bib@tmp
+}
+\DeclareIndexListFormat{bbparenprint}{%
+    \gappto\bb@bib@tmp{%
+        \KV@bb@paren{#1}%
+    }%
+}
+\def\bb@bib@bblnamelist#1#2#3{%
+    \let\bb@bib@bblhummac#2%
+    \let\bb@bib@bblinstmac#3%
+    \ifandothers{#1}{%
+        \gdef\bb@bib@maybeetal{\bb@etal}%
+    }{%
+        \gdef\bb@bib@maybeetal{}%
+    }%
+    \gdef\bb@bib@tmp{}%
+    \indexnames[bbauthprint]{#1}%
+    \bb@bib@tmp
+}
+\def\bb@bib@bbl@author{\bb@bib@bblnamelist{author}\KV@bb@author\KV@bb@instauth}
+\def\bb@bib@bbl@editor{\bb@bib@bblnamelist{editor}\KV@bb@editor\KV@bb@insted}
+\def\bb@bib@bbl@to{\bb@bib@bblnamelist{to}\KV@bb@to\KV@bb@instto}
+\DeclareIndexNameFormat{bbauthprint}{%
+    \ifdefvoid\namepartgiven{%
+        % Institutional author.
+        \edef\reserved@a{%
+            \noexpand\bb@bib@bblinstmac{\expandonce\namepartfamily}%
+        }%
+    }{%
+        % Human author.
+        \edef\reserved@a{%
+            \noexpand\bb@bib@bblhummac{%
+                parts:%
+                {\expandonce\namepartgiven}%
+                {\expandonce\namepartfamily}%
+                {\expandonce\namepartsuffix}%
+                {\expandonce\bb@bib@maybeetal}%
+            }%
+        }%
+        \global\let\maybeetal\@empty
+    }%
+    \expandafter\gappto\expandafter\bb@bib@tmp\expandafter{%
+        \reserved@a
+    }%
+}
+%
+\def\bibnamedelima{ }
+\def\bibnamedelimb{ }
+\def\bibnamedelimc{ }
+\def\bibnamedelimd{ }
+\def\bibnamedelimi{ }
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% COMMAND COMPATIBILITY
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This provides some partial compatibility with the biblatex commands \autocite
+% and \autocites.
+%
+\DeclareRobustCommand\autocites{%
+    \bb@pse@acc@reset
+    \bb@pse@bib@read
+}
+\let\autocite\autocites
+\def\bb@pse@bib@read{%
+    \futurelet\@let@token\bb@pse@bib@read@
+}
+\def\bb@pse@bib@read@{%
+    \let\bb@pse@bib@suffix\@empty
+    \@testcase
+    \ifx\@let@token[\fi{\bb@pse@bib@read@oneopt}%
+    \ifx\@let@token\bgroup\fi{\bb@pse@bib@read@ref}%
+    \default{\bb@pse@bib@run}%
+}
+\def\bb@pse@bib@read@oneopt[#1]{%
+    \def\bb@pse@bib@suffix{#1}%
+    \futurelet\@let@token\bb@pse@bib@read@nextopt
+}
+\def\bb@pse@bib@read@nextopt{%
+    \@test\ifx\@let@token[\fi{\bb@pse@bib@read@twoopts}{\bb@pse@bib@read@ref}%
+}
+\def\bb@pse@bib@read@twoopts[#1]{%
+    % Suffix is actually prefix
+    \expandafter\bb@pse@bib@parseprefix\bb@pse@bib@suffix~\@stop
+    \def\bb@pse@bib@suffix{#1}%
+    \bb@pse@bib@read@ref
+}
+\def\bb@pse@bib@parseprefix#1~#2\@stop{%
+    \bb@pse@acc@add\@gobble{#1}{}%
+}
+\def\bb@pse@bib@read@ref#1{%
+    \bb@pse@acc@addnonblank\@gobble{ }{}%
+    \bb@pse@acc@add\@gobble{#1}{}%
+    \bb@pse@acc@savework\bb@pse@svr
+    \ifx\bb@pse@bib@suffix\@empty
+        \bb@pse@acc@savecite
+    \else
+        \expandafter\bb@pse@state@page\expandafter{\bb@pse@bib@suffix}%
+    \fi
+    \bb@pse@bib@read
+}
+\def\bb@pse@bib@run{%
+    \unskip\footnote{%
+        \@expand{%
+            \bb@draw@citation{\@bb@captrue\@bb@senttrue}{\if@bb@dot\else.\fi}%
+        }\bb@pse@acc@all i%
+    }%
+}
+\endinput

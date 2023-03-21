@@ -1,0 +1,81 @@
+\def\thanks#1{%
+    \begingroup
+        \protected@edef\@thefnmark{*}%
+        \@footnotemark
+        \@footnotetext{#1}%
+    \endgroup
+}
+\def\no@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa>\z@
+    \begingroup
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}%
+  \else
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}%
+  \fi
+  \@xsect{#5}}
+\let\@seccntformat\@gobble
+%
+% Because lawreview.sty defines \part to be another type of section, we take the
+% relevant code for \section etc. from article.4ht and adapt it for \part.
+%
+\let\no@part\part
+\Def:Section\part{\ifnum \c:secnumdepth>\c@secnumdepth\else\thepart\fi}{#1}
+\let\no:part\part
+\def\part{\rdef:sec{part}}
+\Def:Section\likepart{}{#1}
+\let\:likepart\likepart
+\let\likepart\:UnDef
+\long\def\comment#1{\@bsphack\@esphack}
+%
+% \@currentlabel is supposed to be set in \refstepcounter. However, tex4ht for
+% some reason puts \refstepcounter into a group, which means that the label
+% value is lost. Then, \Get:SecAnchor sets \@currentlabel to a different value.
+% The solution I've chosen here is to set \@currentlabel to its correct
+% definition in \Get:SecAnchor, since that avoids having to rewrite two macros.
+%
+\def\Get:SecAnchor#1#2#3{%
+    \bgroup
+        \def\@Roman##1{%
+            \ifcase##1\or I\or II\or III\or IV\or V\or VI\or
+            VII\or VIII\or IX\or X\or XI\or XII\or XIII\or
+            XIV\or XV\or XVI\or XVII\or XVIII\or XIX\or XX\or
+            XXI\or XXII\or XXIII\or XXIV\or XV\or XVI\else
+            \expandafter\uppercase\expandafter{\romannumeral ##1}\fi
+        }%
+        \a:currentlabel
+        \protected@xdef\@currentlabel{%
+            \csname p@#1\expandafter \endcsname \csname the#1\endcsname
+        }%
+    \egroup
+    \xdef\cur:th{x\last:haddr}%
+    \let\:tempa\uppercase \def\uppercase##1{##1}\cur:lbl{}%
+    \let\uppercase\:tempa
+    \edef\:SecAnchor{\cur:th\:currentlabel}%
+}
+\def\p@likesection{\csname p@section\endcsname}
+\def\p@likesubsection{\csname p@subsection\endcsname}
+\def\p@likesubsubsection{\csname p@subsubsection\endcsname}
+\def\thelikesection{\csname thesection\endcsname}
+\def\thelikesubsection{\csname thesubsection\endcsname}
+\def\thelikesubsubsection{\csname thesubsubsection\endcsname}

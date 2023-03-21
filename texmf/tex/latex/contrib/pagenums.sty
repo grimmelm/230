@@ -1,0 +1,99 @@
+%
+% This is pagenums.sty, by Charles Duan.
+%
+% Copyright 2015 Charles Duan. This program is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General Public
+% License as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{pagenums}[2015/12/14 v0.1 PDF page numbering]
+%
+\newcount\pagenums@totalcount
+\newcount\pagenums@lastpage \pagenums@lastpage=-100
+\newif\ifpagenums@changed \pagenums@changedfalse
+\def\pagenums@labels{}
+\def\reserved@a#1\shipout\vbox#2#3\@stop{%
+    \reserved@b{#1}{#3}#2\@stop
+}
+\def\pagenums@makehead#1{%
+    \ifx#1\@empty\else\ifx#1\relax\else
+        \ifx#1\pagenums@head#1\else\ifx#1\pagenums@foot#1\else
+            \leavevmode
+            \special{pdf:code /Artifact BMC}%
+            #1%
+            \special{pdf:code EMC}%
+        \fi\fi
+    \fi\fi
+}
+\def\pagenums@head{\pagenums@makehead\@oddhead}
+\def\pagenums@foot{\pagenums@makehead\@oddfoot}
+\let\@thehead\pagenums@head
+\let\@thefoot\pagenums@foot
+\def\reserved@b#1#2#3\reset@font#4\@stop{%
+    \def\@outputpage{%
+        #1%
+        \pagenums@update
+        \shipout\vbox{%
+            #3%
+            \let\@theorighead\@thehead \let\@theorigfoot\@thefoot
+            \def\@thehead{%
+                \pagenums@makehead\@theorighead
+            }%
+            \def\@thefoot{%
+                \pagenums@makehead\@theorigfoot
+            }%
+            \reset@font
+            #4%
+        }%
+        #2%
+    }%
+}
+\expandafter\reserved@a\@outputpage\@stop
+\def\reserved@a#1\@stop{%
+    \def\pagenumbering##1{%
+        \pagenums@settype{##1}%
+        #1%
+    }%
+}
+\def\pagenums@settype#1{%
+    \global\pagenums@changedtrue
+    \global\def\pagenums@curtype{\@nameuse{pagenums@type@#1}}%
+}
+\def\pagenums@type@arabic{D}
+\def\pagenums@type@roman{r}
+\def\pagenums@type@Roman{R}
+\def\pagenums@type@alph{a}
+\def\pagenums@type@Alph{A}
+\pagenums@settype{arabic}
+\expandafter\reserved@a\pagenumbering{#1}\@stop
+\def\pagenums@update{%
+    \begingroup
+        \global\advance\pagenums@lastpage\@ne
+        \ifnum\pagenums@lastpage=\c@page\else \pagenums@changedtrue \fi
+        \ifpagenums@changed
+            \xdef\pagenums@labels{%
+                \pagenums@labels
+                \the\pagenums@totalcount<</St \the\c@page/S/\pagenums@curtype>>
+            }
+            \global\pagenums@lastpage=\c@page
+        \fi
+        \global\advance\pagenums@totalcount\@ne
+        \global\pagenums@changedfalse
+    \endgroup
+}
+\AtEndDocument{%
+    \immediate\write\@auxout{%
+        \special{pdf: docview <</PageLabels<</Nums[\pagenums@labels]>> >>}
+    }%
+}
+\def\StartWordCount{\special{pdf:code /XXStartWordCount MP}}
+\def\EndWordCount{\special{pdf:code /XXEndWordCount MP}}
+\endinput

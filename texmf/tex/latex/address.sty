@@ -1,0 +1,206 @@
+%
+% address.sty
+%
+% Manages addresses in a TeX document, using the titling package.
+%
+\ProvidesPackage{address}[2021/11/05 v1.0 Address management]
+%
+\RequirePackage{titling,keyval,etoolbox}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DATA STRUCTURES
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% List of all the keys. Will be filled out with \addr@create@key
+\def\addr@all@keys{}
+%
+% Runs #1 with each address key as a callback.
+\def\addr@each@key#1{%
+    \expandafter\addr@each@key@\addr@all@keys\@stop{#1}%
+}
+\def\addr@each@key@#1#2\@stop#3{%
+    #3{#1}%
+    \ifstrempty{#2}{}{\addr@each@key@#2\@stop{#3}}%
+}
+%
+% Keys for address components.
+\def\addr@create@key#1{%
+    \expandafter\addr@create@key@\csname @addr@#1\endcsname{#1}%
+}
+% #1 is the macro; #2 the name
+\def\addr@create@key@#1#2{%
+    \addto@macro\addr@all@keys{#1}%
+    \define@key{addr}{#2}{\def#1{##1}}%
+}
+\addr@create@key{name}
+\addr@create@key{firm}
+\addr@create@key{address}
+\addr@create@key{addressii}
+\addr@create@key{city}
+\addr@create@key{state}
+\addr@create@key{zip}
+\addr@create@key{phone}
+\addr@create@key{fax}
+\addr@create@key{email}
+\define@key{addr}{csz}{\addr@csz#1\@stop}
+\def\addr@csz#1, #2 #3\@stop{%
+    \def\@addr@city{#1}%
+    \def\@addr@state{#2}%
+    \def\@addr@zip{#3}%
+}
+\define@key{addr}{copy}{%
+    \@ifundefined{address@#1}{%
+        \PackageError{address}{%
+            Cannot copy address `#1'; it is undefined%
+        }{Define it}%
+    }{%
+        \expandafter\expandafter\expandafter\addr@copy
+            \csname address@#1\endcsname\@stop
+    }%
+}
+%
+% #1 is \def, #2 is the address field macro, #3 is the definition, and #4 is the
+% trailing definitions.
+\def\addr@copy#1#2#3#4\@stop{%
+    \iffield@#3\@stop{\def#2{#3}}{}%
+    \ifstrempty{#4}{}{\addr@copy#4\@stop}%
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CREATING A NEW ADDRESS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Defines an address. #1 is the address nickname; #2 is the set of key-value
+% parameters for the address.
+\def\defaddress#1#2{%
+    \begingroup
+        \addr@each@key{\addr@reset{#1}}%
+        \setkeys{addr}{#2}%
+        \def\reserved@a{}%
+        \addr@each@key\addr@add
+        \expandafter\global\expandafter\let
+            \csname address@#1\endcsname
+            \reserved@a
+    \endgroup
+}
+%
+% Reset an address parameter. #1 is the address nickname; #2 an address key.
+\def\addr@reset#1#2{%
+    \edef#2{\noexpand\addr@field@unset{#1}{#2}}%
+}
+\def\addr@field@unset#1#2{%
+    \PackageWarning{address}{Key \string#2\space undefined for #1}%
+    \textbf{???}%
+}
+%
+% Add a parameter to the address definition. #1 is the address key.
+\def\addr@add#1{%
+    \expandafter\addto@macro\expandafter\reserved@a\expandafter{%
+        \expandafter\def\expandafter#1\expandafter{#1}%
+    }%
+}
+%
+% Assign a role to an address. #1 is the address; #2 is the role.
+%
+\def\setaddressrole#1#2{%
+    \@ifundefined{address@#1}{%
+        \PackageError{address}{Address `#1' is undefined for role `#2'}{%
+            Define the address%
+        }%
+    }{%
+        %
+        % I think I can just define the role as another address.
+        %
+        \@ifundefined{address@#2}{}{%
+            \PackageWarning{address}{Address role `#2' is already assigned}%
+        }%
+        \@cslet\csname address@#2\endcsname\csname address@#1\endcsname
+    }%
+}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% USING ADDRESS FIELDS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Tests whether we are inside a \useaddress block.
+\newif\if@addr@inside
+%
+% Sets the active address to the given one inside this environment.
+%
+\newenvironment{useaddress}[1]{%
+    \@ifundefined{address@#1}{%
+        \PackageError{address}{Address `#1' undefined in \string\useaddress}{%
+            Define the address%
+        }%
+    }{%
+        \csname address@#1\endcsname
+        \@addr@insidetrue
+        %
+        % Pulls a field from the currently active address. The field is either a
+        % macro of the form \addr@field@#1, or it's the name of a raw field from
+        % above.
+        %
+        \let\addressfield\addr@addressfield
+    }%
+}{}
+%
+% Tests if an address field is defined. (This must be used inside a \useaddress
+% block.)
+%
+\def\iffield#1{%
+    \expandafter\expandafter\expandafter\iffield@
+        \csname @addr@#1\endcsname\@stop
+}%
+\def\iffield@#1#2\@stop#3#4{%
+    \@test\ifx\addr@field@unset#1\fi{#4}{#3}%
+}%
+%
+% Uses an address field, using the titling macros, when outside \useaddress. #1
+% is the address name; the remaining arguments go to \addressfield inside
+% \useaddress.
+\def\addressfield#1{%
+    \begin{useaddress}{#1}\addressfield@
+}
+\newcommand\addressfield@[2][]{%
+    \addr@addressfield[#1]{#2}\end{useaddress}%
+}
+\newcommand\addr@addressfield[2][]{%
+    \ifstrempty{#1}{%
+        \@ifundefined{addr@field@#2}{%
+            \usetitling{addr@#2}%
+        }{\csname addr@field@#2\endcsname}%
+    }{%
+        \iffield{#2}{\addr@addressfield[]{#2}}{#1}%
+    }%
+}
+%
+% Some useful address fields.
+%
+% Provides the full street address.
+%
+\def\addrsep{\\}%
+\def\addr@field@streetaddr{%
+    \addressfield{address}\addrsep
+    \iffield{addressii}{\addressfield{addressii}\addrsep}{}%
+    \addressfield{city}, \addressfield{state} \addressfield{zip}%
+}
+\def\addr@field@full{%
+    \iffield{name}{\addressfield{name}\addrsep}{}%
+    \iffield{firm}{\addressfield{firm}\addrsep}{}%
+    \addressfield{streetaddr}%
+}
+\def\addr@field@nameorfirm{%
+    \iffield{firm}{\addressfield{firm}}{\addressfield{name}}%
+}
+%
+%
+%
+%
+\endinput

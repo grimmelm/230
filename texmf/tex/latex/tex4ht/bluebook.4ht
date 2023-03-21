@@ -1,0 +1,43 @@
+%
+% CROSS REFERENCES
+%
+\NewConfigure{notepos}[1]{\def\a:notepos##1{#1}}
+\Configure{notepos}{#1}
+\def\bb@notepos#1{%
+    \ifnum\csname dfc@#1\endcsname=\c@footnote\else
+        \ifnum\csname dfc@#1\endcsname>\z@
+            \space note~\@expand{\a:notepos}{\csname dfc@#1\endcsname}{ii}%
+        \fi
+    \fi
+}%
+\let\o:bb@xref@parse@make\bb@xref@parse@make
+\def\bb@xref@parse@make#1#2#3#4#5#6{%
+    \o:bb@xref@parse@make{#1}{#2}{\bb:xrefs{#3}}{#4}{#5}{#6}%
+}
+\make@find@in{--}
+\def\bb:xrefs#1{%
+    \find@in{--}{#1}{\bb:xrefs:two}{\a:notepos{#1}}%
+}
+\def\bb:xrefs:two#1#2{%
+    \a:notepos{#1}--\a:notepos{#2}%
+}
+
+%
+% URL BREAKING
+%
+\NewConfigure{urlbreak}{1}
+\NewConfigure{urlnobreakspace}{1}
+\NewConfigure{urlspace}{1}
+\DeclareRobustCommand\bb@url@break{%
+    \a:urlbreak
+}
+\DeclareRobustCommand\bb@url@spacenobreak{%
+    \a:urlnobreakspace
+}
+\DeclareRobustCommand\bb@url@spacebreak{%
+    \a:urlspace
+}
+%
+% TABLE OF AUTHORITIES
+%
+\let\tableofauthorities\relax

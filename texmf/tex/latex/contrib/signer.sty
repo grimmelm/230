@@ -1,0 +1,62 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{signer}[2013/01/29 v0.1 Signature Inserter]
+\RequirePackage{keyval}
+%
+\newcommand\setupsignature[1]{\setkeys{sig}{#1}}
+%
+% Parameters
+%
+\define@key{sig}{image}{\RequirePackage{graphicx}\sig@image#1\sig@stop}
+\define@key{sig}{contents}{\def\sig@contents{#1}}
+\define@key{sig}{left}{\sig@left=#1}
+\define@key{sig}{right}{\sig@right=#1}
+\define@key{sig}{top}{\sig@top=#1}
+\define@key{sig}{bottom}{\sig@bottom=#1}
+%
+% Parameters helpers
+%
+\def\sig@image{\@ifnextchar[\sig@image@{\sig@image@[]}}
+\def\sig@image@[#1]#2\sig@stop{%
+    \def\sig@contents{\includegraphics[#1]{#2}}%
+}
+%
+% Data registers
+%
+\newlength\sig@left
+\newlength\sig@right
+\newlength\sig@top
+\newlength\sig@bottom
+\def\sig@contents{}
+%
+% User commands
+%
+\newcommand\signaturebox{%
+    \leavevmode
+    \vbox{%
+        \kern-\sig@top
+        \vtop{%
+            \hbox{%
+                \kern-\sig@left
+                \lower\sig@bottom\hbox{\sig@contents}%
+                \kern-\sig@right
+            }%
+            \kern-\prevdepth
+        }%
+    }%
+}
+\newcommand\testsignature{\vbox{\hrule\hbox{\vrule\signaturebox\vrule}\hrule}}%
+\@ifclassloaded{letter}{%
+    \long\def\@fixclosing#1\parbox#2#3#4\@nil{%
+        \renewcommand\closing[1]{%
+            #1\parbox{#2}{%
+                \raggedright
+                \ignorespaces ##1\\%
+                \leavevmode\signaturebox \\%
+                \ifx\@empty\fromsig
+                    \fromname
+                \else \fromsig \fi\strut
+            }#4%
+        }%
+    }%
+    \expandafter\@fixclosing\closing{#1}\@nil
+}{}

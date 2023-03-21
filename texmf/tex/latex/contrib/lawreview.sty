@@ -1,0 +1,337 @@
+\ProvidesPackage{lawreview}[2016/05/29 v1.0 Law review format for articles]
+\RequirePackage{strings,titling,setatwid}
+\newif\ifShowComments
+%
+% Section Formatting
+%
+\def\sectionfont{\scshape}
+\renewcommand\part{\lawrev@startsection {part}{0}{\z@}%
+                                   {3.5ex \@plus 1ex \@minus .2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\sectionfont}}
+\renewcommand\section{\lawrev@startsection {section}{1}{\z@}%
+                                   {3.5ex \@plus 1ex \@minus .2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\sectionfont}}
+\renewcommand\subsection{\lawrev@startsection{subsection}{2}{\z@}%
+                                     {3.25ex\@plus 1ex \@minus .2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\itshape}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {3.25ex\@plus 1ex \@minus .2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\centering}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\parindent}%
+                                    {0pt}%
+                                    {-1sp}%
+                                    {\lawrev@para{\textit}}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {0pt}%
+                                       {-1sp}%
+                                       {\lawrev@para{}}}
+\make@find@end{.}
+\def\lawrev@para#1#2{%
+    \begingroup
+        #1{%
+            #2%
+            \find@end{.}{#2}{\@gobble}{.}%
+        }\@\space---\space
+    \endgroup
+}
+\make@find@eq{part}
+\def\@seccntformat#1{%
+    \find@eq{part}{#1}{}{\csname the#1\endcsname.\quad}%
+}
+\renewcommand\thepart{}
+\def\partmark#1{}
+\renewcommand\thesection{\@Roman\c@section}
+\renewcommand\thesubsection{\@Alph\c@subsection}
+\def\p@subsection{\thesection.}
+\renewcommand\thesubsubsection{\@arabic\c@subsubsection}
+\def\p@subsubsection{\p@subsection\thesubsection.}
+%
+% Special titling
+%
+\titling{journal}{header}{\itshape\MakeUppercase}
+\titling{shorttitle}{header}{\itshape\MakeUppercase}
+\newtitling{journal}
+\newtitling{shorttitle}
+\journal{Unpublished Draft}
+\shorttitle{\@title}
+%
+% Table of Contents
+%
+\def\tableofcontents{\@starttoc{toc}\vskip\baselineskip}
+\def\numberline#1{\@ifnotempty{#1}{\hb@xt@\@tempdima{#1.\hfil}}}
+\renewcommand*\l@part{\@dottedtocline{0}{\z@}{2.5em}}
+\renewcommand*\l@section{\@dottedtocline{1}{\z@}{2.5em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2.5em}{2em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{4.5em}{2em}}
+\ifdefined\HCode
+    \let\lawrev@startsection\@startsection
+    \expandafter\endinput
+\fi
+%
+% Special section appearance
+%
+\def\lawrev@startsection#1#2#3#4#5#6{%
+    \if@noskipsec \leavevmode \fi
+    \par
+    \@tempskipa=#4\relax
+    \@afterindenttrue
+    \if@nobreak \everypar{}%
+    \else \addpenalty\@secpenalty\addvspace\@tempskipa \fi
+    \@ifstar{\lawrev@ssect{#3}{#4}{#5}{#6}}%
+            {\@dblarg{\lawrev@sect{#1}{#2}{#3}{#4}{#5}{#6}}}%
+}
+\def\lawrev@sect#1#2#3#4#5#6[#7]#8{%
+    \ifnum #2>\c@secnumdepth
+        \let\@svsec\@empty
+    \else
+        \refstepcounter{#1}%
+        \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+    \fi
+    \@tempskipa #5\relax
+    \fullcenteratwidth{%
+        #6{%
+            \noindent
+            \ifnum #2>\c@secnumdepth\else \@seccntformat{#1}\relax\fi
+            \interlinepenalty \@M #8\@@par
+        }%
+    }%
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+            \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #6{#7}%
+    }%
+    \@xsect{#5}%
+}
+\def\lawrev@ssect#1#2#3#4#5{%
+    \@tempskipa #3\relax
+    \ifdim \@tempskipa>\z@
+        \fullcenteratwidth{%
+            #4{%
+                \noindent
+                \interlinepenalty \@M #5\@@par
+            }%
+        }%
+    \else
+        \def\@svsechd{#4{\hskip #1\relax #5}}%
+    \fi
+    \@xsect{#3}%
+}
+%
+% Figure captions
+%
+\long\def\@makecaption#1#2{%
+    \vskip\abovecaptionskip
+    \sbox\@tempboxa{\itshape #1: #2}%
+    \ifdim \wd\@tempboxa >\hsize
+        \begingroup \itshape #1: #2\par \endgroup
+    \else
+        \global \@minipagefalse
+        \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \vskip\belowcaptionskip
+}
+
+%
+% Page setup
+%
+\RequirePackage{geometry}
+\geometry{%
+    width=5in,height=7.5in,headsep=14pt,
+    marginparwidth=1in,
+}
+\@twosidetrue \@mparswitchtrue
+\flushbottom
+\sloppy
+\parskip=\z@
+\def\reserved@a#1\let\@elt\relax#2\@stop{%
+    \gdef\@makecol{%
+        \setbox\@outputbox\vbox{%
+            \boxmaxdepth\@maxdepth
+            \unvbox\@cclv
+            \ifvoid\footins
+		\ifnum3000<\badness
+		    \immediate\write16{Underfull vbox for page \the\c@page:
+			\the\badness}%
+                    \leaders\vrule width \overfullrule \vfill
+                \fi
+            \else
+                \vfill
+                \vskip\skip\footins
+                \color@begingroup
+                    \normalcolor
+                    \footnoterule
+                    \unvbox\footins
+                \color@endgroup
+            \fi
+        }%
+        \let\@elt\relax
+        #2%
+    }%
+}
+\expandafter\reserved@a\@makecol\@stop
+\def\ps@lawreview{%
+    \let\@oddfoot\@empty\let\@evenfoot\@empty
+    \def\@oddhead{%
+        \titlingenv{header}%
+        \lawrev@evenbox{\righthead]}{\usetitling{shorttitle}}{\thepage}%
+    }%
+    \def\@evenhead{%
+        \titlingenv{header}%
+        \lawrev@evenbox{\thepage}{\usetitling{journal}}{[\lefthead}%
+    }%
+}
+\pagestyle{lawreview}
+\def\lawrev@evenbox#1#2#3{%
+    \setbox\@tempboxa\hbox{#1}\@tempdima=\wd\@tempboxa
+    \setbox\@tempboxa\hbox{#3}\advance\@tempdima-\wd\@tempboxa
+    \hb@xt@\hsize{%
+        #1%
+        \ifdim\@tempdima<\z@ \hskip-\@tempdima\@minus-\@tempdima \fi
+        \hskip 2em \@minus 2em\relax
+        \hfill#2\hfill
+        \hskip 2em \@minus 2em\relax
+        \ifdim\@tempdima>\z@ \hskip\@tempdima\@minus\@tempdima \fi
+        #3%
+    }%
+}
+\def\lawrev@month{%
+  \ifcase\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi
+}
+\def\righthead{\the\year}
+\def\lefthead{\lawrev@month\space\the\day}
+%
+% Title page
+%
+\long\def\reserved@a#1\global\let\thanks\relax#2\@stop{\def\reserved@a##1{#1}}
+\expandafter\reserved@a\maketitle\@stop
+\expandafter\def\expandafter\maketitle\expandafter{\reserved@a{##1}}
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 2em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\bfseries \expandafter\MakeUppercase{\@title} \par}%
+    \vskip 1.5em%
+    {\normalsize
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par%
+      %\vskip .5em%
+      %\@date
+      \par
+    }%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\renewenvironment{abstract}{\par\itshape}{\par\vskip\baselineskip}
+%
+%
+% STAR PAGINATION
+%
+\newcount\c@starpage
+\def\citation#1{\@citation#1\@stop}%
+\make@find@in{ }
+\def\@citation#1 #2 (#3)\@stop{%
+    \gdef\@volume{#1}
+    \gdef\@year{#3}
+    \find@last{ }{#2}{\@twodef\@journal\@page}{%
+        \PackageError{lawreview}{No page found in `#1'}{%
+            You must provide a citation of the form `[vol] [Jrn.] [page]
+            ([year])
+        }%
+    }%
+    \c@starpage=\@page\relax
+    \c@page=\c@starpage
+    \let\thelastmark\@page
+}
+\def\nextpage{%
+    \@tempskipa=\lastskip
+    \ifvmode \@tempskipa=0.67\fontdimen2\font \fi
+    \global\advance\c@starpage\@ne
+    \multiply\@tempskipa\m@ne \divide\@tempskipa\thr@@
+    \leavevmode
+    \marginpar[\hfill\footnotesize *\the\c@starpage]{%
+        \footnotesize *\the\c@starpage
+    }%
+    \mark{\the\c@starpage}%
+    \hskip\@tempskipa
+    \lower.5ex\hb@xt@\z@{\hss$\perp$\hss}%
+    \multiply\@tempskipa\m@ne \multiply\@tempskipa\tw@
+    \hskip\@tempskipa
+    \@ifnextchar[{%
+        \nextpage@
+    }{}%
+}
+\def\nextpage@[#1]{%
+    \ifnum#1=\c@starpage\else
+        \PackageError{lawreview}{%
+            Expected to be on page #1, but actually on page \the\c@starpage
+        }{Check the number of \string\nextpage commands}%
+    \fi
+    \ignorespaces
+}
+\def\ps@lawreviewcite{%
+    \let\@oddfoot\@empty\let\@evenfoot\@empty
+    \def\@oddhead{%
+        \titlingenv{header}%
+        \lawrev@evenbox{\@year]}{\usetitling{shorttitle}}{%
+            *\botmark\xdef\thelastmark{\botmark}%
+        }%
+    }%
+    \def\@evenhead{%
+        \titlingenv{header}%
+        \lawrev@evenbox{%
+            *\thelastmark
+        }{\usetitling{journal}}{[Vol.\ \@volume:\@page}%
+    }%
+}
+\def\starpaginationnote{%
+    \begin{quote}
+        [\textit{%
+            This is a preprint manuscript of a subsequently published article.
+            Star pagination has been inserted reflecting the page numbers in the
+            published journal, to assist in citing specific text within this
+            article. The text is believed to be the same as that in the
+            published article, although this has not been checked carefully. The
+            citations, on the other hand, are formatted according to the
+            author's preferences and likely diverge from the publication.%
+        }]
+    \end{quote}
+}
+% Use this if you have an already paginated article
+%\pagestyle{lawreviewcite}
+%
+% COMMENTS
+%
+\ShowCommentstrue
+\newcommand\comment[1]{%
+    \ifShowComments
+        *\marginpar{\tiny *#1}%
+    \else
+        \@bsphack\expandafter\@esphack
+    \fi
+}
+\DeclareOption{flushheadings}{\let\lawrev@startsection\@startsection}
+\ProcessOptions
+%
+% FOOTNOTES
+%
+\renewcommand\@makefntext[1]{%
+    \leftskip 2em\relax
+    \parindent 1em\relax
+    \parskip=0.2\baselineskip
+    \vskip\z@
+    \noindent
+    \llap{\hb@xt@\leftskip{\@thefnmark.\hfil}}#1%
+}
+\endinput

@@ -1,0 +1,196 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fsa-head}[2009/07/18 v0.1 FSA reimbursement]
+\RequirePackage[margin=.25in,noheadfoot]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{times}
+\RequirePackage{helvet}
+\RequirePackage[normalem]{ulem}
+\pagestyle{empty}
+\parindent\z@
+\newcommand\header[2]{%
+    \par
+    \hbox to \hsize{%
+        \setbox0=\hbox{\includegraphics[width=2.25in]{standard/conexis.jpg}}%
+        \raise\baselineskip\hbox{\lower\ht0\box0}%
+        \hfill \vtop{\hsize=.5\textwidth\bfseries
+            \hbox to \hsize{\hfill Request for Reimbursement}
+            \hbox to \hsize{\hfill Health Flexible Savings Account}
+        }%
+    }%
+    \vskip\baselineskip
+}
+\def\infoline#1#2#3#4{%
+    \hbox to #1{%
+        \small
+        \vrule height 1.7\baselineskip depth .3\baselineskip width 0pt\relax
+        \hbox to #2{\textbf{#3:}\hfill}%
+        \rlap{\textsf{#4}}%
+        \leaders\hrule depth 2.5pt height -2pt\hfill
+    }%
+}
+\def\infobox#1#2#3{%
+    \vbox{%
+        \nointerlineskip
+        \def\reserved@a{#2}\ifx\reserved@a\@empty
+            \vskip 2pt
+        \else
+            \vskip 6pt
+            \hb@xt@#1{\footnotesize #2\hfil\strut}%
+        \fi
+        \hrule
+        \vtop{%
+            \hb@xt@#1{%
+                \vrule\hskip 6pt minus 5pt
+                \textsf{\textbf{\ignorespaces#3}}\hfil\strut
+                \hskip 6pt minus 5pt\relax\vrule
+            }%
+            \hrule
+        }%
+    }%
+}
+\def\sectionhead#1{\vskip\baselineskip\uline{\textbf{\small#1}}\par}
+\def\employeeinfo{%
+    \sectionhead{Employee Information}
+    \infoline{\textwidth}{1in}{Employer Name}{Knobbe Martens Olson \& Bear LLP}
+    \@tempdima=\textwidth\advance\@tempdima-3.25in
+    \hbox to \textwidth{%
+        \infoline{\@tempdima}{1in}{Employee Name}{Charles Duan}%
+        \hfill
+        \infoline{3in}{1.5in}{Account Number / SSN}{0401076177}%
+    }%
+    \hbox to \textwidth{%
+        \infoline{\@tempdima}{1in}{Street Address}{2801 Alton Pkwy Apt 412}%
+        \hfill
+        \infoline{3in}{1.5in}{Daytime Phone Number}{(617) 359--8088}%
+    }%
+    \@tempdima=\textwidth\advance\@tempdima-2.75in
+    \hbox to \textwidth{%
+        \infoline{\@tempdima}{1in}{City}{Irvine}%
+        \hfill
+        \infoline{.75in}{.375in}{State}{CA}%
+        \hfill
+        \infoline{1.5in}{.625in}{Zip Code}{92606}%
+    }%
+    \vskip\baselineskip
+    \textbf{\small Do you want to know if CONEXIS received and processed your
+    claim? Please provide your e-mail address:}\par
+    \infoline{\textwidth}{1in}{E-mail address}{charles.duan@kmob.com}
+    \vskip .3\baselineskip
+}
+\newif\if@started@claims
+\newcount\total@dollars
+\newcount\total@cents
+\def\claim
+Category:#1
+Patient First Name:#2
+Date of Service:#3/#4/#5
+Requested Amount:#6.#7
+\done{%
+    \if@started@claims\else
+        \begin{tabular*}{\textwidth}{|p{1.5in}|p{1in}|p{1in}|r|l@{\extracolsep{\fill}}l|}
+        \hline
+        \footnotesize\textbf{Patient Name} &
+        \footnotesize\textbf{Service Start Date} &
+        \footnotesize\textbf{Service End Date} &
+        \footnotesize\textbf{Amount Requested} &
+        \footnotesize\textbf{Claim Type} &\\
+        \hline
+    \fi
+    \footnotesize #2 &
+    \footnotesize #3/#4/#5 &
+    \footnotesize #3/#4/#5 &
+    \footnotesize \$#6.#7 &
+    \global\advance\total@dollars#6\relax
+    \global\advance\total@cents#7\relax
+    \footnotesize #1 &\\
+    \hline
+}
+\def\claimtotal{%
+    \multicolumn{3}{r}{\textbf{\footnotesize Total Amount Requested:}} &
+    \multicolumn{1}{r}{\textbf{\textsf{\footnotesize
+        \loop\ifnum99<\total@cents
+            \advance\total@dollars\@ne
+            \advance\total@cents-100\relax
+        \repeat
+        \$\the\total@dollars.\ifnum10>\total@cents0\fi\the\total@cents\quad\strut
+    }}} &
+    \multicolumn{1}{l}{} \\
+    \end{tabular*}
+}
+\def\support
+EOB:#1
+Bills:#2
+\done{%
+    \sectionhead{Supporting Documentation}%
+    \small
+    \leavevmode
+    \infobox{1.5em}{}{#1}\quad I have attached copies of Explanation of Benefits
+    (EOBs) for deductible and coinsurance requests.
+    \par
+    \leavevmode
+    \infobox{1.5em}{}{#2}\quad I have attached itemized bills for any expenses not
+    covered by medical, dental, or vision insurance.
+    \par
+}
+\def\certification{%
+    \sectionhead{Employee Certification}%
+    \begingroup
+    \footnotesize
+    \begin{itemize}
+\item I certify the expenses listed for reimbursement are eligible
+        health care expenses under the Internal Revenue Code and my employer’s
+        Flexible Benefits Plan (``Plan'');
+\item I certify the services listed above
+        have been received by me, my spouse, or my dependent on the plan on the
+        dates indicated;
+\item I certify these expenses have not been submitted
+        previously for reimbursement under the Plan and such items have not and
+        will not be covered by any other plan or program of any employer or
+        other person;
+\item I certify the services listed above were not purchased
+        with my CONEXIS Benefit Card (if applicable);
+\item I understand my employer
+        does not accept responsibility for direct payment to any individuals
+        other than the employee;
+\item I understand the expenses reimbursed may not be
+        used to claim any federal income tax deduction or credit;
+\item I understand
+        any unused contributions will be forfeited to my employer at the end of
+        the plan year;
+\item I understand that I may be required to provide further
+        details about some expenses, including a statement from a medical
+        practitioner certifying that the expense is for a specific medical
+        condition;
+\item If my employer has adopted a grace period, I understand
+        eligible expenses incurred and approved during a grace period will be
+        paid first from any available amounts remaining in the plan year to
+        which the grace period applies and then from the current plan year. If
+        claims are submitted out of order, CONEXIS will provide a one-time
+        reallocation at the end of the run-out period;
+\item In the event of an
+        erroneous or excess reimbursement, I understand I am required to
+        reimburse the Plan for the improperly paid amount. 
+    \end{itemize}
+    \endgroup
+}
+\def\signature#1{%
+    \par
+    \vskip\baselineskip
+    \hb@xt@\hsize{%
+        \vbox{%
+            \hb@xt@0.6\hsize{#1\hfil}%
+            \vskip 2pt
+            \hrule
+            \vskip 2pt
+            \hbox{\small\textbf{Employee Signature}}%
+        }%
+        \hfill
+        \vbox{%
+            \hb@xt@0.35\hsize{\textsf{\textbf{\today}}\hfil}%
+            \vskip 2pt
+            \hrule
+            \vskip 2pt
+            \hbox{\small\textbf{Date}}
+        }%
+    }%
+}

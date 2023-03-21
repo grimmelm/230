@@ -1,0 +1,82 @@
+%
+% Usage: \linespace
+%
+% Puts a blank space between paragraphs. However, when it's near a page
+% boundary, it will put a line to indicate the break across pages.
+%
+\ProvidesPackage{linespace}[2004/03/30 Line space between paragraphs]
+\newskip\linespaceskip
+\def\setlinespace{\linespaceskip=1\baselineskip\@plus0.5\baselineskip}
+\setlinespace
+\def\linespace{%
+    \par
+    \ifdim\parskip>\z@
+        % When \parskip is nonzero, then a linespace will be hard to see absent
+        % some visual marking. The linespace we will use is a linedivider set in
+        % its own non-indented paragraph.
+        \noindent\hbox{\linedivider}\par
+    \else
+        \ifinner
+            % Better be in inner vertical mode
+            \ifhmode\errmessage{You can't use linespace in LR mode.}\fi
+            \vskip\linespaceskip
+        \else
+            % Now we're in outer vertical mode, need to do funny stuff
+            \@outerlinespace
+        \fi
+    \fi
+}
+\def\@outerlinespace{% The par was already inserted
+    \begingroup
+        \@tempdima\pagegoal \advance\@tempdima-\pagetotal
+        \ifdim\@tempdima<2\baselineskip
+            \advance\linespaceskip-\baselineskip % Temporary!
+            \ifdim\@tempdima<\baselineskip
+                % There's not enough space on the current page. See if the
+                % current page can support all the material other than the
+                % divider.
+                \advance\@tempdima\pageshrink
+                \ifdim\@tempdima<\z@
+                    % It cannot fit all the material. Insert a normal
+                    % divider, with a nobreak beforehand (just in case).
+                    \penalty\@M
+                    \advance\linespaceskip\baselineskip
+                    \vskip\linespaceskip
+                \else
+                    % It can fit all the material. Force a break here.
+                    \break
+                    \noindent\hbox{\linedivider}%
+                    \vskip\linespaceskip
+                \fi
+            \else
+                % There's enough space on the current page for the separator
+                \nobreak
+                \vskip\linespaceskip
+                \nobreak
+                \noindent\hbox{\linedivider}%
+                \nobreak
+                \vskip\linespaceskip
+                \break
+            \fi
+        \else
+            \penalty\@M
+            \vskip\linespaceskip
+        \fi
+    \endgroup
+}
+\DeclareOption{stars}{\def\linedivider{\hb@xt@\hsize{\hfil*\quad*\quad*\hfil}}}
+\DeclareOption{widestars}{%
+    \def\linedivider{\hb@xt@\hsize{\hfil*\qquad*\qquad*\hfil}}%
+}
+\DeclareOption{line}{%
+    \def\linedivider{%
+        \raise 0.6\fontdimen5\font\hb@xt@\hsize{\hfil\leaders\hrule\hfil\hfil}%
+    }%
+}
+\DeclareOption{hash}{%
+    \def\linedivider{\hb@xt@\hsize{\hfil\#\hfil}}%
+}
+\DeclareOption{alwaysshow}{\par\def\linespace{\noindent\hbox{\linedivider}\par}}
+\ExecuteOptions{widestars}
+\ProcessOptions\relax
+\endinput

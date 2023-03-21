@@ -1,0 +1,153 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ltrhead}[2009/04/25 v0.1 Letterhead support for letters]
+\RequirePackage{graphicx}
+%
+% Defines a letterhead to be used with letters. Takes two arguments. The first
+% is an image file to be placed at the top left corner of the page, as the
+% letterhead. (It is permitted to leave this blank.) The second argument is a
+% dimension, indicating how much blank space to leave between the top margin and
+% the text of the letter to account for the letterhead.
+%
+\newcommand\letterhead[2]{%
+    %
+    % Don't attempt to center the first page.
+    \let\@texttop\@empty
+    \def\letterhead@image{#1}%
+    \def\letterhead@openingskip{%
+        \vspace*{#2}%
+        % Correct for the fact that the rule made in the first \vspace induced
+        % the addition of \topskip already and consequently pushes the initial
+        % line down by \baselineskip (rather than \topskip, as it should be).
+        \vspace*{-\baselineskip}
+    }%
+    \ifx\letterhead@image\@empty\else
+        \def\letterhead@head{%
+            \vbox to \z@{%
+                % Undo the top margin
+                \vskip-\topmargin\vskip-1in\relax
+                % Ensure that the image goes at the top of the page
+                \hbox{%
+                    % Undo the left margin
+                    \hskip-\oddsidemargin\hskip-1in\relax
+                    % Include the image file
+                    \includegraphics{\letterhead@image}%
+                    \hss
+                }\vss % Make the \vbox appear sizeless
+            }\hss % Fill in any space required by the header
+        }%
+    \fi
+}
+\@onlypreamble\letterhead
+%
+% We use \@oddhead to display the letterhead image.
+\def\ps@letterhead{%
+     \let\@oddhead\letterhead@head
+     \def\@oddfoot{\raisebox{-45\p@}[\z@]{%
+        \hb@xt@\textwidth{\hspace*{100\p@}%
+          \ifcase \@ptsize\relax
+             \normalsize
+          \or
+             \small
+          \or
+             \footnotesize
+          \fi
+        \csname fromlocation\endcsname
+        \hfill
+        \csname telephonenum\endcsname
+      }%
+    }\hss}%
+}
+\let\letterhead@head\@empty
+\@ifclassloaded{letter}{%
+    %
+    % \opening is modified to take the opening space.
+    \renewcommand*{\opening}[1]{%
+      \letterhead@openingskip
+      \ifx\@empty\fromaddress
+      \thispagestyle{letterhead}%
+        {\raggedleft\@date\par}%
+      \else  % home address
+        \thispagestyle{empty}%
+        {\raggedleft\begin{tabular}{l@{}}\ignorespaces
+          \fromaddress \\*[2\parskip]%
+          \@date \end{tabular}\par}%
+      \fi
+      \vspace{2\parskip}%
+      {\raggedright \toname \\ \toaddress \par}%
+      \vspace{2\parskip}%
+      \noindent#1\par\nobreak}
+    \renewcommand{\closing}[1]{\par\nobreak\vspace{\parskip}%
+      \stopbreaks
+      \noindent
+      \hspace*{.6\textwidth}%
+      \vbox{%
+        \hbox{\ignorespaces #1}%
+        \vbox to 6\medskipamount{%
+            \vss
+            \hbox{\fromsiggraph}%
+            \vskip-\prevdepth
+        }
+        \hbox{%
+            \ifx\@empty\fromsig\fromname\else\fromsig\fi
+        }%
+      }%
+      \par}
+    \newcommand*{\siggraph}[1]{\def\fromsiggraph{#1}}
+    \def\fromsiggraph{}
+    \iffalse
+        \tracingoutput=1
+        \showboxbreadth=100
+        \showboxdepth=100
+    \fi
+    \def\envelope#1{\def\letterhead@envelope{#1}}
+    \newcommand\makeenvelope{%
+        \clearpage
+        \begingroup
+            \pdfpagewidth=9.25in
+            \pdfpageheight=4.125in
+            \hoffset=-0.5in
+            \voffset=-0.5in
+            \hsize=8.75in
+            \vsize=3.125in
+            \vbox to \vsize{%
+                \vskip-0.5in
+                \vbox to \z@{%
+                    \hbox{%
+                        \hskip-0.5in
+                        \includegraphics{\letterhead@envelope}%
+                    }%
+                    \vss
+                }%
+                \vfil\vfil
+                \hbox to \hsize{%
+                    \hfil
+                    \begin{tabular}{l}%
+                        \ifx\toname\@empty\else\MakeUppercase{\toname}\\\fi
+                        \letterhead@uctoaddress%
+                    \end{tabular}%
+                    \hfil
+                }%
+                \vfil
+            }%
+            \clearpage
+        \endgroup
+    }
+    \def\letterhead@uctoaddress{%
+        \tracingmacros=1\relax
+        \expandafter\letterhead@uctoaddress@\toaddress\\%
+        \letterhead@uctoaddress@\\%
+    }
+    \def\letterhead@uctoaddress@#1\\{%
+        \ifx\letterhead@uctoaddress@#1\else
+            \uppercase{\ignorespaces#1\unskip}\\%
+            \expandafter\letterhead@uctoaddress@
+        \fi
+    }
+    \@onlypreamble\envelope
+}{
+    \def\drawletterhead{%
+      \letterhead@openingskip
+      \thispagestyle{letterhead}%
+    }%
+}
+\endinput

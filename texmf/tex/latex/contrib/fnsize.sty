@@ -1,0 +1,38 @@
+\ProvidesPackage{fnsize}[2017/08/04 v1.0 Change footnote size]
+%
+% Macro for footnote size
+%
+\def\fnsize@size{\footnotesize}
+\newdimen\fnsize@addsep
+%
+% Set the footnote size
+%
+\def\fnsize#1{%
+    \def\fnsize@size{#1}%
+    \begingroup
+        \fnsize@size
+        \@tempdima=\baselineskip
+        \advance\@tempdima\fnsize@addsep
+        \advance\@tempdima-\dp\strutbox
+        \global\footnotesep=\@tempdima
+    \endgroup
+}
+%
+% Set the footnote separation
+%
+\def\fnsep#1{%
+    \fnsize@addsep=#1\relax
+    \expandafter\fnsize\expandafter{\fnsize@size}%
+}
+%
+%
+% Patch the footnote command
+%
+\def\reserved@a#1\footins#2#3\@stop{%
+    \reserved@b{#1\footins}{#3}#2\@stop
+}
+\def\reserved@b#1#2#3\footnotesize#4\@stop{%
+    \long\def\@footnotetext##1{#1{#3\fnsize@size#4}#2}%
+}
+\expandafter\reserved@a\@footnotetext{#1}\@stop
+\endinput

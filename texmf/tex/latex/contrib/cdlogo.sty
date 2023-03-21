@@ -1,0 +1,326 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cdlogo}[2013/01/27 v0.1 CD Logo Generator]
+\RequirePackage{keyval}
+%
+% Set up logo parameters
+%
+\newcommand\setuplogo[1]{\setkeys{cdl}{#1}}
+\define@key{cdl}{preamble}{\def\cdl@preamble{#1}}
+%
+% Keyval for text
+%
+\define@key{cdl}{name}{\def\cdl@name{#1}}
+\define@key{cdl}{left}{\def\cdl@leftcontent{#1}}
+\define@key{cdl}{right}{\def\cdl@rightcontent{#1}}
+%
+% Keyval for styles
+%
+\define@key{cdl}{style}{\def\cdl@style{#1}}
+\define@key{cdl}{namestyle}{\def\cdl@namestyle{#1}}
+\define@key{cdl}{font}{\cdl@setfont\cdl@font#1\cdl@stop}
+\define@key{cdl}{namefont}{\cdl@setfont\cdl@namefont#1\cdl@stop}
+\define@key{cdl}{size}{\cdl@setsize\cdl@size#1/0/\cdl@stop}
+\define@key{cdl}{namesize}{\cdl@setsize\cdl@namesize#1/0/\cdl@stop}
+\define@key{cdl}{envelopestyle}{\def\cdl@envelopestyle{#1}}
+%
+% Keyval for lengths
+%
+\define@key{cdl}{rulethickness}{\setlength\cdl@rulethickness{#1}}
+\define@key{cdl}{borderoverflow}{\setlength\cdl@borderoverflow{#1}}
+\define@key{cdl}{vertspace}{\setlength\cdl@vertspace{#1}}
+\define@key{cdl}{horizspace}{\setlength\cdl@horizspace{#1}}
+%
+% Keyval for options
+%
+\define@key{cdl}{aligntext}{\@cdl@aligntexttrue}
+\define@key{cdl}{alignbar}{\@cdl@aligntextfalse}
+%
+% Keyval for letterhead
+%
+\define@key{cdl}{letterheadshift}{\setlength\cdl@ltrheadshift{-#1}}
+\define@key{cdl}{letterheadspace}{\setlength\cdl@ltrheadspace{#1}}
+%
+% Subordinate keyval setups
+%
+\newcommand\setupenvelope[1]{\def\cdl@envelopeparams{\setkeys{cdl}{#1}}}
+\newcommand\setupfooter[1]{\def\cdl@footerparams{\setkeys{cdl}{#1}}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Data holders for text
+%
+\def\cdl@name{}
+\def\cdl@leftcontent{}
+\def\cdl@rightcontent{}
+%
+% Data holders for styles
+%
+\def\cdl@style{}
+\def\cdl@size{}
+\def\cdl@font{}
+\def\cdl@namesize{}
+\def\cdl@namestyle{}
+\def\cdl@namefont{}
+\def\cdl@envelopestyle{}
+\def\cdl@envelopeparams{}
+\def\cdl@footerparams{}
+%
+% Lengths
+%
+\newlength\cdl@rulethickness   \cdl@rulethickness  =.5pt
+\newlength\cdl@borderoverflow  \cdl@borderoverflow =-1pt
+\newskip\cdl@vertspace         \cdl@vertspace      =-1pt
+\newskip\cdl@horizspace        \cdl@horizspace     =-1pt
+\newskip\cdl@ltrheadshift      \cdl@ltrheadshift   =-0.5in
+\newskip\cdl@ltrheadspace      \cdl@ltrheadspace   =2em
+%
+% Options
+%
+\newif\if@cdl@aligntext
+%
+% Helper functions for setting keys
+%
+\def\cdl@setfont#1{%
+    \@ifnextchar[{\cdl@setfont@{#1}}{\cdl@setfont@{#1}[]}%
+}
+\RequirePackage{fontspec}%
+\def\cdl@setfont@#1[#2]#3\cdl@stop{\def#1{\fontspec[#2]{#3}}}
+\def\cdl@setsize#1#2/#3/#4\cdl@stop{%
+    \@tempcnta=#3\relax
+    \ifnum\@tempcnta=\z@
+        \@tempcnta=#2\relax
+        \multiply\@tempcnta 12
+        \divide\@tempcnta 10
+        \edef#1{\noexpand\fontsize{#2}{\the\@tempcnta}\noexpand\selectfont}%
+    \else
+        \def#1{\fontsize{#2}{#3}\selectfont}%
+    \fi
+}
+%
+%
+\AtBeginDocument{%
+    %
+    % Make sure that all the lengths are set.
+    %
+    \ifnum\cdl@borderoverflow<\z@
+        \ifnum\cdl@\vertspace<\z@
+            \ifnum\cdl@horizspace<\z@
+                \PackageError{cdlogo}{None of the space parameters are set}{%
+                    At least one of borderoverflow, vertspace, and horizspace
+                    must be set
+                }%
+                \cdl@horizspace=6pt
+            \fi
+            \@cdl@borderoverflow=\cdl@horizspace
+            \cdl@vertspace=\cdl@borderoverflow
+        \else
+            \cdl@borderoverflow=\cdl@vertspace
+            \ifnum\cdl@horizspace<\z@ \cdl@horizspace=\cdl@borderoverflow \fi
+        \fi
+    \else
+        \ifnum\cdl@vertspace<\z@ \cdl@vertspace=\cdl@borderoverflow \fi
+        \ifnum\cdl@horizspace<\z@ \cdl@horizspace=\cdl@borderoverflow \fi
+    \fi
+}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% USER COMMANDS
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Function to make the logo.
+%
+\def\cdlogo{%
+    \hbox{
+        \cdl@preamble
+        % Shifts the logo rightward if desired
+        \if@cdl@aligntext
+            \kern-\cdl@rulethickness
+            \kern-\cdl@borderoverflow
+        \fi
+        \vbox{% The whole logo
+            \cdl@namesection
+            \hrule\@height\cdl@rulethickness
+            \hbox{% The content blocks
+                \kern\cdl@rulethickness  % These two kerns shift the content to
+                \kern\cdl@borderoverflow % be aligned with the name
+                \cdl@contentsection\cdl@leftcontent    % Left content block
+                \ifx\cdl@rightcontent\@empty\else  % Right content block
+                    \kern\cdl@horizspace
+                    \vrule \@width \cdl@rulethickness
+                    \kern\cdl@horizspace
+                    \cdl@contentsection\cdl@rightcontent
+                \fi
+                \kern\cdl@borderoverflow
+            }%
+        }%
+    }%
+}
+\def\cdl@namesection{%
+    \hbox{% Name plus vertical space and left side rule
+        \vrule\@width\cdl@rulethickness
+        \vbox{% Name plus top border overflow and bottom vertical space
+            \kern\cdl@borderoverflow
+            \hbox{% The name
+                \kern\cdl@borderoverflow
+                \cdl@nametextandstyles
+                \kern\cdl@borderoverflow
+            }%
+            \@tempskipa=\cdl@vertspace \advance\@tempskipa-\prevdepth
+            \kern\@tempskipa
+        }%
+    }%
+}
+\def\cdl@nametextandstyles{%
+    \cdl@font\cdl@size\cdl@style{%
+        \cdl@namefont\cdl@namesize\cdl@namestyle{%
+            \unskip
+            \expandafter\ignorespaces\cdl@name
+            \unskip
+        }%
+    }%
+}
+\def\cdl@contentsection#1{%
+    \vbox{%
+        \kern\cdl@vertspace
+        \vtop{%
+            \def\\{\unskip\egroup\hbox\bgroup\ignorespaces}%
+            \cdl@font\cdl@size\cdl@style{%
+                \hbox\bgroup
+                    \expandafter\ignorespaces#1\unskip
+                \egroup
+                \kern\cdl@borderoverflow
+            }%
+        }%
+    }%
+}
+\@ifclassloaded{letter}{
+    \newcommand\useletterhead{%
+        %
+        % Don't attempt to center the first page.
+        \let\@texttop\@empty
+        \renewcommand*{\opening}[1]{%
+            \letterhead
+            {\raggedleft\@date\par}%
+            \vspace{\parskip}%
+            {\raggedright \toname \\ \toaddress \par}%
+            \vspace{\parskip}%
+            \ifx\@subject\relax\else
+                \@hangfrom{\textbf{Re:}\quad}\textbf{\@subject}\par
+                \vspace{\parskip}%
+            \fi
+            \noindent##1\par\nobreak
+        }%
+    }%
+    \@onlypreamble{\useletterhead}
+}{}
+\newcommand\subject[1]{\def\@subject{#1}}
+\let\@subject\relax
+\newcommand\letterhead{%
+    \hbox{}\kern-\topskip\kern\cdl@ltrheadshift
+    \cdlogo
+    \thispagestyle{empty}%
+    \vspace{\cdl@ltrheadspace}%
+}
+\newcommand\makeenvelope{%
+    \clearpage
+    \begingroup
+        \cdl@preamble
+        \pdfpagewidth=9.25in
+        \pdfpageheight=4.125in
+        \hoffset=-0.5in
+        \voffset=-0.5in
+        \hsize=8.75in
+        \vsize=3.125in
+        \cdl@envelopeparams
+        \vbox to \vsize{%
+            \vbox to \z@{%
+                \cdlogo
+                \vss
+            }%
+            \vfil\vfil
+            \hbox to \hsize{%
+                \hfil
+                \cdl@envelopestyle{%
+                    \begin{tabular}{l}%
+                        \ifx\toname\@empty\else\MakeUppercase{\toname}\\\fi
+                        \cdl@uctoaddress%
+                    \end{tabular}%
+                }%
+                \hfil
+            }%
+            \vfil
+        }%
+        \thispagestyle{empty}%
+        \clearpage
+    \endgroup
+}
+\def\cdl@uctoaddress{%
+    \tracingmacros=1\relax
+    \expandafter\cdl@uctoaddress@\toaddress\\%
+    \cdl@uctoaddress@\\%
+}
+\def\cdl@uctoaddress@#1\\{%
+    \ifx\cdl@uctoaddress@#1\else
+        \uppercase{\ignorespaces#1\unskip}\\%
+        \expandafter\cdl@uctoaddress@
+    \fi
+}
+\def\logofooter{%
+    \vbox{%
+        \cdl@footerparams
+        \cdl@preamble
+        \hrule\@height\cdl@rulethickness
+        \hb@xt@\textwidth{%
+            \def\\{\unskip\quad\textbullet\quad\ignorespaces}%
+            \hfil
+            \kern\cdl@borderoverflow
+            \vbox{%
+                \kern\cdl@vertspace
+                \vtop{%
+                    \hbox{\cdl@nametextandstyles}%
+                    \@tempdima=\cdl@borderoverflow \advance\@tempdima-\prevdepth
+                    \kern\@tempdima
+                }%
+            }%
+            \ifx\cdl@leftcontent\@empty\else
+                \cdl@footerblock\cdl@leftcontent
+            \fi
+            \ifx\cdl@rightcontent\@empty\else
+                \cdl@footerblock\cdl@rightcontent
+            \fi
+            \kern\cdl@borderoverflow
+            \vrule\@width\cdl@rulethickness
+        }%
+    }%
+}%
+\def\cdl@footerblock#1{%
+    \kern\cdl@horizspace
+    \vrule\@width\cdl@rulethickness
+    \kern\cdl@horizspace
+    \vbox{%
+        \kern\cdl@vertspace
+        \vtop{%
+            \hbox{%
+                \cdl@font\cdl@size\cdl@style{#1}%
+            }%
+            \@tempdima=\cdl@borderoverflow \advance\@tempdima-\prevdepth
+            \kern\@tempdima
+        }%
+    }%
+}
+\def\ps@cdlogo{%
+    \def\@oddhead{\cdl@header}%
+    \let\@evenhead\@oddhead
+    \def\@oddfoot{\cdl@footer}%
+    \let\@evenhead\@oddhead
+}
+\let\cdl@header\@empty \let\cdl@footer\@empty
+\def\logopagestyle#1{%
+    \def\cdl@header{#1}%
+    \let\cdl@footer\logofooter
+    \pagestyle{cdlogo}%
+}
+\endinput

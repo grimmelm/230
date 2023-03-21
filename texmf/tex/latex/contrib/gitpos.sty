@@ -1,0 +1,112 @@
+%
+% This is gitpos.sty, by Charles Duan.
+%
+% Copyright 2014 Charles Duan. This program is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General Public
+% License as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Obtains the Git commit ID for placement in a TeX file. It provides two user
+% commands:
+%
+% \gitpos: the current Git commit ID
+% \gitbranch: the current Git branch name
+%
+%
+\ProvidesFile{gitpos}[2014/12/01 Identify Git commit]
+\usepackage{strings}
+\newif\if@gitpos@include@date
+\DeclareOption{date}{\@gitpos@include@datetrue}
+\ProcessOptions \relax
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Initialization
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newread\gitpos@read
+%
+% This dereferences a symbolic reference.
+%
+\def\gitpos@readit#1{%
+    \chop@space@then@run{#1}{\def\gitbranch}%
+    \openin\gitpos@read=.git/#1\relax
+    \ifeof\gitpos@read
+        \let\gitpos@line\relax
+    \else
+        \read\gitpos@read to \gitpos@line
+        \closein\gitpos@read
+    \fi
+}
+\make@find@in{ }
+\def\gitpos@readpack{%
+    \openin\gitpos@read=.git/packed-refs\relax
+    \gitpos@readpack@read
+}
+\def\gitpos@readpack@read{%
+    \@test \ifeof\gitpos@read \fi{%
+        \closein\gitpos@read
+        \let\gitpos@line\relax
+    }{%
+        \read\gitpos@read to \gitpos@line
+        \@expand{\find@in{ }}\gitpos@line i%
+                \gitpos@readpack@parse
+                \gitpos@readpack@read
+    }%
+}
+\def\gitpos@readpack@parse#1#2{%
+    \chop@space@then@run{#2}{\def\reserved@a}%
+    \@test \ifx\gitbranch\reserved@a \fi{%
+        \def\gitpos@line{#1}%
+        \closein\gitpos@read
+    }{%
+        \gitpos@readpack@read
+    }%
+}
+%
+% This truncates a reference to the specified number of characters (here, 8).
+%
+\def\gitpos@truncate#1{\gitpos@truncate@#1\@stop}
+\def\gitpos@truncate@#1#2#3#4#5#6#7#8#9\@stop{#1#2#3#4#5#6#7#8}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Read the header
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\gitpos@readit{HEAD}
+\make@find@start{ref: }
+\@expand{\find@start{ref: }}\gitpos@line i\gitpos@readit\relax
+\ifx\gitpos@line\relax \gitpos@readpack \fi
+\ifx\gitpos@line\relax
+    \PackageError{gitpos}{Could not determine version number}{%
+        Tried to read Git files for SHA hash, and failed%
+    }%
+\fi
+\edef\gitpos{\expandafter\gitpos@truncate\expandafter{\gitpos@line}}
+\if@gitpos@include@date
+    \edef\gitpos{\gitpos/\the\year/\the\month/\the\day}%
+\fi
+\def\ps@gitposfoot{%
+    \expandafter\def\expandafter\@oddfoot\expandafter{%
+        \@oddfoot\hfill{\tiny\gitpos}
+    }%
+    \expandafter\def\expandafter\@evenfoot\expandafter{%
+        \@evenfoot\hfill{\tiny\gitpos}
+    }%
+}
+%
+%
+%
+\endinput

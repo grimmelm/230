@@ -1,0 +1,18 @@
+\ProvidesPackage{dollar}[2004/12/20 Add currency amounts]
+\newcommand\newdollar[1]{\expandafter\newcount\csname dollar@#1\endcsname}
+\newcommand\adddollars[2]{%
+    \expandafter\dollar@adddollars\csname dollar@#1\endcsname #2%
+}
+\def\dollar@adddollars#1#2.#3#4{\global\advance#1 by #2#3#4}
+\newcommand\thedollar[1]{%
+    \expandafter\dollar@thedollar\csname dollar@#1\endcsname
+}
+\def\dollar@thedollar#1{%
+    \@tempcnta=#1\divide\@tempcnta100\relax
+    \the\@tempcnta
+    \multiply\@tempcnta-100\relax
+    \advance\@tempcnta#1%
+    \ifnum\@tempcnta<\z@ \multiply\@tempcnta\m@ne \fi
+    .\ifnum10>\@tempcnta 0\fi\the\@tempcnta
+}
+\endinput
