@@ -167,28 +167,7 @@ For example, if $P = \$100$ and $H = \$200$, then $\lambda(\hat{x}) = \frac{1}{2
 
 \subsection{Section 512}
 
-A model in which the platform can optionally investigate content sheds light on the controversies over the notice-and-takedown regime of Section 512 of the Copyright Act. The basic rule of Section 512 is that a hosting platform ``shall not be liable for monetary relief \ldots for infringement of copyright by reason of the storage at the direction of a user of [infringing] material.''\footnote{17 U.S.C. § 512(c)(1).} This is a blanket immunity, but it is qualified by five (!) exceptions.
 
-First, Section 512(c)(1)(A)(i) removes the platform's immunity as to specific material if it has ``actual knowledge that the material \ldots is infringing''\footnote{17 U.S.C. § 512(c)(1)(A)(i).} and the platform does not ``act[] expeditiously to remove, or disable access to, the material.''\footnote{17 U.S.C. § 512(c)(1)(A)(iii).} One way of looking at this exception is that reflects the intuition that where the platform \emph{has} performed an investigation into specific content, it can remove harmful items without affecting non-harmful items. It does not matter where along the $\lambda(x)$ curve the item falls -- the point is that once the platform has knowledge, it must act. 
-
-
-
-Third, Section 512(c)(1)(B) removes the platform's immunity if it ``receive[s] a financial benefit directly attributable to the infringing activity, in a case in which the service provider has the right and ability to control such activity.''\footnote{17 U.S.C. § 512(c)(1)(B).} This standard, which resembles but is not identical in application to the common-law vicarious-infringement standard,\footnote{Reese} is not in theory tied to the platform's knowledge at all. Instead, it is designed to smoke out situations in which a platform that could block infringement has especially bad incentives to turn a blind eye to it. In terms of our model, we think these are situations in which $c$ is small (so that the platform has the ``ability to control'' infringement) and $P$ is large (so that the platform has strong private incentives to allow as much infringement as it can). These are circumstances under which in the absence of liability, the platform might under-invest in investigating likely-to-be-infringing content.
-
-Fourth, Section 512(c)(1)(C) removes the platform's immunity if it receives a ``notification of claimed infringement'' and fails to remove it.\footnote{17 U.S.C. § 512(c)(1)(C).} The value of a takedown notice is that it reduces the investigation costs as to specific content by narrowing the issues the platform must investigate. When investigation is expensive, as we have seen, a rational platform will not bother searching for the needle -- instead, it will overmoderate and throw out the entire haystack. But when someone points to an alleged needle, it is far easier for the platform to decide whether it is actually a needle.
-
-
-
-
-
-
-
-
-Formally, under a \textbf{Conditional Immunity} regime \ldots details t/k.
-
-To summarize, the five limitations on the Section 512(c) safe harbor all function in different ways, and they all have to do with investigative costs. The actual-knowledge provision deals with cases where $c = 0$ and no investigation is required; the red-flag provision deals with cases where $\lambda(x)$ is high and the content is likely to infringe; the financial-benefit provision deals with cases where $c$ is low and $P$ is high so the platform has bad incentives not to investigate; the notice-and-takedown provision deals with cases where the copyright owner has taken on the investigative costs $c$ itself; and the R.I.P. provision t/k summarize.
-
-Another way of looking at these exceptions is from the perspective of what society \emph{wants} a platform do to. In terms of our model, a regulator's ideal is that a platform will (1) remove all infringing content at or above $\underline{x^e}23$, (2) leave up all non-infringing content at or below $\overline{x^e}$, (3) investigate only in cases between $\underline{x^e}$ and $\overline{x^e}$ where it is cost-justified to do so, and (4) remove infringing content, even below $\underline{x^e}$, in cases where someone else has done the investigation more efficiently. The design of the Section 512(c) conditions reflects an imperfect attempt to achieve these goals.
 
 
 
