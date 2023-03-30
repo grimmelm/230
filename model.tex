@@ -1,7 +1,7 @@
 \newcommand{\xmax}{x_{\text{max}}}
-\newcommand{\xbi}{x_{\text{BI}}^*}
-\newcommand{\xsl}{x_{\text{SL}}^*}
-\newcommand{\xsubi}{x_{\text{I}}^*}
+\newcommand{\xbi}{x_{\text{BI}}^p}
+\newcommand{\xsl}{x_{\text{SL}}^p}
+\newcommand{\xsubi}{x_{\text{I}}^p}
 
 \section{An Economic Model of Moderation}
 \label{sec:model}
@@ -61,9 +61,14 @@ The standard basic law-and-microeconomic response to harmful conduct is \emph{st
 The same reasoning shows that strict liability gives the platform efficient incentives. Figure \ref{fig:liability1} shows the simple rule of strict liability for a platform that sets its moderation threshold at $\hat{x}$: it is liable for all of the harms caused by the content that it carries (and for none of the harms that would have been caused by content that it could have carried and did not). Under strict liability, the platform's marginal profits are $p(x) - h(x)$, which is identical to the social welfare function. The factory's marginal profit will become zero at $x^e$, exactly when social welfare does, so $x^* = x^e$. 
 
 \begin{pgfecon}{Strict liability}{fig:liability1}
-  \hplot
-  \dropline{7.5}{4}{$\hat{x}$}
+  \lambdaplot
+  \dropline{7.5}{4.65}{$\hat{x}$}
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:7.5}];
+\end{pgfecon}
+
+\begin{pgfecon}{Blanket immunity}{fig:liability2}
+  \lambdaplot
+  \dropline{7.5}{4.65}{$\hat{x}$}
 \end{pgfecon}
 
 
@@ -130,17 +135,19 @@ We model these positive externalities by introducing a function $s(x)$, which ca
 
 \autoref{fig:full1} illustrates the consequences for social welfare when the platform sets its moderation level to $\hat{x}$ in the presence of positive externalities. The green checked area between $p(x)$ and the $x$ axis is the platform's revenue from the content it carries; the blue dotted area between $s(x)$ and $p(x)$ is the additional positive spillovers for society. The red striped area under $H\lambda(x)$ is the harms due to the content the platform carries.
 
-\autoref{fig:full1} also illustrates that neither blanket immunity nor strict liability is necessarily efficient. Under blanket immunity, the platform sets its moderation level to $\xbi$, where $p(x) =0 $. Here, this results in undermoderation, because the platform fails to take into account the harms from the content it carries. But under strict liability, the platform sets its moderation level to $\xsl$, where $p(x) = H\lambda(x)$ and its revenues from carrying additional are exactly cancelled out by the harm that content causes (and hence the damages it must pay). Here, this results in overmoderation, because the platform fails to take into account the spillover benefits from the content it carries.
+
+
+\autoref{fig:full2} illustrates that neither blanket immunity nor strict liability is necessarily efficient. Under blanket immunity, the platform sets its moderation level to $\xbi$, where $p(x) =0 $. Here, this results in undermoderation, because the platform fails to take into account the harms from the content it carries. But under strict liability, the platform sets its moderation level to $\xsl$, where $p(x) = H\lambda(x)$ and its revenues from carrying additional are exactly cancelled out by the harm that content causes (and hence the damages it must pay). Here, this results in overmoderation, because the platform fails to take into account the spillover benefits from the content it carries.
 
 \begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:full1}
   \lambdaplot
   \plotline{harmline}{5}{$H$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.625}{$\xsl$}
-  \dropline{5.1}{2.6}{$x^e$}
+%  \dropline{4.25}{1.625}{$\xsl$}
+%  \dropline{5.1}{2.6}{$x^e$}
   \dropline{6.5}{4}{$\hat{x}$}
-  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
+%  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
   % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:6.5}];
   \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
@@ -148,6 +155,147 @@ We model these positive externalities by introducing a function $s(x)$, which ca
 
  % \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
  % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:full1}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+%  \dropline{4.25}{1.625}{$\xsl$}
+%  \dropline{5.1}{2.6}{$x^e$}
+  \dropline{6.5}{4}{$\hat{x}$}
+%  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
+  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:6.5}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:6.5}];
+
+ % \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
+ % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:slides3}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  %\dropline{4.25}{1.625}{$\xsl$}
+  \dropline{5.1}{2.6}{$x^e$}
+  \dropline{6.5}{4}{$\hat{x}$}
+  %\draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{Platform moderation under blanket immunity}{fig:slides4}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  %\dropline{4.25}{1.625}{$\xsl$}
+  \dropline{5.1}{2.6}{$x^e$}
+  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$x^p$};
+%  \draw[dashed, thin] (9, 0) -- (9, -.75) node[below]{$\hat{x}$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:9}];
+\end{pgfecon}
+
+\begin{pgfecon}{Platform moderation under strict liability}{fig:slides5}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+
+  \dropline{4.25}{1.65}{$x^p$}
+  \dropline{4.65}{2.85}{$\hat{x}$};
+  \dropline{5.1}{2.6}{$x^e$};
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+  \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:4.25}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:4.65}];
+  \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=4.25:4.65}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{Investigation of intermediate content}{fig:slides6}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+ % \plotline{hcline}{4.5}{$H - c$}
+ % \plotline{cline}{.5}{$c$}
+ % \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  %\dropline{3.55}{1.73}{$x^p$}
+  \dropline{5.2}{2.6}{$x^e$}
+%  \plotpartialvalue{2}{20}{0}{1.66}{green};
+%  \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
+%  \plotpartialvalue{2}{20}{5.63}{10}{red};
+  \plotpartialvalue{3.5}{15}{0}{2.99}{green};
+  \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
+  \plotpartialvalue{3.5}{15}{6.87}{10}{red};
+  
+  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+ % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
+  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
+  
+  \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
+  
+  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
+  \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
+  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
+  
+\end{pgfecon}
+
+
+\begin{pgfecon}{Investigation of intermediate content by the platform}{fig:slides7}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+ % \plotline{hcline}{4.5}{$H - c$}
+ % \plotline{cline}{.5}{$c$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \dropline{3.55}{1.73}{$x^p$}
+  \dropline{5.2}{2.6}{$x^e$}
+  \plotpartialvalue{2}{20}{0}{1.66}{green};
+  \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
+  \plotpartialvalue{2}{20}{5.63}{10}{red};
+  \plotpartialvalue{3.5}{15}{0}{2.99}{green};
+  \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
+  \plotpartialvalue{3.5}{15}{6.87}{10}{red};
+  
+  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+ % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
+  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
+  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
+  
+  \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
+  
+  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
+  \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
+  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
+  
+\end{pgfecon}
+
+
+\begin{pgfecon}{The one graph to remember}{fig:slides8}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \dropline{4.25}{1.625}{$x^p_{\text{SL}}$}
+  \dropline{5.1}{2.6}{$x^e$}
+  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$x^p_{\text{I}}$};
 \end{pgfecon}
 
 \subsection{Platform Investigations}
@@ -452,11 +600,11 @@ Intuitively, it seems liability on notice should induce the state of affairs dep
 \begin{pgfecon}{Naive model of liability on notice}{fig:notice1}
   \lambdaplot
   \plotline{harmline}{5}{$H$}
-  \plotline{cline}{.5}{$c_v$}
+  \plotline{cline}{.5}{$v$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
   \dropline{2.8}{.5}{$x^v$}
-  \dropline{8}{.8}{$x^*$}
+  \dropline{8}{.8}{$x^p$}
    \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:2.8}];
    \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and cline, soft clip={domain=2.8:8}];
    \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:2.8}];
@@ -561,37 +709,14 @@ In terms of our model, the rule in \emph{Stratton Oakmont} puts platforms to a c
 \begin{pgfecon}{Social welfare if the platform carries all content}{fig:investigate5}
   \lambdaline
   \plotline{harmline}{5}{$H$}
-  \plotline{hcline}{4.5}{$H - c$}
-  \plotline{cline}{.5}{$c$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
-%   \dropline{1.66}{2}{$\underline{x^*}$}
-%   \dropline{5.63}{1}{$\overline{x^*}$}
-% 
-%   
-%   \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
-%   \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
-%   
-%   \addplot [-, name path = investigateprofit, dashed,
-%   domain = 0:10,
-%   samples = 250] { (1 - (\x/10)) * (
-%      \x < 1.5 ? 2 : 
-%      (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
-%      2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
-%   \addplot [-, name path = investigatewelfare, dashed,
-%      domain = 0:10,
-%      samples = 250] { (1 - (\x/10)) * (
-%         \x < 1.5 ? 3.5 : 
-%         (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
-%         3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
+  
+  \dropline{5.2}{2.6}{$x^e$}
+  \draw[dashed, thin] (8, 4)  -- (8, -.75)node[below]{$x^p$} ;
 
-  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:5.4}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.4:10}];  
-%  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
-%  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
- % \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:5.2}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.2:10}];  
 \end{pgfecon}
 
 Figures \ref{fig:investigate3}, \ref{fig:investigate4}, and \ref{fig:investigate5} show the nature of the platform's choice and its consequences for society. \autoref{fig:investigate3} (which is the same as \autoref{fig:investigate2} but is repeated here for convenience) shows the platform's profits (green gridded) and additional social welfare (blue dotted) if it choses to moderate -- and thus commits to optimal investigations to maximize its profits in the presence of liability. \autoref{fig:investigate4} shows its profits (green gridded) and losses (red striped) if it chooses simply to carry all content. And \autoref{fig:investigate5} shows the resulting social welfare -- the blue dotted region is positive and the red striped region is negative.
@@ -679,15 +804,16 @@ A hybrid of strict liability and immunity is \emph{conditional immunity}. Inform
 
 \begin{pgfecon}{Conditional immunity (below threshold)}{fig:conditional1}
   \lambdaplot
-  \dropline{5}{2.5}{$t$}
+  \dropline{5}{2.5}{$T$}
   \dropline{4.1}{1.5}{$\hat{x}$}
+  \addplot [pattern= dots, pattern color = yellow] fill between [of = lambda and axis, soft clip={domain=0:4.1}];
 \end{pgfecon}
 
 \begin{pgfecon}{Conditional immunity (above threshold)}{fig:conditional2}
   \lambdaplot
-  \dropline{5}{2.5}{$t$}
-  \dropline{5.9}{3.5}{$\hat{x}$}
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=5:5.9}];
+  \dropline{5}{2.5}{$T$}
+  \dropline{7}{4.35}{$\hat{x}$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:7}];
 \end{pgfecon}
 
 An example of conditional immunity is the repeat-infringer provision of Section 512. To be eligible for the safe harbor at all, a platform must ``adopt[] and reasonably implement[] \ldots a policy that provides for the termination in appropriate circumstances of \ldots repeat infringers.''\note{512 at /i1A} If a platform doesn't do a good enough job at removing content posted by repeat infringers, it is not eligible for the safe harbor at all, even for material posted by others. Another example of conditional immunity is Danielle Citron and Benjamin Wittes's proposal to condition Section 230 immunity on the platform's making reasonable efforts to prevent the posting of illegal content.\note{citronwittes}
