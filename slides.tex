@@ -1,0 +1,444 @@
+\documentclass[openbib,12pt]{article}  % Comments shown
+\usepackage{linlib}
+\usepackage{lawreview}
+\usepackage[review]{hicite}
+
+\usepackage{amsmath,amssymb,amsthm,mathabx}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{arydshln}
+\usepackage{natbib}
+%\usepackage[utf8x]{inputenc}
+%\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage[margin=1in]{geometry}
+\usepackage{mathpazo}
+%\usepackage{dsfont}
+\usepackage[multiple]{footmisc}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{booktabs}
+%\usepackage[colorlinks,citecolor=blue]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lscape}
+\usepackage[hang,centerlast]{caption}
+%\usepackage{makecell}
+\usepackage{multirow}
+%\usepackage[flushleft]{threeparttable}
+\usepackage[pdftex]{color}
+\usepackage[table]{xcolor}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{arrows, intersections, patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
+% We will externalize the figures
+\usepgfplotslibrary{external}
+\usepackage{environ}
+\tikzexternalize[prefix=figures/]
+%\tikzset{external/optimize=false}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{intersections}%, pgfplots.fillbetween}
+\usetikzlibrary{patterns}
+\usepgfplotslibrary{fillbetween}
+\usepackage{subfigure}
+\usepackage[capposition=bottom]{floatrow}
+\usepackage[all]{xy}
+\usepackage[english]{babel}
+\usepackage{adjustbox}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\newtheorem{assumption}{Assumption}
+\newtheorem{claim}{Claim}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{hypothesis}{Hypothesis}
+\newtheorem{result}{Result}
+\newtheorem{finding}{Finding}
+\newtheorem{subfinding}{Finding}
+\renewcommand{\thesubfinding}{\thefinding\alph{subfinding}}
+\newtheorem{subhypothesis}{Hypothesis}
+\renewcommand{\thesubhypothesis}{\thehypothesis\alph{subhypothesis}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\plim}{\mathrm{plim}}
+\newcommand{\tred}{\textcolor{red}}
+\newcommand{\lmt}{\rightarrow}
+\newcommand{\lmp}{\Rightarrow}
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\nn}{\nonumber}
+\newcommand{\gs}{\geqslant}
+\newcommand{\ls}{\leqslant}
+%% specific to this paper
+
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\ms}{M_s}
+\renewcommand{\mp}{M_p}
+\newcommand{\mpsl}{M_{p \text{ (SL)}}}
+\newcommand{\mpi}{M_{p \text{ (I)}}}
+
+\title{An Economic Model of Intermediary Liability}
+\author{James Grimmelmann\footnote{Cornell Law School and Cornell Tech, Cornell University, james.grimmelmann@cornell.edu}
+\and Pengfei Zhang\footnote{School of Economic, Political and Policy Sciences, The University of Texas at Dallas, pengfei.zhang@utdallas.edu}}
+\date{June 2021}
+
+\begin{document}
+
+\input{diagrams.tex}
+
+\renewcommand{\lambdaplot} {\scurveplot{$h\lambda$}}
+
+\renewcommand{\lambdaline} {
+ \addplot [-, name path = lambda, thick, domain = 0:10, samples = 250] { \x /2 )}  node[right]{$h\lambda$};
+}
+
+\begin{pgfecon}{Marginal expected harm}{fig:slides1}
+  \lambdaplot
+  \plotline{harmline}{5}{$h$}
+\end{pgfecon}
+
+\begin{pgfecon}{Choosing a moderation level}{fig:slides2}
+  \lambdaplot
+  \dropline{6.5}{4}{$M$}
+\end{pgfecon}
+
+\begin{pgfecon}{Total harm}{fig:slides3}
+  \lambdaplot
+  \dropline{6.5}{4}{$M$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:6.5}];
+\end{pgfecon}
+
+\begin{pgfecon}{Harm versus social welfare}{fig:slides4}
+  \lambdaplot
+  \plotvalue{welfare}{3.5}{15}{$s$}
+\end{pgfecon}
+
+\begin{pgfecon}{Net social benefit is welfare minus expected harm}{fig:slides6}
+  \lambdaplot
+  \plotvalue{welfare}{3.5}{15}{$s$}
+  
+  \dropline{6.5}{4}{$M$}
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+  %  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
+ \end{pgfecon}
+
+
+\begin{pgfecon}{Efficient moderation level}{fig:slides6}
+  \lambdaplot
+  \plotvalue{welfare}{3.5}{15}{$s$}
+  \plotvalue{profit}{2}{20}{$p$}
+  
+  \dropline{5.1}{2.6}{$M_s$}
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+ \end{pgfecon}
+ 
+\begin{pgfecon}{Platform's profits}{fig:slides7}
+   \lambdaplot
+   \plotline{harmline}{5}{$h$}
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \plotvalue{profit}{2}{20}{$p$}
+\end{pgfecon}
+
+\begin{pgfecon}{There are positive spillovers}{fig:slides7}
+   \lambdaplot
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \plotvalue{profit}{2}{20}{$p$}
+   \dropline{6}{2.15}{$M$}
+   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:6}];
+   \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{Platform's profits are defined by area}{fig:slides8}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+  %\dropline{4.25}{1.625}{$\xsl$}
+  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\mp$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+ \end{pgfecon}
+
+\begin{pgfecon}{Undermoderation under immunity}{fig:slides9}
+   \lambdaplot
+   \plotvalue{profit}{2}{20}{$p$}
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \dropline{5.1}{2.6}{$\ms$}
+   \draw[dashed, thin] (8, 4.85) -- (8, -.5) node[below]{$\mp$};
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:8}];
+  \end{pgfecon}
+  
+\begin{pgfecon}{Overmoderation under immunity}{fig:slides10}
+	\lambdaplot
+	\plotvalue{welfare}{4.5}{12}{$s$}
+	\plotvalue{profit}{.25}{30}{$p$}
+	\draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$M_p$};
+	\draw[dashed, thin] (5.55, 3.15) -- (5.55, -.3) node[below]{$M_s$};
+	\addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:4.25}];
+	\addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.55}];
+  \end{pgfecon}
+  
+  
+\begin{pgfecon}{Platform profits under strict liability}{fig:slides11}
+  \lambdaplot
+  
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+%  \dropline{4.25}{1.65}{$M_p$}
+  \dropline{6}{3.6}{$M$};
+%  \dropline{5.1}{2.6}{$M_s$};
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:6}];
+\end{pgfecon}
+
+\begin{pgfecon}{Platform's optimal behavior under strict liability}{fig:slides12}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+  \dropline{4.25}{1.65}{$M_p$}
+%  \dropline{5.1}{2.6}{$M_s$};
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+\end{pgfecon}
+
+\begin{pgfecon}{The platform overmoderates under strict liability}{fig:slides13}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+  \dropline{4.25}{1.65}{$M_p$}
+  \dropline{5.1}{2.6}{$M_s$};
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+\end{pgfecon}
+
+\begin{pgfecon}{Welfare loss under strict liability}{fig:slides14}
+  \lambdaplot
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+  \dropline{4.25}{1.65}{$M_p$}
+  \dropline{5.1}{2.6}{$M_s$};
+  
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:4.25}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+  
+  \addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.1}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:5.1}];
+\end{pgfecon}
+
+
+% \begin{pgfecon}{Stratton Oakmont: the naive view}{fig:slides15}
+%   \lambdaplot
+%   %\plotline{hcline}{4.5}{$H - c$}
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   
+%   % \dropline{1.66}{2}{$\underline{x^*}$}
+%   \dropline{4.25}{1.65}{$\mpsl$}
+%   \draw[dashed, thin] (8, 4.82)  -- (8, 0)node[below]{$\mpi$};
+%   
+%   % \dropline{5.63}{1}{$\overline{x^*}$}
+% 
+%   \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:8}];
+% \end{pgfecon}
+% 
+% 
+% \begin{pgfecon}{Stratton Oakmont: the other option}{fig:slides16}
+%   \lambdaplot
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   
+%   \dropline{4.25}{1.65}{$\mpsl$}
+%   \draw[dashed, thin] (8, 4.82)  -- (8, 0)node[below]{$\mpi$};
+%  
+%    \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+% \end{pgfecon}
+% 
+% 
+% \begin{pgfecon}{Stratton Oakmont: the choice}{fig:slides17}
+%   \lambdaplot
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   
+%   \dropline{4.25}{1.65}{$\mpsl$}
+%   \draw[dashed, thin] (8, 4.82)  -- (8, 0)node[below]{$\mpi$};
+%  
+%   \addplot [pattern= grid, pattern color = green] fill between [of = lambda and axis, soft clip={domain=0:4.25}];
+%   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=4.25:8}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+% \end{pgfecon}
+% 
+% \begin{pgfecon}{Stratton Oakmont: the consequences}{fig:slides18}
+%   \lambdaplot
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   
+%   \dropline{4.25}{1.65}{$M_{p{\text{ (SL)}}$}
+%   \draw[dashed, thin] (8, 4.82)  -- (8, 0)node[below]{$M_{p{\text{ (I)}}$};
+%  
+%   \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:10}];
+% \end{pgfecon}
+
+% 
+% \begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:slides3}
+%   \lambdaplot
+%   \plotline{harmline}{5}{$h$}
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   %\dropline{4.25}{1.625}{$\xsl$}
+%   \dropline{5.1}{2.6}{$M_s$}
+%   \dropline{6.5}{4}{$\hat{x}$}
+%   %\draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
+%   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+% %  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
+% \end{pgfecon}
+% 
+
+% \begin{pgfecon}{Platform moderation under strict liability}{fig:slides5}
+%   \lambdaplot
+%   \plotline{harmline}{5}{$h$}
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+% 
+%   \dropline{4.25}{1.65}{$M_p$}
+%   \dropline{4.65}{2.85}{$\hat{x}$};
+%   \dropline{5.1}{2.6}{$M_s$};
+%   
+%   \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+%   \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:4.25}];
+%   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:4.65}];
+%   \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=4.25:4.65}];
+% \end{pgfecon}
+% 
+% 
+% \begin{pgfecon}{Investigation of intermediate content}{fig:slides6}
+%   \lambdaline
+%   \plotline{harmline}{5}{$h$}
+%  % \plotline{hcline}{4.5}{$H - c$}
+%  % \plotline{cline}{.5}{$c$}
+%  % \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   %\dropline{3.55}{1.73}{$M_p$}
+%   \dropline{5.2}{2.6}{$M_s$}
+% %  \plotpartialvalue{2}{20}{0}{1.66}{green};
+% %  \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
+% %  \plotpartialvalue{2}{20}{5.63}{10}{red};
+%   \plotpartialvalue{3.5}{15}{0}{2.99}{green};
+%   \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
+%   \plotpartialvalue{3.5}{15}{6.87}{10}{red};
+%   
+%   \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+%  % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
+%   \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+%   
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
+%   
+%   \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
+%   
+%   \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
+%   \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
+%   \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
+%   
+% \end{pgfecon}
+% 
+% 
+% \begin{pgfecon}{Investigation of intermediate content by the platform}{fig:slides7}
+%   \lambdaline
+%   \plotline{harmline}{5}{$h$}
+%  % \plotline{hcline}{4.5}{$H - c$}
+%  % \plotline{cline}{.5}{$c$}
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   \dropline{3.55}{1.73}{$M_p$}
+%   \dropline{5.2}{2.6}{$M_s$}
+%   \plotpartialvalue{2}{20}{0}{1.66}{green};
+%   \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
+%   \plotpartialvalue{2}{20}{5.63}{10}{red};
+%   \plotpartialvalue{3.5}{15}{0}{2.99}{green};
+%   \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
+%   \plotpartialvalue{3.5}{15}{6.87}{10}{red};
+%   
+%   \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+%  % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
+%   \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+%   
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
+%   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
+%   
+%   \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
+%   
+%   \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
+%   \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
+%   \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
+%   
+% \end{pgfecon}
+% 
+% 
+% \begin{pgfecon}{The one graph to remember}{fig:slides8}
+%   \lambdaplot
+%   \plotvalue{profit}{2}{20}{$p$}
+%   \plotvalue{welfare}{3.5}{15}{$s$}
+%   \dropline{4.25}{1.625}{$M_p_{\text{SL}}$}
+%   \dropline{5.1}{2.6}{$M_s$}
+%   \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$M_p_{\text{I}}$};
+% \end{pgfecon}
+
+\begin{pgfecon}{Negligence}{fig:liability4}
+  \lambdaplot
+  \dropline{5}{2.5}{$t$}
+  \dropline{7}{4.35}{$M$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=5:7}];
+\end{pgfecon}
+
+\begin{pgfecon}{Conditional immunity (below threshold)}{fig:conditional1}
+  \lambdaplot
+  \dropline{5}{2.5}{$T$}
+  \dropline{4.1}{1.5}{$M$}
+  \addplot [pattern= dots, pattern color = yellow] fill between [of = lambda and axis, soft clip={domain=0:4.1}];
+\end{pgfecon}
+
+\begin{pgfecon}{Conditional immunity (above threshold)}{fig:conditional2}
+  \lambdaplot
+  \dropline{5}{2.5}{$T$}
+  \dropline{7}{4.35}{$M$}
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:7}];
+\end{pgfecon}
+
+
+\begin{pgfecon}{The one figure}{fig:slides6}
+  \lambdaplot
+  \plotvalue{welfare}{3.5}{15}{$s$}
+  \plotvalue{profit}{2}{20}{$p$}
+  
+  \draw[dashed, thin] (4.25, 1.65) -- (4.25, -.5) node[below]{$M_{p \text{ (SL)}}$};
+  \dropline{5.1}{2.6}{$M_s$};
+  \draw[dashed, thin] (8, 4.85) -- (8, -.5) node[below]{$M_{p \text{ (I)}}$};
+  
+ \end{pgfecon}
+ 
+
+\end{document}

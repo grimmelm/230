@@ -176,128 +176,6 @@ We model these positive externalities by introducing a function $s(x)$, which ca
  % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
 \end{pgfecon}
 
-
-\begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:slides3}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  %\dropline{4.25}{1.625}{$\xsl$}
-  \dropline{5.1}{2.6}{$x^e$}
-  \dropline{6.5}{4}{$\hat{x}$}
-  %\draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$\xbi$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
-\end{pgfecon}
-
-
-\begin{pgfecon}{Platform moderation under blanket immunity}{fig:slides4}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  %\dropline{4.25}{1.625}{$\xsl$}
-  \dropline{5.1}{2.6}{$x^e$}
-  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$x^p$};
-%  \draw[dashed, thin] (9, 0) -- (9, -.75) node[below]{$\hat{x}$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6.5}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:9}];
-\end{pgfecon}
-
-\begin{pgfecon}{Platform moderation under strict liability}{fig:slides5}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-
-  \dropline{4.25}{1.65}{$x^p$}
-  \dropline{4.65}{2.85}{$\hat{x}$};
-  \dropline{5.1}{2.6}{$x^e$};
-  
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
-  \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:4.25}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:4.65}];
-  \addplot [pattern= grid, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=4.25:4.65}];
-\end{pgfecon}
-
-
-\begin{pgfecon}{Investigation of intermediate content}{fig:slides6}
-  \lambdaline
-  \plotline{harmline}{5}{$H$}
- % \plotline{hcline}{4.5}{$H - c$}
- % \plotline{cline}{.5}{$c$}
- % \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  %\dropline{3.55}{1.73}{$x^p$}
-  \dropline{5.2}{2.6}{$x^e$}
-%  \plotpartialvalue{2}{20}{0}{1.66}{green};
-%  \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
-%  \plotpartialvalue{2}{20}{5.63}{10}{red};
-  \plotpartialvalue{3.5}{15}{0}{2.99}{green};
-  \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
-  \plotpartialvalue{3.5}{15}{6.87}{10}{red};
-  
-  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
- % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
-  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
-  
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
-  
-  \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
-  
-  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
-  \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
-  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
-  
-\end{pgfecon}
-
-
-\begin{pgfecon}{Investigation of intermediate content by the platform}{fig:slides7}
-  \lambdaline
-  \plotline{harmline}{5}{$H$}
- % \plotline{hcline}{4.5}{$H - c$}
- % \plotline{cline}{.5}{$c$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{3.55}{1.73}{$x^p$}
-  \dropline{5.2}{2.6}{$x^e$}
-  \plotpartialvalue{2}{20}{0}{1.66}{green};
-  \plotpartialvalue{2}{20}{1.66}{5.63}{yellow};
-  \plotpartialvalue{2}{20}{5.63}{10}{red};
-  \plotpartialvalue{3.5}{15}{0}{2.99}{green};
-  \plotpartialvalue{3.5}{15}{2.99}{6.87}{yellow};
-  \plotpartialvalue{3.5}{15}{6.87}{10}{red};
-  
-  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
- % \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
-  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
-  
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
-  \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=9:10}];
-  
-  \addplot [pattern= dots, pattern color = yellow] fill between [of = upperlimit and lowerlimit, soft clip={domain=1.1:9}];
-  
-  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:1}];
-  \addplot [pattern= dots, pattern color = red] fill between [of = upperlimit and axis, soft clip={domain=1:9}];
-  \addplot [pattern= dots, pattern color = red] fill between [of = lambda and axis, soft clip={domain=9:10}];
-  
-\end{pgfecon}
-
-
-\begin{pgfecon}{The one graph to remember}{fig:slides8}
-  \lambdaplot
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.625}{$x^p_{\text{SL}}$}
-  \dropline{5.1}{2.6}{$x^e$}
-  \draw[dashed, thin] (8, 0) -- (8, -.5) node[below]{$x^p_{\text{I}}$};
-\end{pgfecon}
-
 \subsection{Platform Investigations}
 
 The final moving piece of our model is that a platform can investigate content that it suspects of being harmful. Specifically, the platform can pay a cost $c \ge 0$  per unit of content to investigate and determine with certain whether each item is actually harmful.
@@ -444,7 +322,7 @@ Figure \ref{fig:harm2} shows that blanket immunity can lead a platform to \emph{
 
 But \ref{fig:blanket2} shows that even under blanket immunity, a platform might also \emph{overmoderate}. If the platform's revenues too small compared with the social value of the content it carries, it may simply not be economically feasible for the platform to carry all the content it would be socially valuable to.
 
-\begin{pgfecon}{Blanket immunity can lead to undermoderation}{fig:blanket2}
+\begin{pgfecon}{Blanket immunity can lead to overmoderation}{fig:blanket2}
   \lambdaplot
   \plotline{harmline}{5}{$H$}
   \plotvalue{welfare}{4.5}{12}{$s(x)$}
