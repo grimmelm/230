@@ -1,8 +1,15 @@
+\newcommand{\ms}{M_s}
+\renewcommand{\mp}{M_p}
+\newcommand{\mpsl}{M_{p \text{ (SL)}}}
+\newcommand{\mpi}{M_{p \text{ (I)}}}
+
 \newcommand{\xmax}{x_{\text{max}}}
-\newcommand{\xbi}{x_{\text{BI}}^p}
-\newcommand{\xsl}{x_{\text{SL}}^p}
+\newcommand{\xbi}{\mpi}
+\newcommand{\xsl}{\mpsl}
 \newcommand{\xsubi}{x_{\text{I}}^p}
 \newcommand{\defterm}[1]{\textbf{#1}}
+
+
 
 \section{An Economic Model of Moderation}
 \label{sec:model}
@@ -11,7 +18,9 @@ There are two distinctive features of platform liability for harmful third-party
 
 \subsection{The Model}
 
-Users submit discrete items $x_1, x_2, x_3 \ldots$ of \defterm{content} to a platform. Each of these items is either \defterm{harmful} or \defterm{harmless}, and the platform can either \defterm{host} or \defterm{remove} each item. The essential feature of the model is that platform \emph{does not know} whether each item is harmful or not. Instead, it observes the \emph{probability} $\lambda(x)$ that item $x$ is harmful, so it must make its hosting or removal decision under conditions of uncertainty.
+The first essential feature that makes intermediary liability more complicated than widget liability is that a platform has imperfect information about the content that it hosts. Some content is harmful, and other content is not, but they look the same on first glance. A court decides whether a statement is legally defamatory after fact discovery, motion practice, and a trial; a platform does not have the time, the resources, or the power to conduct a full civil lawsuit on every post. A court awards damages in the fullness of time, on relatively complete information. A platform must act now, with radically incomplete information. 
+
+Formally, users submit discrete items $x_1, x_2, x_3 \ldots$ of \defterm{content} to a platform. Each of these items is either \defterm{harmful} or \defterm{harmless}, and the platform can either \defterm{host} or \defterm{remove} each item. The essential feature of the model is that platform \emph{does not know} whether each item is harmful or not. Instead, it observes the \emph{probability} $\lambda(x)$ that item $x$ is harmful, so it must make its hosting or removal decision under conditions of uncertainty.
 
 If the platform hosts an item $x$, it has the following consequences:
 \begin{itemize}
@@ -34,7 +43,7 @@ More formally, we assume that each item content falls within the one-dimensional
 \item The harm (if it happens) is fixed: $h$ is a constant.
 \item Content is more likely to be harmful: $\lambda(x)$ increases.
 \end{itemize}
-We assume that $s(x) > p(x)$, i.e., all content has some positive spillover benefits for society that the platform does not capture. We do not assume that $p(x) > 0$ or $s(x) > 0$: it is possible that some content is negative-value even if it is not harmful to third parties. (An example is spam, which is costly for the platform to host and has infinitesimal spillover benefits for anyone else.) 
+We assume that $s(x) > p(x)$, i.e., all content has some positive spillover benefits for society that the platform does not capture.\footnote{(Any negative spillovers are separately accounted for by the harm $h$.)} We do not assume that $p(x) > 0$ or $s(x) > 0$: it is possible that some content is negative-value even if it is not harmful to third parties. (An example is spam, which is costly for the platform to host and has infinitesimal spillover benefits for anyone else.) 
 
 To make the model interesting, and to eliminate some annoying corner cases, we assume that the most innocuous content is profitable for the platform ($p(0) > 0$), beneficial to society ($s(0) > 0$), and known with certainty to be harmless, i.e. $\lambda(0) = 0$. Similarly, we assume that most problematic content is known with certainty to be harmful ($\lambda(\xmax) = 1$) and that harmful content is unambiguously bad for society, i.e. $h > s(x)$ for all $x$. These conditions ensure that some content definitely is good for society and some content is definitely bad for society, so that there is a real interest in treating them differently.
 
@@ -45,7 +54,7 @@ To make the model interesting, and to eliminate some annoying corner cases, we a
    \plotvalue{profit}{2}{20}{$p$}
 \end{pgfecon}
 
-\autoref{fig:model1} illustrates the essential model. The platform-revenue and social-benefit curves $p(x)$ and $s(x)$ start off positive and drop off. The expected-harm curve $h\lambda(x)$ -- the probability that content is harmful times the harm if it is -- starts at $0$ and rises to $h$. By the intermediate value theorem, there is some value of $x$ at which $p(x)$ and $h\lambda(x)$ cross, and similarly for $s(x)$ and $h\lambda(x)$.
+\autoref{fig:model1} illustrates the essential model. The platform-revenue and social-benefit curves $p(x)$ and $s(x)$ start off positive and drop off. The expected-harm curve $h\lambda(x)$ -- the probability that content is harmful times the harm if it is -- starts at $0$ and rises to $h$.
 
 \begin{pgfecon}{Probability of harm}{fig:imperfect1}
   \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
@@ -65,6 +74,8 @@ Any choice of $M$ trades off false positives and false negatives. A low threshol
 
 This imperfect information is central to our model, and we believe that it is a pervasive fact of content moderation. While the users who upload content and the victims who are harmed by it may know better whether content is harmful, platforms and regulators operate from a position of comparative ignorance.
 
+The overall harm here is a \emph{statistical} consequence of a given choice of $M$. If the platform could perfectly distinguish harmful and harmful content, it could choose to host only the harmless content. (Indeed, we will shortly consider an extension of the model under which this distinction is possible, albeit at a cost.) But the point of the current model is that the platform cannot distinguish the two. A choice of $M$ is a choice about the acceptable ratio of babies to bathwater.
+
 \autoref{fig:model1} is an abstract microeconomic diagram. Its purpose is to build qualitative intuition, not to be a scale model of anything specific. The $x$-axis is measured in abstract ``units'' of content. Think of each short interval along the axis as being occupied by an indefinitely large number of individual items of content. There are so many items, in fact, that we will treat the interval $[0,\xmax]$ as being effectively continuous; while content comes in distinct items, they are too small to be visible to the naked eye at this scale. Similarly, the $y$-axis is measured in abstract units of value. They could be dollars, or euros, or utils. Thus the values of the functions $p(x)$ and $s(x)$ and the constant $h$ have the units of ``value per unit of content,'' where, to repeat, a ``unit'' is made up of many individual items.\footnote{The value of the function $\lambda(x)$ is a unitless probability, a number between $0$ and $1$.}
 
 We emphasize this point because it is important to remember that this diagram portrays the \emph{marginal} platform revenue, social benefit, and third-party harm per unit of content. The value of $p(x)$ at a point $x$ is the amount of additional revenue the platform will earn by hosting one additional unit of content at $x$ -- i.e., from increasing $M$ by one unit. The value $p(x)$ is emphatically not the platform's \emph{total} revenue from setting its moderation threshold to $x$.
@@ -80,132 +91,148 @@ We emphasize this point because it is important to remember that this diagram po
 
 Rather, total profits, benefits, and harms are illustrated in \autoref{fig:model1} (and in the numerous diagrams that will follow) by \emph{areas}. For example, \autoref{fig:model2} illustrates the platform's profits from setting its moderation level at $M$. At any given point, the vertical distance from the $x$-axis to the revenue curve $p(x)$ is the platform's marginal revenue from hosting the content at $x$. The platform's total profits are the area of the green checked region.\footnote{In calculus terms, the platform's total profits are the \emph{integral} of its marginal revenues, i.e.
 \begin{equation*}
-\int_0^{\xmax} p(x) dx.
+\int_0^{M} p(x) dx.
 \end{equation*}}
 
 \subsection{Social Welfare and Platform Profits}
 
+Now we are ready to use the model to draw conclusions about what the platform will do, and what the regulator wants it to do, which are not necessarily the same. We begin by asking what the socially optimal moderation level would be, and then consider whether the platform will set its moderation at that level. (Spoiler alert: no.)
 
+The marginal social welfare from hosting content is the (known) social benefit from that content minus the (expected) harms, i.e. 
+\begin{equation}
+s(x) - h\lambda(x).
+\end{equation} 
+Another way to look at this expression is that if the platform hosts content at $x$, a fraction $\lambda(x)$ of that content will be harmful with value $s(x) - h(x)$ per unit: benefits minus harms. Meanwhile, a fraction $1 - \lambda(x)$ will be harmless with value $s(x)$ per unit: all benefits and no harms. In other words, all of the content, harmful and harmless alike, generates benefits of $s(x)$, but only the harmful fraction $\lambda(x)$ also generates harms $h$.
 
+Geometrically, the marginal social welfare from hosting content is the vertical distance between the benefit curve $s(x)$ and the expected harm curve $h\lambda(x)$. That value is $0$ where the two curves cross.\footnote{By the intermediate value theorem, there is some value of $x$ at which $s(x) - h\lambda(x) = 0$, so the curves do cross.}
 
+Call this point $\ms$, i.e. the \defterm{socially efficient moderation level}. It is defined by the equation \begin{equation*}s(\ms) = h\lambda(\ms).\end{equation*}
+For $x < \ms$, it is net beneficial to society for the platform to host this content. For $x > \ms$, it is net harmful to society. $\ms$ is the point at which content crosses over from being net beneficial to net harmful. The regulator would prefer the platform to set its moderation level to $\ms$ -- i.e. to host content just up to $\ms$ and then stop and take down everything else.
 
+Observe how the value of $\ms$ depends crucially on $h$. Rearranging the defining equation yields $\lambda(\ms) = \frac{s(\ms)}{h}$. The greater the harm $h$, the lower the probability $\lambda(x)$ of harm worth tolerating, and thus the lower the appropriate threshold of moderation.
 
-
-
-
-
-
-\begin{pgfecon}{Net social benefit is welfare minus expected harm}{fig:model3}
+\begin{pgfecon}{Optimal moderation}{fig:welfare1}
   \lambdaplot
   \plotvalue{welfare}{3.5}{15}{$s$}
   \plotvalue{profit}{2}{20}{$p$}
   
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
- \end{pgfecon}
-
-
-As Figure \ref{fig:host1} illustrates, the platform's total profit will be the area under the curve $p(x)$ between $0$ and $\hat{x}$. 
-
-
-
-\begin{pgfecon}{A platform chooses its moderation level}{fig:host1}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \dropline{4.28}{1.65}{$\hat{x}$}
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
-  % \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and lambda, soft clip={domain=4.28:5.4}];
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.28}];
+  \dropline{5.1}{2.6}{$M_s$}
   
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
 \end{pgfecon}
 
-In this situation, a rational platform will choose the value of $\hat{x}$ that maximizes its profits. As Figure \ref{fig:host2} illustrates, this occurs at the point $x^*$ where $p(x)$ crosses the $x$ axis and becomes negative. If the platform chooses $hat{x}$ to the left of $x^*$, each unit of content it adds will generate positive marginal profit, so it could make more money by hosting more content. But if the platform chooses $hat{x}$ to the right of $x^*$, the marginal unit of content generates negative marginal profit, so the platform can save money by hosting less content. Thus, $x^*$ is the profit-maximizing level of moderation. 
+\autoref{fig:welfare1} illustrates. The green shaded region is total social welfare under efficient moderation. This is the best it is possible to do without knowing more about which content is harmful and which content is harmless. The platform should host all content to the left of $\ms$ and take down all content to the right of $\ms$.
 
-By the same reasoning, the point where $p(x)$ crosses the $x$ axis is also the socially efficient level of moderation. Because there are no externalities from hosting content, overall social welfare simply is the platform's profits. Thus, $x^e$, the socially efficient level of moderation, is equal to $x^*$, and the platform's incentives are aligned with society's.
+Now consider the platform's profits. Since its marginal revenue is $p(x)$, its total profits from setting its moderation level to $M$ are the area between $p(x)$ and the $x$-axis from $0$ to $M$. By similar reasoning to the above, the platform maximizes its profits by setting $M$ such that 
+\begin{equation*}p(M) = 0.\end{equation*} Call this point $\mp$, the \defterm{platform profit-maximizing moderation level}.\footnote{If there is no such value, which happens when the platform makes positive revenue from all content, the platform should set $\mp = \xmax$ and host all content.}
 
-\begin{pgfecon}{Without externalities, the platform has efficient incentives}{fig:host2}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*=x^e$};
+\begin{pgfecon}{Undermoderation under immunity}{fig:welfare2}
+   \lambdaplot
+   \plotvalue{profit}{2}{20}{$p$}
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \dropline{5.1}{2.6}{$\ms$}
+   \draw[dashed, thin] (8, 4.85) -- (8, -.5) node[below]{$\mp$};
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:8}];
+  \end{pgfecon}
+  
+\begin{pgfecon}{Overmoderation under immunity}{fig:welfare3}
+  \lambdaplot
+  \plotvalue{welfare}{4.5}{12}{$s$}
+  \plotvalue{profit}{.25}{30}{$p$}
+  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$M_p$};
+  \draw[dashed, thin] (5.55, 3.15) -- (5.55, -.3) node[below]{$M_s$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:4.25}];
+  \addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.55}];
 \end{pgfecon}
 
-Regulation potentially becomes appropriate when the platform's incentives diverge from society's. The essential premise on which any form of liability depends is that some conduct is harmful. For a platform, that conduct is content. 
+As figures \ref{fig:welfare2} and \ref{fig:welfare3} show, there is no necessary relationship between $\ms$ and $\mp$. In \autoref{fig:welfare2}, the platform undermoderates. It makes money from content that is bad for society, so $\mp > \ms$ and the platform leaves up content that it should ideally take down. The red striped region is the net social loss from hosting too much content. But in \autoref{fig:welfare3}, the platform overmoderates. It loses money on content that is good for society, so $\mp < \ms$ and the platform takes down content that it should ideally leave up. The yellow diamond region is the foregone social benefits from content the platform could have hosted but did not.
 
-To model harmful content, we add a function $h(x)$ that measures how much harm the $x$-th unit of content causes to third parties. We assume that the same spectrum from that captures the platform's profits also describes the content's harmfulness.As one moves right along the $x$ axis, $p(x)$ falls and $h(x)$ rises. The platform's marginal profits are still $p(x)$; marginal social welfare is now $p(x) - h(x)$.
+One way of understanding why both undermoderation and overmoderation are possible is that there are two different effects at work, with opposite signs. On the one hand, the platform fails to internalize the full social benefits of the content that it hosts: $s(x) > p(x)$. On the other hand, when content is harmful the platform does not internalize the harms to third parties: $h\lambda(x)$. On the minimal assumptions we have made, either one of these two effects could dominate. In the real world, both undermoderation and overmoderation are problems that lawmakers have thought serious enough to try to fix. Part \ref{sec:liability} discusses their various responses in detail.
 
-In Figure \ref{fig:harm1}, if the platform sets its moderation level at $\hat{x}$, then the green checked region beneath $p(x)$ corresponds to its profits and the red striped region beneath $h(x)$ corresponds to the harms caused by the content it carries. The efficient moderation level is at $x^e$, the point where they cross, where the marginal social welfare of one additional unit of content is zero. To the left of $x^e$, content is good because $p(x) > h(x)$; to the right of $x^e$, content is bad because $h(x) > p(x)$.
-
-Figure \ref{fig:harm1} also illustrates how the platform no longer has appropriate incentives. As before, it maximizes its profits by setting its moderation level to $x^*$, where its marginal profit becomes zero. But $x^*$ is always to the right of $x^e$; the platform will leave up some content that is privately profitable but socially harmful.
-
-\begin{pgfecon}{Without liability, a platform undermoderates}{fig:harm1}
-  \hplot
-%  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  %\plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.5}{$x^e$}
-  \dropline{5.1}{2.6}{$\hat{x}$}
-  \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.1}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:5.1}];
+\begin{pgfecon}{Blanket immunity}{fig:liability1}
+  \lambdaplot
+  \dropline{7.5}{4.65}{$M$}
 \end{pgfecon}
 
-The standard basic law-and-microeconomic response to harmful conduct is \emph{strict liability}. If a widget factory is forced to compensate everyone who is injured by defective widgets, the factory will take exactly those manufacturing precautions that are cost-justified. Once the factory internalizes the harms it causes, its incentives are aligned with society's.
+So far, we have been considering a model in which the platform is subject to a legal regime of \defterm{blanket immunity}. \autoref{liability1} illustrates this very simple rule. Regardless of where the platform sets $M$, it is not liable for any of the harms that result.
 
-The same reasoning shows that strict liability gives the platform efficient incentives. Figure \ref{fig:liability1} shows the simple rule of strict liability for a platform that sets its moderation threshold at $\hat{x}$: it is liable for all of the harms caused by the content that it carries (and for none of the harms that would have been caused by content that it could have carried and did not). Under strict liability, the platform's marginal profits are $p(x) - h(x)$, which is identical to the social welfare function. The factory's marginal profit will become zero at $x^e$, exactly when social welfare does, so $x^* = x^e$. 
+\subsection{Strict Liability}
 
-\begin{pgfecon}{Strict liability}{fig:liability1}
+The essential premise on which any form of liability depends is that some conduct is harmful. The standard law-and-microeconomic response to harmful conduct is \emph{strict liability}. If a widget factory is forced to compensate everyone who is injured by defective widgets, the factory will take exactly those manufacturing precautions that are cost-justified. Once the factory internalizes the harms it causes, its incentives are aligned with society's.
+
+\begin{pgfecon}{Strict liability}{fig:liability2}
   \lambdaplot
   \dropline{7.5}{4.65}{$\hat{x}$}
   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:7.5}];
 \end{pgfecon}
 
-\begin{pgfecon}{Blanket immunity}{fig:liability2}
+For a platform, that conduct is content, and the strict-liability measure of damages is the harm that results from the content that the platform hosts. \autoref{fig:liability2} illustrates. If the sets its moderation threshold at $M$, it is liable for all of the harms caused by the content that it carries (and for none of the harms that would have been caused by content that it could have carried and did not). 
+
+\begin{pgfecon}{Platform's optimal behavior under strict liability}{fig:welfare4}
   \lambdaplot
-  \dropline{7.5}{4.65}{$\hat{x}$}
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+  \dropline{4.25}{1.65}{$M_p$}
+  \dropline{5.1}{2.6}{$M_s$};
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
 \end{pgfecon}
 
+Note that for the fraction $1 - \lambda(x)$ of content that is actually harmless, the platform pays no damages. But for the fraction $\lambda(x)$ of content that is harmful, the platform pays the full $h$, for total damages of $h\lambda(x)$. 
 
-\subsection{Imperfect Information}
+Thus, under strict liability, the platform's marginal profits are $p(x) - h\lambda(x)$. Its profit-maximizing moderation level $\mp$ is defined by \begin{equation}p(\mp) = h\lambda(\mp).\end{equation} \autoref{fig:welfare4} illustrates the results. The platform sets its moderation level where its revenue curve $p(x)$ and the damages it must pay $h\lambda(x)$ cross. At that point, its revenues from carrying additional content are exactly cancelled out by the harm that content causes (and hence the damages it must pay). 
 
-The first essential feature that makes intermediary liability more complicated than widget liability a platform has imperfect information about the content that it hosts. Some content is harmful, and other content is not, but they look the same on first glance. A court decides whether a statement is legally defamatory after fact discovery, motion practice, and a trial; a platform does not have the time, the resources, or the power to conduct a full civil lawsuit on every post. A court awards damages in the fullness of time, on relatively complete information. A platform must act now, with radically incomplete information. 
+It follows that \emph{strict liability always results in overmoderation}. Because $p(x) < s(x)$, the platform's profit curve $p(x)$ always intersects the expected-harm curve $h\lambda(x)$ to the left of where the social-benefit curve $s(x)$ intersects $h\lambda(x)$. Thus, $\mp < \ms$.
 
-% Thus, platforms don't just \emph{choose} a moderation policy; they also have to \emph{apply} that moderation policy, and in the application they make mistakes. Some harmless content will be taken down, some harmful content will be left up.This fact that mistakes will inevitably follow shapes the initial choice; platforms act under conditions of uncertainty, and act accordingly. And this, in turn, shapes regulators' decisions about liability regimes. Perfect moderation is impossible, so regulators must trade off among differently imperfect moderation regimes.
-
-To capture this point, we now shift from models in which it is the \emph{harmfulness} of content that varies to models in which it is the platform's \emph{knowledge} of how like content is likely to be harmful that varies. Instead of letting the harm from content vary continuously, assume that content comes in two discrete types: harmful and harmless. The harmful content causes a harm to society of $H$ per unit that the platform hosts; the harmless content cases no harms. As in the previous model, all content that the platform hosts generates a profit of $p(x)$ per unit, regardless of whether it is harmful or harmless.
-
-Now, the platform does not know which specific items of content are harmful. Instead, it observes the probability $\lambda(x)$ that a given item of content is harmful. That is, on average, $\lambda(x)$ of the items of content at $x$ are harmful and $1 - \lambda(x)$ of them are harmless. Since the harmful items cause harm $H$ per unit, the expected harm from hosting the content at $x$ is therefore $H\lambda(x)$ per unit.
-
-As before, assume that the same spectrum from  $0$ to $\xmax$ that describes the platform's profits from content also describes the harm from content, except that now what varies is the probability of harm.  That is, $\lambda(x)$ is weakly increasing -- as one moves right along the $x$ axis, the content is increasingly likely to be harmful. It is also useful to assume that the most innocuous content is known with certainty to be harmless, so $\lambda(0) = 0$, and that the most suspicious content is known with certainty to be harmful, so $\lambda(\xmax) = 1$. As before, the model is uninteresting if the most ``harmful'' content is still beneficial overall, so we assume that $p(\xmax) H < 0$. This condition ensures that some content has positive social benefit and some content has negative social benefit, so that there is a real interest in treating them differently.
-
-
-
-The point of framing harmfulness this way -- in terms of a probability function $\lambda(x)$ that satisfies these conditions -- is that the resulting expected-harm function $H\lambda(x)$ satisfies exactly the same mathematical properties as $h(x)$ did in the previous model. It starts at $0$ and rises continuously to a value $h(\xmax)$ that is greater than $p(\xmax)$. Thus, the analysis of the platform's moderation decisions -- and especially the proof that strict liability is socially optimal -- is exactly the same.
-
-\begin{pgfecon}{When the platform has imperfect information, it still undermoderates}{fig:harm2}
+\begin{pgfecon}{Strict liability results in overmoderation}{fig:welfare5}
   \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  %\plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{4.25}{1.5}{$x^e$}
-  \dropline{5.1}{2.6}{$\hat{x}$}
-  \draw[dashed, thin] (8, 0) -- (8, -0.5) node[below]{$x^*$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.1}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:5.1}];
+  \plotvalue{profit}{2}{20}{$p$}
+  \plotvalue{welfare}{3.5}{15}{$s$}
+
+  \dropline{4.25}{1.65}{$\mp$}
+  \dropline{5.1}{2.6}{$\ms$};
+  
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:4.25}];
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:4.25}];
+  
+  \addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.1}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and profit, soft clip={domain=4.25:5.1}];
 \end{pgfecon}
 
-Figure \ref{fig:harm2}, which illustrates this imperfect-information fixed-harm model, is almost identical to Figure \ref{fig:harm1}, which illustrated the perfect-information variable-harm model. The only difference is that the deterministic harm function $h(x)$ has been relabeled as the statistically expected-harm function $H\lambda(x)$.
+\autoref{fig:welfare5} illustrates how strict liability causes overmoderation. The green checked region is the platform's profits, which become $0$ exactly at $\mp$, where it stops hosting content. The blue dotted region is the additional spillover social benefit from the content the platform hosts. Between $\mp$ and $\ms$, it is unprofitable for the platform to host more content: it would have net losses equal to the area of the red striped region. But content in that range is beneficial overall for society: society suffers a welfare loss equal to the area of the yellow diamond region from content that platform could have hosted but did not. This content is unprofitable to the platform but beneficial to society, because $p(x) < h\lambda(x) < s(x)$.
 
-Now, when the platform chooses a moderation level $\hat{x}$, it is choosing a threshold of \emph{expected} harmfulness. It removes all content whose probability of being harmful is greater than $\lambda(\hat{x})$, and leaves up all content whose probability of being harmful is less than that. Some of the removed content will actually be harmful, and some of it will not. Similarly, some of the content left up will be harmless, and some of it will not. Any choice of $\hat{x}$ (other than the trivial ones to host all content or remove all content) will generate both false positives and false negatives. The choice of a given $\hat{x}$ is a tradeoff between the two.
+It is critical to understand why and when strict liability causes overmoderation. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. This asymmetry between harms (for which it faces liability) and benefits (for which it is not compensated) pushes the platform to to remove more content than an omniscient regulator would.
 
-Figure \ref{fig:harm2} also shows how harmful content reduces social welfare. For a given $\hat{x}$, social welfare consists of two terms. On the one hand, as before, the content that the platform hosts generates profits for the platform: the area under the $p(x)$ curve. But social welfare is now reduced by any content that the platform hosts that actually is harmful. To repeat, at any point $x$, the fraction of content that is harmful is $\lambda(x)$ and the harm per unit of content that is harmful is $H$, so the overall harm is $H\lambda(x)$. Thus the \emph{net} marginal social welfare from hosting content at $x$ is $p(x) - H\lambda(x)$.
+A little more subtly, this overmoderation fundamentally depends on the platform's imperfect information about content. If the platform could costlessly distinguish harmless and harmful content, then strict liability would be efficient, as it would be feasible to expect the platform to separate the two and remove only the harmful content. But given imperfect information, the platform \emph{cannot tell with certainty} which content is harmless and creates net positive externalities and which content is harmful and creates net negative externalities. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
 
-The overall harm here is a \emph{statistical} consequence of a given choice of $\hat{x}$. If the platform could perfectly distinguish harmful and harmful content, it could choose to host only the harmless content, and thus society would not suffer the losses associated with the red striped area under the $H\lambda(x)$ curve. (Indeed, we will shortly consider a model under which this distinction is possible, albeit at a cost.) But the point of this model is that the platform cannot distinguish the two. A choice of $\hat{x}$ is a choice about the acceptable ratio of babies to bathwater.
+Thus, our model validates Felix Wu's argument for intermediary immunity.\note{wucollateral} The combination of (1) positive externalities and (2) imperfect information causes a platform subject to strict liability to engage in collateral censorship. The platform has less at stake than an original speaker (positive externalities) and responds by removing good content as well as bad (imperfect information). These conditions are jointly necessary and sufficient; if there are no positive externalities (i.e. $(s(x) = p(x)$) or the platform has perfect information (i.e. $\lambda(x) =0 $ or $\lambda(x) =$ for all content), then strict liability is efficient.
 
-The rest of the analysis is an equally straightforward recapitulation of the previous model. As before, the socially optimal level of moderation $x^e$ is defined by the point at which the social-benefit curve $p(x)$ and the expected-harm curve $H\lambda(x)$ intersect. At this point, the additional harms from the fraction of content that is harmful exactly cancel out the profits and spillovers from all of the content, harmful and harmless. Put algebraically, a regulator should want the platform to set $\hat{x}$ such that $\lambda(\hat{x}) = \frac{s(\hat{x})}{H}$: the greater the harm $H$, the lower the probability $\lambda(x)$ of harm worth tolerating, and thus the lower the appropriate threshold of moderation.
+It is important to note that the positive externalities here are not just the positive externalities common to all speech. As Wu explains, speech law already provides heightened protections for original speakers -- and yet intermediaries have protections that are higher still.\footnote{Wu at 304.} Speakers have private motivations for speaking: financial, self-expression, reputation-building, community-building, or even revenge. Platforms share their speech but not their motivations.
+
+Platforms also differ from speakers in that speakers generally have much better information about the harmfulness of their speech. A speaker knows whether there is a factual basis for allegations of corruption or harassment; a platform does not. A speaker knows whether they wrote a song themselves or copied it from someone else; a platform does not. A speaker is much less likely to be chilled from harmless speech by the threat of liability for harmful speech.
+
+Whether social welfare is higher under strict liability or immunity depends on the parameters of the model:  $p(x)$, $s(x)$, $h$, and $\lambda(x)$. Strict liability always leads to overmoderation; immunity could either undershoot or overshoot the efficient level of moderation. Generally speaking, a blanket immunity regime is most justified when there there are large positive externalities (a large difference between $s(x)$ and $p(x)$), highly imperfect information ($\lambda(x)$ has a large intermediate region that is not close to $0$ or to $1$), and socially harmful content is also unprofitable ($\mp < \ms$).
+ There is a strong argument that these conditions describe many categories of content moderation today.
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+The rest of the analysis is an equally straightforward recapitulation of the previous model. As before, the socially optimal level of moderation $x^e$ is defined by the point at which the social-benefit curve $p(x)$ and the expected-harm curve $H\lambda(x)$ intersect. At this point, the additional harms from the fraction of content that is harmful exactly cancel out the profits and spillovers from all of the content, harmful and harmless.
 
 The platform, however, does not have an incentive to set its moderation threshold at the socially optimal level. Instead, as above, its profit-maximizing strategy, is to set the threshold $\hat{x}$ at the point where its marginal profit is exactly zero, i.e. where $p(x) = 0$. Thus $x^* > x^e$ and the platform undermoderates.
 
-And finally, as above, strict liability restores efficiency. Note that for the fraction $1 - \lambda(x)$ of content that is actually harmless, the platform pays no damages. But for the fraction $\lambda(x)$ of content that is harmful, the platform pays the full $H$, for total damages of $H\lambda(x)$. The platform's profit under strict liability becomes $p(x) - H\lambda(x)$, which is equal to social welfare, so it maximizes its profits by setting its moderation threshold to $x^e$, and society is as well-off as it can be, given the indistinguishability of harmful and harmless content.
-
+And finally, as above, strict liability restores efficiency. 
 
 \subsection{Positive Externalities}
 
@@ -215,13 +242,11 @@ First, a platform's ``product'' is often not widgets but speech. Speech consists
 
 The second source of positive externalities is that platforms do not even capture the full value to speakers of the content they host. As Felix Wu convincingly argues, the value to a user of \emph{posting} content to a platform is typically much larger than the value to the platform of \emph{hosting} that content. A platform does not have an original speaker's incentives. And this point holds true even for non-speech platforms: Airbnb captures only part. of the value that apartment hosts extract from rentals made through the platform.
 
-We model these positive externalities by introducing a function $s(x)$, which captures the total value to society of the platform's hosting the $x$-th unit of content. We assume that the ordering of content from best to worst is the same for the platform and for society -- so that $s(x)$ is also weakly decreasing. We also assume that this spillover value is never negative, so that $s(x) \ge p(x)$. (Any negative externalities are already accounted for in by the harm function $H\lambda(x)$.)
-
 \autoref{fig:full1} illustrates the consequences for social welfare when the platform sets its moderation level to $\hat{x}$ in the presence of positive externalities. The green checked area between $p(x)$ and the $x$ axis is the platform's revenue from the content it carries; the blue dotted area between $s(x)$ and $p(x)$ is the additional positive spillovers for society. The red striped area under $H\lambda(x)$ is the harms due to the content the platform carries.
 
 
 
-\autoref{fig:full2} illustrates that neither blanket immunity nor strict liability is necessarily efficient. Under blanket immunity, the platform sets its moderation level to $\xbi$, where $p(x) =0 $. Here, this results in undermoderation, because the platform fails to take into account the harms from the content it carries. But under strict liability, the platform sets its moderation level to $\xsl$, where $p(x) = H\lambda(x)$ and its revenues from carrying additional are exactly cancelled out by the harm that content causes (and hence the damages it must pay). Here, this results in overmoderation, because the platform fails to take into account the spillover benefits from the content it carries.
+\autoref{fig:full2} illustrates that neither blanket immunity nor strict liability is necessarily efficient. Under blanket immunity, the platform sets its moderation level to $\xbi$, where $p(x) =0 $. Here, this results in undermoderation, because the platform fails to take into account the harms from the content it carries. But under strict liability,
 
 \begin{pgfecon}{Social welfare in the presence of positive externalities}{fig:full1}
   \lambdaplot
@@ -536,17 +561,7 @@ investigation eliminates the harms $H\lambda(x)$ but introduces two new costs: t
 
 We have seen that strict liability for platforms is not necessarily efficient. But it is possible to be more precise about how and why.
 
-First, while immunity can lead to overmoderation or undermoderation, strict liability always leads to overmoderation.  The reason is simple. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. This asymmetry between harms (for which it faces liability) and benefits (for which it is not compensated) pushes the platform to to remove more content than an omniscient regulator would.
 
-Second, this overmoderation fundamentally depends on the platform's imperfect information about content. If the platform could costlessly distinguish harmless and harmful content, then strict liability would be efficient, as it would be feasible to expect the platform to separate the two and remove only the harmful content. But given imperfect information, the platform \emph{cannot tell with certainty} which content is harmless and creates net positive externalities and which content is harmful and creates net negative externalities. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
-
-Thus, our model validates Felix Wu's argument for intermediary immunity.\note{wucollateral} The combination of (1) positive externalities and (2) imperfect information causes a platform subject to strict liability to engage in collateral censorship. The platform has less at stake than an original speaker (positive externalities) and responds by removing good content as well as bad (imperfect information). These conditions are jointly necessary and sufficient; if there are no positive externalities (i.e. $(s(x) = p(x)$ or the platform has perfect information (i.e. $c = 0$), then strict liability is efficient.
-
-It is important to note that the positive externalities here are not just the positive externalities common to all speech. As Wu explains, speech law already provides heightened protections for original speakers -- and yet intermediaries have protections that are higher still.\footnote{Wu at 304.} Speakers have private motivations for speaking: financial, self-expression, reputation-building, community-building, or even revenge. Platforms share their speech but not their motivations.
-
-Platforms also differ from speakers in that speakers generally have much better information about the harmfulness of their speech. A speaker knows whether there is a factual basis for allegations of corruption or harassment; a platform does not. A speaker knows whether they wrote a song themselves or copied it from someone else; a platform does not. In terms of our model, a speaker has $c = 0$ or close to it for their own speech, and thus is much less likely to be chilled from harmless speech by the threat of liability for harmful speech.
-
-Whether social welfare is higher under strict liability or immunity depends on the parameters of the model:  $p(x)$, $s(x)$, $H$, $\lambda(x)$, and $c$. Strict liability always leads to overmoderation; immunity could either undershoot or overshoot the efficient level of moderation. Generally speaking, a blanket immunity regime is most justified when there there are large positive externalities (a large difference between $p(x)$ and $s(x)$), highly imperfect information ($c$ is high and $\lambda(x)$ has a large intermediate region that is not close to $0$ or to $1$), and socially harmful content is also unprofitable ($p(x) = 0$ at a point to the left of the point at which $s(x) = H\lambda(x)$). There is a strong argument that these conditions describe many categories of content moderation today.
 
 
 \subsection{Undermoderation: Liability on Notice}
