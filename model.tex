@@ -2,18 +2,110 @@
 \newcommand{\xbi}{x_{\text{BI}}^p}
 \newcommand{\xsl}{x_{\text{SL}}^p}
 \newcommand{\xsubi}{x_{\text{I}}^p}
+\newcommand{\defterm}[1]{\textbf{#1}}
 
 \section{An Economic Model of Moderation}
 \label{sec:model}
 
-There are two distinctive features of platform liability for harmful third-party content. The platform has \emph{imperfect information} about which content is harmful and which is not, and  content can have \emph{positive externalities} not captured by the platform itself, and  These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the thread of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content. To see how these effects arise, it is useful to start. with a model in which they are absent.
+There are two distinctive features of platform liability for harmful third-party content. The platform has \emph{imperfect information} about which content is harmful and which is not, and  content can have \emph{positive externalities} not captured by the platform itself, and  These two features, taken together, mean that holding the platform liable for the harmful content it carries can go wrong. Because the platform cannot perfectly distinguish harmful from harmless content, and because it does not internalize the full benefits from the harmless content, the threat of liability can cause the platform to overmoderate, removing too much harmless content along with the harmful content.
+
+\subsection{The Model}
+
+Users submit discrete items $x_1, x_2, x_3 \ldots$ of \defterm{content} to a platform. Each of these items is either \defterm{harmful} or \defterm{harmless}, and the platform can either \defterm{host} or \defterm{remove} each item. The essential feature of the model is that platform \emph{does not know} whether each item is harmful or not. Instead, it observes the \emph{probability} $\lambda(x)$ that item $x$ is harmful, so it must make its hosting or removal decision under conditions of uncertainty.
+
+If the platform hosts an item $x$, it has the following consequences:
+\begin{itemize}
+\item The \defterm{platform} receives some revenue $p(x)$.
+\item \defterm{Society} as a whole realizes some benefits $s(x)$.
+\item \emph{If the item is harmful}, a third-party \defterm{victim} suffers harm $h(x)$.
+\end{itemize}
+If the platform removes the item, then the revenue, social benefits, and third-party harms are all $0$.
+
+Note that the social benefits of content $s(x)$ are known with certainty, and so are the harms $h(x)$ \emph{if they happen}. Overall social welfare is therefore $s(x) - h(x)$ for harmful items, and $s(x)$ for harmless ones.  Thus, the \emph{expected} social welfare from hosting an item of content is $s(x) - h(x)\lambda(x)$: the known benefits minus the expected harms.
+
+In general, $p()$, $s()$, $h()$, and $\lambda()$ could be arbitrarily complicated functions that take into account an arbitrarily large number of features of each item of content. So while this expression is almost tautologically simple, it does not say much about how to draw useful lines between different kinds of content.
+
+Therefore, we simplify the model by collapsing all content to a \emph{single axis}. Imagine the content submitted by users to a platform arranged on a spectrum from worthwhile to worthless. At one end, the content is entertaining and informative -- cat pictures and civics lessons. At the other end, the content is stomach-churning or worse -- gross-out pictures and badly-written spam. A platform sets its moderation policy by deciding where along this spectrum to draw the line.
+
+More formally, we assume that each item content falls within the one-dimensional interval from $0$ to $\xmax$, where $0$ is the ``good'' end and $\xmax$ is the ``bad'' end. Then as $x$ increases:
+\begin{itemize}
+\item Content is less profitable to the platform: $p(x)$ decreases.
+\item Content is less beneficial to society: $s(x)$ decreases.
+\item The harm (if it happens) is fixed: $h$ is a constant.
+\item Content is more likely to be harmful: $\lambda(x)$ increases.
+\end{itemize}
+We assume that $s(x) > p(x)$, i.e., all content has some positive spillover benefits for society that the platform does not capture. We do not assume that $p(x) > 0$ or $s(x) > 0$: it is possible that some content is negative-value even if it is not harmful to third parties. (An example is spam, which is costly for the platform to host and has infinitesimal spillover benefits for anyone else.) 
+
+To make the model interesting, and to eliminate some annoying corner cases, we assume that the most innocuous content is profitable for the platform ($p(0) > 0$), beneficial to society ($s(0) > 0$), and known with certainty to be harmless, i.e. $\lambda(0) = 0$. Similarly, we assume that most problematic content is known with certainty to be harmful ($\lambda(\xmax) = 1$) and that harmful content is unambiguously bad for society, i.e. $h > s(x)$ for all $x$. These conditions ensure that some content definitely is good for society and some content is definitely bad for society, so that there is a real interest in treating them differently.
+
+\begin{pgfecon}{A one-dimensional model of moderation}{fig:model1}
+   \lambdaplot
+   \plotline{harmline}{5}{$h$}
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \plotvalue{profit}{2}{20}{$p$}
+\end{pgfecon}
+
+\autoref{fig:model1} illustrates the essential model. The platform-revenue and social-benefit curves $p(x)$ and $s(x)$ start off positive and drop off. The expected-harm curve $h\lambda(x)$ -- the probability that content is harmful times the harm if it is -- starts at $0$ and rises to $h$. By the intermediate value theorem, there is some value of $x$ at which $p(x)$ and $h\lambda(x)$ cross, and similarly for $s(x)$ and $h\lambda(x)$.
+
+\begin{pgfecon}{Probability of harm}{fig:imperfect1}
+  \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
+  \fill[pattern=sixpointed stars, pattern color=green] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (0,5) to (0,0);
+  \draw[thick] (.425,0) to (.425,5) to (.625,5) to (.625,0) to (.425,0) node[below]{$\lambda = 0$};
+  \draw[thick] (4.025,0) to (4.025,5) to (4.225,5) to (4.225,0) to (4.025,0) node[below]{$\lambda = .3$};
+  \draw[thick] (9.15,0) to (9.15,5) to (9.35,5) to (9.35,0) to (9.15,0) node[below]{$\lambda = 1$};
+\end{pgfecon}
+
+\autoref{fig:imperfect1} illustrates the platform's imperfect information. Think of the content presented to the platform as being divided into buckets. The platform knows what fraction (the probability $\lambda(x)$) of the content in each bucket is harmful (red five-pointed stars) or harmless (green six-pointed stars). But it does not know which specific items of content (individual stars) are harmful or harmless.
+
+Given these assumptions, it is easy to see that content further to the left is always better \emph{ex ante} and content further to the right is always worse. If $x < y$, then $x$ is more profitable to the platform, better for society, and less likely to be harmful \emph{ex ante}. Of course, if $y$ is harmful and $x$ is not, then $y$ might be better \emph{ex post}, but from behind the veil of probabilistic ignorance, $x$ is the better prospect \emph{ex ante}.
+
+It follows that a rational moderator who is concerned with maximizing benefits and profits and minimizing harms will set a \defterm{moderation threshold} $M$. It will leave up all content $x$ with $x < M$, and remove all content $x$ with $x > M$. There is no circumstance under which it makes sense for the moderator to take down content $x$ and leave up content $y$ where $x < y$, because it would always be better to leave up $x$ and take down $y$ instead.
+
+Any choice of $M$ trades off false positives and false negatives. A low threshold means that more harmless content will be removed; a high threshold means that more harmful content will stay online. We tolerate some harmful content because it is indistinguishable \emph{ex ante} from harmless content. The choice of $M$ incorporates the moderator's judgments about the \emph{acceptable risk of harm}.
+
+This imperfect information is central to our model, and we believe that it is a pervasive fact of content moderation. While the users who upload content and the victims who are harmed by it may know better whether content is harmful, platforms and regulators operate from a position of comparative ignorance.
+
+\autoref{fig:model1} is an abstract microeconomic diagram. Its purpose is to build qualitative intuition, not to be a scale model of anything specific. The $x$-axis is measured in abstract ``units'' of content. Think of each short interval along the axis as being occupied by an indefinitely large number of individual items of content. There are so many items, in fact, that we will treat the interval $[0,\xmax]$ as being effectively continuous; while content comes in distinct items, they are too small to be visible to the naked eye at this scale. Similarly, the $y$-axis is measured in abstract units of value. They could be dollars, or euros, or utils. Thus the values of the functions $p(x)$ and $s(x)$ and the constant $h$ have the units of ``value per unit of content,'' where, to repeat, a ``unit'' is made up of many individual items.\footnote{The value of the function $\lambda(x)$ is a unitless probability, a number between $0$ and $1$.}
+
+We emphasize this point because it is important to remember that this diagram portrays the \emph{marginal} platform revenue, social benefit, and third-party harm per unit of content. The value of $p(x)$ at a point $x$ is the amount of additional revenue the platform will earn by hosting one additional unit of content at $x$ -- i.e., from increasing $M$ by one unit. The value $p(x)$ is emphatically not the platform's \emph{total} revenue from setting its moderation threshold to $x$.
+
+\begin{pgfecon}{Curves represent marginal value; areas represent total value}{fig:model2}
+   \lambdaplot
+   \plotvalue{welfare}{3.5}{15}{$s$}
+   \plotvalue{profit}{2}{20}{$p$}
+   \dropline{6}{2.15}{$M$}
+   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:6}];
+ %  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:6}];
+\end{pgfecon}
+
+Rather, total profits, benefits, and harms are illustrated in \autoref{fig:model1} (and in the numerous diagrams that will follow) by \emph{areas}. For example, \autoref{fig:model2} illustrates the platform's profits from setting its moderation level at $M$. At any given point, the vertical distance from the $x$-axis to the revenue curve $p(x)$ is the platform's marginal revenue from hosting the content at $x$. The platform's total profits are the area of the green checked region.\footnote{In calculus terms, the platform's total profits are the \emph{integral} of its marginal revenues, i.e.
+\begin{equation*}
+\int_0^{\xmax} p(x) dx.
+\end{equation*}}
+
+\subsection{Social Welfare and Platform Profits}
 
 
-\subsection{Harmful Content}
 
-Imagine the content submitted by users to a platform arranged on a spectrum from worthwhile to worthless. At one end, the content is entertaining and informative -- cat pictures and civics lessons. At the other end, the content is stomach-churning or worse -- gross-out pictures and badly-written spam. A platform sets its moderation policy by deciding where along this spectrum to draw the line.
 
-More formally, let the spectrum of content run from $0$ to $\xmax$ and let the marginal profit that the platform can make from hosting the $x$-th unit of content be $p(x)$. To capture the idea that the content is ordered from best to worst, assume that $p(x)$ is weakly decreasing -- i.e. is flat or slopes down as $x$ increases. Content for which $p(x) <0$ generates negative marginal profit -- that is, this content costs the platform more to host than it brings in. The platform chooses a moderation level $\hat{x}$. It hosts all content for which $x \le \hat{x}$ and takes down all content for which $x > \hat{x}$. As Figure \ref{fig:host1} illustrates, the platform's total profit will be the area under the curve $p(x)$ between $0$ and $\hat{x}$. 
+
+
+
+
+
+
+
+\begin{pgfecon}{Net social benefit is welfare minus expected harm}{fig:model3}
+  \lambdaplot
+  \plotvalue{welfare}{3.5}{15}{$s$}
+  \plotvalue{profit}{2}{20}{$p$}
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:6.5}];
+ \end{pgfecon}
+
+
+As Figure \ref{fig:host1} illustrates, the platform's total profit will be the area under the curve $p(x)$ between $0$ and $\hat{x}$. 
 
 
 
@@ -38,7 +130,7 @@ By the same reasoning, the point where $p(x)$ crosses the $x$ axis is also the s
 
 Regulation potentially becomes appropriate when the platform's incentives diverge from society's. The essential premise on which any form of liability depends is that some conduct is harmful. For a platform, that conduct is content. 
 
-To model harmful content, we add a function $h(x)$ that measures how much harm the $x$-th unit of content causes to third parties. We assume that the same spectrum from that captures the platform's profits also describes the content's harmfulness.As one moves right along the $x$ axis, $p(x)$ falls and $h(x)$ rises. The platform's marginal profits are still $p(x)$; marginal social welfare is now $p(x) - h(x)$. To make the model interesting, we assume that the most innocuous content is completely harmless (i.e. $h(0) = 0$) and that the most problematic content is unambiguously harmful to society (i.e.  $p(\xmax) < h(\xmax)$). These conditions ensure that some content has positive social benefit and some content has negative social benefit, so that there is a real interest in treating them differently. It also follows, by the intermediate value theorem, that there is some point at which the curves $p(x)$ and $h(x)$ cross.
+To model harmful content, we add a function $h(x)$ that measures how much harm the $x$-th unit of content causes to third parties. We assume that the same spectrum from that captures the platform's profits also describes the content's harmfulness.As one moves right along the $x$ axis, $p(x)$ falls and $h(x)$ rises. The platform's marginal profits are still $p(x)$; marginal social welfare is now $p(x) - h(x)$.
 
 In Figure \ref{fig:harm1}, if the platform sets its moderation level at $\hat{x}$, then the green checked region beneath $p(x)$ corresponds to its profits and the red striped region beneath $h(x)$ corresponds to the harms caused by the content it carries. The efficient moderation level is at $x^e$, the point where they cross, where the marginal social welfare of one additional unit of content is zero. To the left of $x^e$, content is good because $p(x) > h(x)$; to the right of $x^e$, content is bad because $h(x) > p(x)$.
 
@@ -84,15 +176,7 @@ Now, the platform does not know which specific items of content are harmful. Ins
 
 As before, assume that the same spectrum from  $0$ to $\xmax$ that describes the platform's profits from content also describes the harm from content, except that now what varies is the probability of harm.  That is, $\lambda(x)$ is weakly increasing -- as one moves right along the $x$ axis, the content is increasingly likely to be harmful. It is also useful to assume that the most innocuous content is known with certainty to be harmless, so $\lambda(0) = 0$, and that the most suspicious content is known with certainty to be harmful, so $\lambda(\xmax) = 1$. As before, the model is uninteresting if the most ``harmful'' content is still beneficial overall, so we assume that $p(\xmax) H < 0$. This condition ensures that some content has positive social benefit and some content has negative social benefit, so that there is a real interest in treating them differently.
 
-\begin{pgfecon}{Probability of harm}{fig:imperfect1}
-  \fill[pattern=fivepointed stars, pattern color=red] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (10,0) to (0,0);
-  \fill[pattern=sixpointed stars, pattern color=green] (0,0) to (1,0) parabola (5,2.5) parabola[bend at end] (9,5) to (10,5) to (0,5) to (0,0);
-  \draw[thick] (.425,0) to (.425,5) to (.625,5) to (.625,0) to (.425,0) node[below]{$\lambda = 0$};
-  \draw[thick] (4.025,0) to (4.025,5) to (4.225,5) to (4.225,0) to (4.025,0) node[below]{$\lambda = .3$};
-  \draw[thick] (9.15,0) to (9.15,5) to (9.35,5) to (9.35,0) to (9.15,0) node[below]{$\lambda = 1$};
-\end{pgfecon}
 
-\autoref{fig:imperfect1} illustrates the platform's imperfect information. Think of the content presented to the platform as being divided into buckets. The platform knows what fraction of the content in each bucket is harmful (red five-pointed stars) or harmless (green six-pointed stars). But it does not know which specific items of content (individual stars) are harmful or harmless.
 
 The point of framing harmfulness this way -- in terms of a probability function $\lambda(x)$ that satisfies these conditions -- is that the resulting expected-harm function $H\lambda(x)$ satisfies exactly the same mathematical properties as $h(x)$ did in the previous model. It starts at $0$ and rises continuously to a value $h(\xmax)$ that is greater than $p(\xmax)$. Thus, the analysis of the platform's moderation decisions -- and especially the proof that strict liability is socially optimal -- is exactly the same.
 
