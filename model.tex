@@ -203,27 +203,9 @@ It follows that \emph{strict liability always results in overmoderation}. Becaus
 
 \autoref{fig:welfare5} illustrates how strict liability causes overmoderation. The green checked region is the platform's profits, which become $0$ exactly at $\mp$, where it stops hosting content. The blue dotted region is the additional spillover social benefit from the content the platform hosts. Between $\mp$ and $\ms$, it is unprofitable for the platform to host more content: it would have net losses equal to the area of the red striped region. But content in that range is beneficial overall for society: society suffers a welfare loss equal to the area of the yellow diamond region from content that platform could have hosted but did not. This content is unprofitable to the platform but beneficial to society, because $p(x) < h\lambda(x) < s(x)$.
 
-It is critical to understand why and when strict liability causes overmoderation. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. This asymmetry between harms (for which it faces liability) and benefits (for which it is not compensated) pushes the platform to to remove more content than an omniscient regulator would.
 
-A little more subtly, this overmoderation fundamentally depends on the platform's imperfect information about content. If the platform could costlessly distinguish harmless and harmful content, then strict liability would be efficient, as it would be feasible to expect the platform to separate the two and remove only the harmful content. But given imperfect information, the platform \emph{cannot tell with certainty} which content is harmless and creates net positive externalities and which content is harmful and creates net negative externalities. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
-
-Thus, our model validates Felix Wu's argument for intermediary immunity.\note{wucollateral} The combination of (1) positive externalities and (2) imperfect information causes a platform subject to strict liability to engage in collateral censorship. The platform has less at stake than an original speaker (positive externalities) and responds by removing good content as well as bad (imperfect information). These conditions are jointly necessary and sufficient; if there are no positive externalities (i.e. $(s(x) = p(x)$) or the platform has perfect information (i.e. $\lambda(x) =0 $ or $\lambda(x) =$ for all content), then strict liability is efficient.
-
-It is worth dwelling for a bit on the nature of these positive externalities. A widget factory might come close to capturing the full social value of the widgets it makes. But a platform does not, for at least two reasons.
-
-First, a platform's ``product'' is often not widgets but speech. Speech consists of information, and information is a public good. Once it has been shared with one listener, the speaker cannot easily prevent them from sharing it with others.\footnote{Arrow, Lemley, Frischmann, Baker} A dance video that goes viral on TikTok will be reposted to Twitter and YouTube; the information in a plumbing tutorial will be retained in the minds of viewers and shared with others. All of this third-party value is an externality from the speaker's perspective.
-
-The second source of positive externalities is that platforms do not even capture the full value to speakers of the content they host. As Felix Wu convincingly argues, the value to a user of \emph{posting} content to a platform is typically much larger than the value to the platform of \emph{hosting} that content. A platform does not have an original speaker's incentives. And this point holds true even for non-speech platforms: Airbnb captures only part. of the value that apartment hosts extract from rentals made through the platform.
-
-As Wu explains, speech law already provides heightened protections for original speakers -- and yet intermediaries have protections that are higher still.\footnote{Wu at 304.} Speakers have private motivations for speaking: financial, self-expression, reputation-building, community-building, or even revenge. Platforms share their speech but not their motivations.
-
-Platforms also differ from speakers in that speakers generally have much better information about the harmfulness of their speech. A speaker knows whether there is a factual basis for allegations of corruption or harassment; a platform does not. A speaker knows whether they wrote a song themselves or copied it from someone else; a platform does not. A speaker is much less likely to be chilled from harmless speech by the threat of liability for harmful speech.
-
-Whether social welfare is higher under strict liability or immunity depends on the parameters of the model:  $p(x)$, $s(x)$, $h$, and $\lambda(x)$. Strict liability always leads to overmoderation; immunity could either undershoot or overshoot the efficient level of moderation. Generally speaking, a blanket immunity regime is most justified when there there are large positive externalities (a large difference between $s(x)$ and $p(x)$), highly imperfect information ($\lambda(x)$ has a large intermediate region that is not close to $0$ or to $1$), and socially harmful content is also unprofitable ($\mp < \ms$).
- There is a strong argument that these conditions describe many categories of content moderation today.
-
-
-\subsection{Investigations}
+\subsection{Costless Investigations}
+\label{sec:costless}
 
 The final moving piece of our model is that a platform can investigate content that it suspects of being harmful. Specifically, we add the option for the platform can pay a cost $c \ge 0$  per unit of content to investigate and determine with certain whether each item is actually harmful.
 
@@ -235,7 +217,7 @@ Naively, it might seem like the effect of costless investigation would be to rem
 
 Define $p^*(x) = p(x)(1 - \lambda(x))$, i.e. the profits the platform can make by hosting only harmless content. Similarly, define the corresponding function $s^*(x) = s(x)(1 - \lambda(x))$ for social benefits. These new functions represent the maximum social benefit and revenue, respectively, that it is possible to realize, even with perfect knowledge about which content is harmful.
 
-\begin{pgfecon}{Revenue and social benefits with costless investigations}{fig:investigate1}
+\begin{pgfecon}{Platform revenue and social benefits with costless investigations}{fig:investigate1}
   \lambdaline
   \plotvalue{profit}{.5}{30}{$p(x)$}
   \plotvalue{welfare}{4.5}{20}{$s(x)$}
@@ -268,23 +250,17 @@ Define $p^*(x) = p(x)(1 - \lambda(x))$, i.e. the profits the platform can make b
 
 \autoref{fig:investigate1} illustrates $p^*(x)$ and $s^*(x)$.\footnote{The harm curve $h\lambda()$ has been straightened out and the curves $s(x)$ and $p(x)$ separated to make the diagram easier to read.} Their behavior is subtle. $s^*(x)$ starts off equal to $s(x)$ when all content is harmless and nothing must be removed. It immediately dips below $s(x)$ as content must be removed so there is less available to generate surplus. Eventually, it ends up equal to $0$ because all the content is harmful so there is nothing left to host. Similarly,  $p^*(x)$ starts off equal to $p(x)$ and immediately dips beneath it. A twist is that $p^*(x)$ becomes $0$ exactly when $p(x)$ does, because that is the point at which all content, harmful and harmless, is valueless to the platform. From then on $p^*(x) > p(x)$, because the platform saves money by not hosting content that would be unprofitable for it. But like $s^(x)$, it eventually ends up equal to $0$ because there is nothing left to host.
  
-It is a little difficult to see visually in \autoref{fig:investigate1}, but costless investigation is always good for society, and society is always better off removing the harmful content that it knows about. Algebraically, the  benefit function with omniscient moderation $s^*(x)$  is always greater than the benefit function with obligious moderation $s(x) - h\lambda(x)$.\footnote{This follows from the definition of $s^*(x)$ and the postulate that $h > s(x)$.} 
+It is a little difficult to see visually in \autoref{fig:investigate1}, but costless investigation is always good for society, and society is always better off if the platform removes the harmful content that it knows about. Algebraically, the  benefit function with omniscient moderation $s^*(x)$  is always greater than the benefit function with obligious moderation $s(x) - h\lambda(x)$.\footnote{This follows from the definition of $s^*(x)$ and the postulate that $h > s(x)$.} Note that society will now prefer to host all harmless content up to the point at which $s(x) = 0$.\footnote{Or, if as in \ref{fig:investigate1}, there is no such point, simply to host all harmless content.}
 
-From the platform's perspective, omniscient moderation is also never a bad thing. Under immunity, the platform does not care about harmful and harmless content; it still sets its moderation level at $\mpi$ and it is no worse off. Under strict liability, the platform will still set its moderation level at $\mpi$ but it will also remove all of the content $x < \mpi$ that is actually harmful. This eats into the platform's profits compared with immunity --- it makes $p^*(x)$ instead of  $p(x)$ --- but compared with where it would be under strict liability with oblivious moderation it is much better off. Because it does not actually have to pay the harms $h\lambda(x)$, it can move its moderation level from $\mpsl$ to $\mpi$.
+From the platform's perspective, omniscient moderation is also never a bad thing. Under immunity, the platform does not care about harmful and harmless content; it still sets its moderation level at $\mpi$ and it is no worse off. Under strict liability, the platform will still set its moderation level at $\mpi$ but it will also remove all of the content $x < \mpi$ that is actually harmful. This eats into the platform's profits compared with immunity --- it makes $p^*(x)$ instead of  $p(x)$ --- but compared with where it would be under strict liability with oblivious moderation it is much better off. Because it does not actually have to pay the harms $h\lambda(x)$, it can move its moderation level from $\mpsl$ to $\mpi$. With costless investigation and strict liability, the platform will typically overmoderate for the simple reason that $p(x) < s(x)$: some harmless content may be unprofitable but socially beneficial. The platform may be willing to host more content -- but society's preferred moderation level has also shifted to the right.
 
-Now we can consider what happens when moderation is costly, i.e. $0 < c < \inf$.
-
-
- 
-
-
-Under these circumstances, strict liability for the harms actually caused is again efficient. It is no longer a problem of imperfect information, and the chilling-effect argument for intermediary immunity vanishes.
+\subsection{Costly Investigations}
 
 Now consider what happens for intermediate $c$. The platform has three options for any given item of content: it can leave it up, take it down, or investigate. It is easy to see that the platform will only investigate content where its decision depends on the results of the investigation -- i.e.,  it will take the content down if the investigation reveals it to be harmful, and leave it up otherwise. (If the platform intended to take down the content regardless, it could save $c$ by omitting the investigation, and similarly if it intended to leave up the content regardless.)
 
-Thus the expected value to society for content at $x$ is $0$ if the platform takes down the content, $s(x) - H\lambda(x)$ per unit if it leaves the content up, and $s(x)(1 - \lambda(x)) - c$ per unit if it investigates -- i.e., the value of a harmless piece of content times the probability that the content is harmless. Intuitively, the platform should prefer takedown for content with $\lambda(x)$ close to $1$ and should prefer leaving up for content with $\lambda(x)$ close to $0$, with an interval of investigation somewhere in the middle. 
+Thus the expected value to society for content at $x$ is $0$ if the platform takes down the content, $s(x) - h\lambda(x)$ per unit if it leaves the content up, and $s(x)(1 - \lambda(x)) - c$ per unit if it investigates -- i.e., the value of a harmless piece of content times the probability that the content is harmless, minus the cost of investigating all content. Intuitively, the platform should prefer takedown for content with $\lambda(x)$ close to $1$ and should prefer leaving up for content with $\lambda(x)$ close to $0$, with an interval of investigation somewhere in the middle. 
 
-\end{document}
+
 
 \begin{pgfecon}{Investigation of intermediate content}{fig:investigate1}
   \lambdaline
@@ -304,7 +280,7 @@ Thus the expected value to society for content at $x$ is $0$ if the platform tak
   
   \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
   \draw (1, -.5) -- (1,-.5) node[below]{lower limit};
-  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)}) node[right]{upper limit};
+  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)}) node[above]{upper limit};
   
   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lambda, soft clip={domain=0:1}];
   \addplot [pattern= dots, pattern color = green] fill between [of = harmline and lowerlimit, soft clip={domain=1:9}];
@@ -321,43 +297,44 @@ Thus the expected value to society for content at $x$ is $0$ if the platform tak
 
 
 
+
 % t/k diagram of actual social welfare from this
 
-The regulator is indifferent between takedown and investigation when (1) the value of the content that investigation will allow to remain up minus the costs of investigation exactly equals (2) the value of taking all content down. (1) consists of the social value $s(x)$ times the fraction of harmless content $1 - lambda(x)$,  minus minus $c$ (times $1$, as the platform must investigate all content, harmful and harmless). (2) is simply $0$. Doing out the math, takedown and investigation are equally efficient when 
- \begin{equation*}\lambda(x) = 1 - \frac{c}{s(x)}.\end{equation*} When $c$ approaches $0$, this converges to $\lambda(x) = 1$, i.e., so the right end of the investigation interval approaches $\xmax$. That is, as the costs of investigation decrease, it is almost always better to investigate than to take down suspected-bad content without first checking. 
+The regulator is indifferent between takedown and investigation when (1) the value of the content that investigation will allow to remain up minus the costs of investigation, exactly equals (2) the value of taking all content down. (1) consists of the social value $s(x)$ times the fraction of harmless content $1 - lambda(x)$,  minus $c$. (2) is simply $0$. Doing out the math, takedown and investigation are equally efficient when 
+ \begin{equation*}\lambda(x) = 1 - \frac{c}{s(x)}.\end{equation*} When $c$ approaches $0$, this converges to $\lambda(x) = 1$, i.e., so the right end of the investigation interval approaches $\xmax$. That is, as the costs of investigation decrease, it is almost always better to investigate than to take down suspected-bad content without first checking.
 
-The regulator is indifferent between investigation and leaving up when (1) the value of the content that investigation will allow to remain up minus the costs of investigation exactly equals (2) the benefits of all the content minus the costs of the harmful content. (1) is the same as before: $s(x)(1 - \lambda(x)) - c$. (2) simply consists of the social benefits $s(x)$ minus the harms $H\lambda(x)$. Doing out the math, investigating and leaving up are equally efficient when 
+The regulator is indifferent between investigation and leaving up when (1) the value of the content that investigation will allow to remain up minus the costs of investigation exactly equals (2) the benefits of all the content minus the costs of the harmful content. (1) is the same as before: $s(x)(1 - \lambda(x)) - c$. (2) simply consists of the social benefits $s(x)$ minus the harms $h\lambda(x)$. Doing out the math, investigating and leaving up are equally efficient when 
 \begin{equation*}\lambda(x) = \frac{c}{H - s(x)}.\end{equation*} When $c$ approaches $0$, this converges to $\lambda(x) = 0$, i.e., the left end of the investigation interval approaches $0$. That is, as $c$ decreases, it almost always better to investigate than to leave up the suspected-good content without first checking. 
 
 That is, as $c$ decreases, the ideal investigation interval expands to cover more and more content. On the other hand, for increasing $c$, the investigation interval shrinks and eventually vanishes. \footnote{It vanishes when:
 \begin{equation*}
-c > \min_{x \in [0, \xmax]} s(x)\frac{H - s(x)}{2s(x) - H}.
+c > \min_{x \in [0, \xmax]} s(x)\frac{h - s(x)}{2s(x) - h}.
 \end{equation*}}
-When this bound is exceeded, it is never worthwhile from society's perspective for the platform to investigate. It should instead, as in the previous model, act on the basis of the imperfect information it already has.
+When this bound is exceeded, it is never worthwhile from society's perspective for the platform to investigate. It should instead act on the basis of the imperfect information it already has.
 
-These results show that a rational regulator should want platforms to invest resources in investigating only when the costs of investigation are sufficiently low, and then only for a range of intermediate cases where the harmfulness of the content is sufficiently unclear. For content that is highly likely or highly unlikely to be harmful, individual investigation is unnecessary and inefficient. Note that this interval contains $x^e$ -- in a sense, affordable investigations expands the cutoff from a sharp on-off to a range warranting a closer look.
+These results show that a rational regulator should want platforms to invest resources in investigating only when the costs of investigation are sufficiently low, and then only for a range of intermediate cases where the harmfulness of the content is sufficiently unclear. For content that is highly likely or highly unlikely to be harmful, individual investigation is unnecessary and inefficient. Note that this interval contains $\ms$ -- in a sense, affordable investigations expands the cutoff from a sharp on-off to a range warranting a closer look.
 % \footnote{In notation, the efficient range of investigation is  \begin{equation*}[\frac{c}{H - s(x)}, 1 - \frac{c}{s(x)}].\end{equation*}}
 
-\autoref{fig:investigate1} illustrates.\footnote{For simplicity of illustration, $\lambda(x)$ is shown as a straight line, but the same results hold in the general case where it is any weakly increasing function that goes from $0$ to $1$ on the interval $[0,\xmax]$.} The curve labeled ``lower limit'' is the dividing line between the region where investigation is better than leaving content up and vice versa. The curve labeled ``upper limit'' is the dividing line between the region where investigation is better than taking content down, and vice versa. These are two-dimensional regions, because whether it is rational to investigate or not depends both on $lambda(x)$ (the horizontal axis) and on $s(x)$ (the vertical axis). As the probability of content being harmful increases (i.e., as one moves horizontally to the right), one starts in a region where it is optimal to leave content up, passes through a region (possibly zero-width) where investigation is optimal, and then moves into a region where it is optimal to take content down. Similarly, as the value of content increases (i.e. as one moves vertically upwards), the optimal policy changes from takedown to investigation to leaving content up. If the curve $s(x)$ passes through the investigation-justified region at all, then $x^e$ lies within it.
+\autoref{fig:investigate1} illustrates.\footnote{Again, for simplicity of illustration, $\lambda(x)$ is shown as a straight line, but the same results hold in the general case where it is any weakly increasing function that goes from $0$ to $1$ on the interval $[0,\xmax]$.} The curve labeled ``lower limit'' is the dividing line between the region where investigation is better than leaving content up and vice versa. The curve labeled ``upper limit'' is the dividing line between the region where investigation is better than taking content down, and vice versa. These are two-dimensional regions, because whether it is rational to investigate or not depends both on $lambda(x)$ (the horizontal axis) and on $s(x)$ (the vertical axis). As the probability of content being harmful increases (i.e., as one moves horizontally to the right), one starts in a region where it is optimal to leave content up, passes through a region (possibly zero-width) where investigation is optimal, and then moves into a region where it is optimal to take content down. Similarly, as the value of content increases (i.e. as one moves vertically upwards), the optimal policy changes from takedown to investigation to leaving content up. If the curve $s(x)$ passes through the investigation-justified region at all, then $\ms$ lies within it.
 
-\autoref{fig:investigate1} also illustrates the dependence of investigation on $c$. As $c$ decreases, the upper limit moves upwards and the lower limit moves downwards, increasing the size of the (yellow dotted) region where investigation is justified. As $c$ increases, the limits converge, until eventually the region vanishes entirely. In this case, investigation is never justified and we are back to the previous model, where $H\lambda(x)$ marks the dividing line between taking down and leaving up.
+\autoref{fig:investigate1} also illustrates the dependence of investigation on $c$. As $c$ decreases, the upper limit moves upwards and the lower limit moves downwards, increasing the size of the (yellow dotted) region where investigation is justified. As $c$ increases, the limits converge, until eventually the region vanishes entirely. In this case, investigation is never justified and we are back to the previous model, where $h\lambda(x)$ marks the dividing line between taking down and leaving up.
 
 % t/k higher c and lower c graphs
 
 A nearly identical analysis applies to a platform's incentives under strict liability.\footnote{Under blanket immunity, a platform will never investigate. Instead, it will always choose to leave all content up.} Because the platform internalizes all the harm that it causes, the only change is to substitute the platform's private profit $p(x)$ for the overall social value $s(x)$. If there is any range for which investigation is justified, it will contain  $\xsl$.) % \footnote{Its interval of investigation is \begin{equation*}[\frac{c}{H - p(x)}, 1 - \frac{c}{p(x)}]\end{equation*}} 
-A little algebraic manipulation shows that the platform's preferred interval of investigation is always \emph{shifted left} from the regulator's preferred interval.\footnote{To be precise, at the lower end \begin{equation*}\frac{c}{H - s(x)} < \frac{c}{H - p(x)},\end{equation*} and at the upper end \begin{equation*}1 - \frac{c}{p(x)} < 1 - \frac{c}{s(x)}.\end{equation*}} Intuitively, because the platform has less at stake, it will be more likely to remove content rather than investigating and also more likely to investigate content rather than leaving it up.
+A little algebraic manipulation shows that the platform's preferred interval of investigation is always \emph{shifted left} from the regulator's preferred interval.\footnote{To be precise, at the lower end \begin{equation*}\frac{c}{h - s(x)} < \frac{c}{h - p(x)},\end{equation*} and at the upper end \begin{equation*}1 - \frac{c}{p(x)} < 1 - \frac{c}{s(x)}.\end{equation*}} Intuitively, because the platform has less at stake, it will be more likely to remove content rather than investigating and also more likely to investigate content rather than leaving it up.
 
 
-\begin{pgfecon}{Platform's profits and social welfare with investigation}{fig:investigate2}
+\begin{pgfecon}{Platform's profits and social benefits under strict liability with costly investigation}{fig:investigate2}
   \lambdaline
   \plotline{harmline}{5}{$H$}
   %\plotline{hcline}{4.5}{$H - c$}
   \plotline{cline}{.5}{$c$}
   \plotvalue{profit}{2}{20}{$p(x)$}
   \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{1.66}{2}{$\underline{x^*}$}
-  \dropline{5.63}{1}{$\overline{x^*}$}
-  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
+  \dropline{1.66}{2}{$\underline{\mp}$}
+  \dropline{5.63}{1}{$\overline{\mp}$}
+  %\draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
 
   
   \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
@@ -383,184 +360,178 @@ A little algebraic manipulation shows that the platform's preferred interval of 
 \end{pgfecon}
 
 
-\autoref{fig:investigate2} shows the platform's profits and social welfare under strict liability when the platform can investigate content. As before, the platform's profits are the green gridded region, and the additional positive externalities for society are the blue dotted region. Beneath the lower limit of investigation $\underline{x^*}$, matters are as before: the platform's marginal profit is $p(x)$ (income) minus $H\lambda(x)$ (expenses) and marginal social welfare is $s(x) - H\lambda(x)$. When $\lambda(x)$ crosses into the region where investigation is optimal, the platform's marginal revenue is now defined by the difference between $p(x)(1 - \lambda(x))$ (income) and $c$ (expenses). Both income and expenses shift discontinuously downward, but total profit is the same. Marginal social welfare discontinuously decreases -- intuitively, because society has more to gain from beneficial content, and would not have started investigating until later. In this region, both profits and welfare decrease faster than they did under leave-it-all-up, as more and more content is removed. But this steeper decrease is more than offset by the fact that costs are now constant at $c$, rather than increasing with $\lambda(x)$. At the upper limit of investigation $\overline{x^*}$, the platform's marignal profit is zero, so it switches to taking all content down, which zeroes out both marginal profit and marginal welfare going forward. Again it is visually apparent that the platform is making different tradeoffs than society -- it would still be socially beneficial at $\overline{x^*}$ for the platform to continue investigating content.
+
+\autoref{fig:investigate2} shows the platform's profits and social welfare under strict liability when the platform can investigate content. The upper dashed line is $s^*(x)$ and the lower dashed line is $p^*(x)$ -- the social-benefit and platform-profit effects of omniscient moderation. The difference is that now this moderation must be paid for with investigations, so that the net social benefit \emph{if the platform investigates} is $s^*(x) - c$ and the net profit \emph{if the platform investigates} is $p^*(x) - c$. 
+
+The platform's profits are the green gridded region, and the additional positive externalities for society are the blue dotted region. Beneath the lower limit of investigation $\underline{\mp}$, matters are as before: the platform's marginal profit is $p(x)$ (income) minus $h\lambda(x)$ (expenses) and marginal social welfare is $s(x) - h\lambda(x)$. When $\lambda(x)$ crosses into the region where investigation is optimal, the platform's marginal revenue is now defined by the difference between $p^*(x)$ (income) and $c$ (expenses). At this point, both income and expenses shift discontinuously downward. The platform is taking in less revenue now that it is removing some content, but that drop is exactly offset by the savings from investigating rather than paying damages. Marginal social welfare discontinuously decreases -- intuitively, because society has more to gain from beneficial content, and would not have started investigating until later. In this region of investigate, both profits and welfare decrease faster than they did under leave-it-all-up, as more and more content is removed. But this steeper decrease is more than offset by the fact that costs are now constant at $c$, rather than increasing with $\lambda(x)$. At the upper limit of investigation $\overline{\mp}$, the platform's marignal profit is zero, so it switches to taking all content down, which zeroes out both marginal profit and marginal welfare going forward. Again it is visually apparent that the platform is making different tradeoffs than society -- it would still be socially beneficial at $\overline{\mp}$ for the platform to continue investigating content.
+
+In short, the ability to investigate increases both social welfare and the platform's profits, but it does not automatically align the platform's incentives with society's.
+
+\subsection{Collateral Censorship}
+
+It is critical to understand why and when strict liability causes overmoderation. Strict liability causes the platform to internalize the harms from the content it carries, but not the offsetting benefits. This asymmetry between harms (for which it faces liability) and benefits (for which it is not compensated) pushes the platform to to remove more content than an omniscient regulator would.
+
+A little more subtly, this overmoderation fundamentally depends on the platform's imperfect information about content. If the platform could costlessly distinguish harmless and harmful content, then strict liability would be efficient, as it would be feasible to expect the platform to separate the two and remove only the harmful content. But given imperfect information, the platform \emph{cannot tell with certainty} which content is harmless and creates net positive externalities and which content is harmful and creates net negative externalities. A platform facing strict liability consistently overmoderates. This overmoderation expresses itself in the removal of harmless content.
+
+Thus, our model validates Felix Wu's argument for intermediary immunity.\note{wucollateral} The combination of (1) positive externalities and (2) imperfect information causes a platform subject to strict liability to engage in collateral censorship. The platform has less at stake than an original speaker (positive externalities) and responds by removing good content as well as bad (imperfect information). These conditions are jointly necessary and sufficient; if there are no positive externalities (i.e. $(s(x) = p(x)$) or the platform has perfect information (i.e. $\lambda(x) =0 $ or $\lambda(x) =$ for all content), then strict liability is efficient.
+
+It is worth dwelling for a bit on the nature of these positive externalities. A widget factory might come close to capturing the full social value of the widgets it makes. But a platform does not, for at least two reasons.
+
+First, a platform's ``product'' is often not widgets but speech. Speech consists of information, and information is a public good. Once it has been shared with one listener, the speaker cannot easily prevent them from sharing it with others.\footnote{Arrow, Lemley, Frischmann, Baker} A dance video that goes viral on TikTok will be reposted to Twitter and YouTube; the information in a plumbing tutorial will be retained in the minds of viewers and shared with others. All of this third-party value is an externality from the speaker's perspective.
+
+The second source of positive externalities is that platforms do not even capture the full value to speakers of the content they host. As Felix Wu convincingly argues, the value to a user of \emph{posting} content to a platform is typically much larger than the value to the platform of \emph{hosting} that content. A platform does not have an original speaker's incentives. And this point holds true even for non-speech platforms: Airbnb captures only part. of the value that apartment hosts extract from rentals made through the platform.
+
+As Wu explains, speech law already provides heightened protections for original speakers -- and yet intermediaries have protections that are higher still.\footnote{Wu at 304.} Speakers have private motivations for speaking: financial, self-expression, reputation-building, community-building, or even revenge. Platforms share their speech but not their motivations.
+
+Platforms also differ from speakers in that speakers generally have much better information about the harmfulness of their speech. A speaker knows whether there is a factual basis for allegations of corruption or harassment; a platform does not. A speaker knows whether they wrote a song themselves or copied it from someone else; a platform does not. A speaker is much less likely to be chilled from harmless speech by the threat of liability for harmful speech.
+
+Whether social welfare is higher under strict liability or immunity depends on the parameters of the model:  $p(x)$, $s(x)$, $h$, and $\lambda(x)$. Strict liability always leads to overmoderation; immunity could either undershoot or overshoot the efficient level of moderation. Generally speaking, a blanket immunity regime is most justified when there there are large positive externalities (a large difference between $s(x)$ and $p(x)$), highly imperfect information ($\lambda(x)$ has a large intermediate region that is not close to $0$ or to $1$), and socially harmful content is also unprofitable ($\mp < \ms$).
+ There is a strong argument that these conditions describe many categories of content moderation today.
+
+\subsection{The Moderator's Dilemma}
+\label{sec:dilemma}
+
+Now we are in a position to appreciate the crucial policy arguments at the heart. of Section 230. Famously, Section 230 was enacted against the backdrop of two judicial decisions on the liability of online intermediaries, \emph{Cubby v. Compuserve} and \emph{Stratton Oakmont v. Prodigy}. In \emph{Cubby}, the court held that CompuServe could not be held liable for user-posted content where it "neither knew nor had reason to know" that the content was defamatory.\footnote{Cubby at 141.} But in \emph{Stratton Oakmont}, the court held that Prodigy could be held liable for user-posted content, even where it lacked such knowledge. Both courts treated the cases involving imperfect information -- the issue was how a platform \emph{without} specific knowledge should be treated.
+
+Notoriously, the \emph{Stratton Oakmont} court distinguished \emph{Cubby} on the grounds that Prodigy's ``conscious choice, to gain the benefits of editorial control, has opened it up to a greater liability than CompuServe and other computer networks that make no such choice.''\footnote{Stratton Oakmont at t/k} On this reasoning, moderated services like Prodigy that exercise ``editorial control' face strict liability, whereas unmoderated services like CompuServe that exercise no editorial control are immune.
+
+In terms of our model, the rule in \emph{Stratton Oakmont} puts platforms to a choice. If they host \emph{all} content, they face no liability. But if they remove \emph{any} content, they are strictly liable for the harms caused by any content they do not remove.  
 
 
-
-
-\end{document}
-
-
-\section{Platform Liability and Platform Immunity}
-\label{sec:liability}
-
-We have already seen that neither blanket immunity nor strict liability is guaranteed to be efficient. This Part. provides a comparative analysis of the arguments for and against other liability regimes. The point is not to definitely settle on one or another as optimal, but instead to bring out the intuitions behind each and to get a sense of the conditions they depend on.
-
-
-
-\subsection{Blanket Immunity}
-
-The fundamental challenge of platform liability law is that content has both harms and benefits to society that the platform does not internalize. A profit-maximizing platform makes its decisions based on how much it can make from hosting content, paying no attention to either positive or negative spillovers. In the absence of liability -- a legal regime we refer to as \emph{blanket immunity} -- either of these effects can dominate, so both overmoderation and undermoderation are possible.
-
-Figure \ref{fig:harm2} shows that blanket immunity can lead a platform to \emph{undermoderate}: the platform makes money from hosting content that is, on average, a net negative for society.\footnote{For much of this section, for the sake of simplicity of exposition, we will discuss platform investigations only when directly relevant.} In this region between $x^e$ and $x^*$ (red and striped), there are both harmful and harmless items of content, but the harm from the harmful items outweighs the benefits of all the content together. Making the platform liable for the harmful content it carries could potentially improve matters, by encouraging it to carry less content.
-
-\begin{pgfecon}{Blanket immunity can lead to undermoderation}{fig:blanket1}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{5.1}{2.6}{$x^e$};
-  \draw[dashed, thin] (8, 4.75) -- (8, -0.5) node[below]{$x^*$};
-  %\draw[dashed, thin] (9.25, 0) -- (9.25, 0.5) node[above]{$x^e$};
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  % \addplot [pattern= dots, pattern color = blue] fill between [of = profit and welfare, soft clip={domain=0:4.28}];
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.1}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.1:8}];
-
- % \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:3.5}];
- % \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and axis, soft clip={domain=0:3.5}];
-\end{pgfecon}
-
-But \ref{fig:blanket2} shows that even under blanket immunity, a platform might also \emph{overmoderate}. If the platform's revenues too small compared with the social value of the content it carries, it may simply not be economically feasible for the platform to carry all the content it would be socially valuable to.
-
-\begin{pgfecon}{Blanket immunity can lead to overmoderation}{fig:blanket2}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{welfare}{4.5}{12}{$s(x)$}
-  \plotvalue{profit}{.25}{30}{$p(x)$}
-  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$x^*$};
-  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, 0) ;
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:4.25}];
-  \addplot [pattern= crosshatch, pattern color = yellow] fill between [of = welfare and lambda, soft clip={domain=4.25:5.55}];
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:8}];
-%  \addplot [pattern= north east lines, pattern color = red] fill between [of = welfare and axis, soft clip={domain=8:9.25}];
-\end{pgfecon}
-
-It is technically possible for these effects to cancel out, so that the platform arrives at an appropriate level of moderation on its own. But there is no particular reason to expect that this will be the case. Instead, a particular platform, hosting particular types of content, with particular harms and benefits, will typically fall on one side or the other.
-
-The policy responses to overmoderation and undermoderation are different. Overmoderation is typically addressed with subsidies or must-carry rules to force platforms to carry content they rather would not on their own. Undermoderation is typically addressed by imposing liability on platforms. We take up these two possibilities in turn, starting with overmoderation.
-
-
-\subsection{Overmoderation: Subsidies}
-
-Many responses to overmoderation are familiar from telecommunications and intellectual-property law. One of the most common is \emph{subsidies}, in which the government pays the platform to carry content. \autoref{fig:subsidies1} shows a case in which the government gives the platform a subsidy of $\epsilon$ for any content that it carries. This pushes the platform's profits up to the point that $x^* = x^e$ and it carries the socially optimal level of content. 
-
-There are at least three challenges in providing subsidies. First, the regulator must accurately estimate $x^e$, which requires an understanding both of the value of content $s(x)$ and its harms $H\lambda(x)$. Second, the regulator must choose an appropriate subsidy $\epsilon$, which requires an understanding of the platform's revenues $p(x)$. And third, the subsidy must be one that the regulator is willing to pay. The orange dotted region in \autoref{fig:subsidies1} is money that must come from somewhere. It is not a welfare loss to society, just a wealth transfer (ignoring administrative costs and the distortionary effects of taxation, that is). Below-cost mail service is an example of this type of subsidy.
-
-
-\begin{pgfecon}{Flat subsidies}{fig:subsidies1}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{welfare}{4.5}{12}{$s(x)$}
-  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
-  \plotvalue{profit}{.25}{30}{}
-  \draw (10, -2) node {$p(x)$};
-  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75) node[below]{$x^*$};
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
-  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=0:5.55}];
-\end{pgfecon}
-
-A partial solution to the third problem is \emph{targeted subsidies}. Here, the government subsidizes content only in the range where subsidies make a difference in the platform's decision of whether to carry it -- between $x^*$ and $x^e$. This reduces the size of the subsidies required, but it increases the difficulty of the regulatory problem, because now the regulator must be able to accurately estimate  $x^*$, and not just know the behavior of $p(x)$ in the neighborhood of $x^e$. The FCC's Universal Service Fund is a targeted subsidy. It helps make broadband Internet access more widely available by supporting its availability to people and communities who for whom it would not otherwise be profitable for telecom companies to provide it.
-
-\begin{pgfecon}{Targeted subsidies}{fig:subsidies2}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{welfare}{4.5}{12}{$s(x)$}
-  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
-  \plotvalue{profit}{.25}{30}{}
-  \draw (10, -2) node {$p(x)$};
-  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$x^*$};
-  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75);
-  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
-  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=4.25:5.55}];
-\end{pgfecon}
-
-Subsidies can also be provided indirectly, by subsidizing the users who create content and distribute it through platforms, and the consumers who receive it. The idea here is that if distribution is more valuable to creators and consumers, they will be willing to pay more to distributors, thus shifting the $p(x)$ curve upwards. There is an argument that the copyright system has some of these features, although it is not typically described in these terms.
-
-\subsection{Overmoderation: Must-Carry}
-
-Another response to overmoderation is to impose a \emph{must-carry} rule, in which the platform must host all content submitted to it. Formally, the regulator forces the platform to set $\hat{x} = \xmax$, i.e. the far right of the diagram. Compared to subsidies, a must-carry system is simpler to design and almost by definition requires less outlay. It also removes discretion from the platform, which may be a concern if the platform has a conflict of interest due to other business lines or does not agree with the regulator's understanding of which content is valuable. Something like this, for example, is a commonly advanced argument for network neutrality.
-
-A must-carry rule, however, must satisfy two conditions to be justified compared with the baseline. First, it must actually result in hosting more worthwhile than worthless content. In \autoref{fig:mustcarry1}, the upper green gridded region is the positive-value content that must-carry causes to be hosted, and the upper red striped region is the negative-value content it also causes to be hosted. If the red region is larger than the green one, must-carry is counter-productive; the bad additional content outweighs the good.\footnote{This analysis omits the investigation option, because it is never rational for a platform to investigate content it is just going to leave up anyway.}
-
-\begin{pgfecon}{Must-carry}{fig:mustcarry1}
-  \lambdaplot
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{welfare}{4.5}{20}{$s(x)$}
-  \plotvalue{profit}{.25}{30}{$p(x)$}
-  \draw[dashed, thin] (4.25, 4) -- (4.25, 0) node[below]{$x^*$};
-  \draw[dashed, thin] (5.9, 3.5) node[above]{$x^e$} -- (5.9, 0) ;
-  
-  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=4.25:5.9}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.9:10}];
-
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.25}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=4.25:10}];
-  
-\end{pgfecon}
-
-A little more subtly, must-carry can also counter-productively drive a platform out of the market. In \autoref{fig:mustcarry1}, the lower green gridded region is the profit's profits from hosting the content it wants to, and the lower red striped region it is losses from hosting the content it is forced to. If the red region is larger than the green one, it is unprofitable for the platform to operate at all, and it will rationally shut down rather than comply with a must-carry mandate.
-
-\subsection{Overmoderation: Lawful Must-Carry}
-
-One common criticism of must-carry -- especially for application-layer platforms -- is that it compels platforms to carry content that society itself considers harmful, even illegal. So it is common to see must-carry mandates limited to ``lawful'' content. The FCC's Obama-era network neutrality regulations had such a carveout, as do the Texas and Florida social-media must-carry bills whose constitutionality is currently being litigated.\footnote{t/k}
-
-We can model a \emph{lawful must-carry} rule by stating that the platform \emph{must} host all harmless content, but has discretion whether or not to host harmful content. Of course, to know with certainty whether content is harmless, the platform must investigate it. Thus, under lawful must-carry, the platform has two choices: it can either leave the content up without investigation, or it can investigate it and take it down if harmful. 
-
-As \autoref{fig:mustcarry2} illustrates, the platform's marginal revenue from leaving up is $p(x)$, and its marginal revenue from investigation is $(1 - \lambda(x))p(x) -c $. Thus, the platform finds the two equivalent when $p(x) = \frac{-c}{\lambda(x)}$, which can only occur when the platform's profit $p(x)$ has gone negative. The intersection of these two curves (if they meet at all), which we call $\xsubi$, is to the right of $x^*$. To the left of $\xsubi$, the platform leaves up content, so its profits and social welfare are as above. But to the right of $\xsubi$, the platform investigates all content and takes down all harmful content. Compared with a flat must-carry requirement, the platform can reduce its losses from the content it is compelled to carry, and thus may be better able to keep operating in the face of a lawful must-carry requirement.
-
-Lawful must-carry can also be better for social welfare, because the platform will filter out some content that is both harmful and unprofitable.  \autoref{fig:mustcarry2} shows that the welfare effects can be subtle and complex. $\xsubi$ creates a discontinuity. To the left, social welfare is the benefits of all content $s(x)$ minus the harms of all content $H\lambda(x)$. To the right, 
-investigation eliminates the harms $H\lambda(x)$ but introduces two new costs: the cost of foregone benefits from removed harmful content $s(x)\lambda(x)$ and the costs of investigation $c$. 
-
-\begin{pgfecon}{Lawful must-carry}{fig:mustcarry2}
+\begin{pgfecon}{Platform's profits if it carries all content}{fig:investigate3}
   \lambdaline
   \plotline{harmline}{5}{$H$}
   %\plotline{hcline}{4.5}{$H - c$}
-  %\plotline{cline}{-.5}{$-c$}
-  \plotvalue{profit}{.5}{30}{$p(x)$}
-  \plotvalue{welfare}{4.5}{20}{$s(x)$}
-  \draw[dashed, thin] (5.4, 3.6)  -- (5.4, 0) node[below]{$x^*$};
-  \draw[dashed, thin] (6.5, 3.2) node[above]{$x^e$} -- (6.5, 0) ;
-  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
-    
-  %\draw[domain = 2.5:10, samples=200, name path = lowerlimit] plot (\x,{-5/\x}) node[right]{$\frac{-c}{\lambda(x)$};
-  
-  \draw[domain = 0:10, samples=200, name path = filterprofit] plot 
-  (\x,{-.5 + (1 - (\x/10)) * (\x < 1.5 ? .5 : 
-   (\x < 6.5 ? .5 - (\x - 1.5)^2 / 30 : 
-   .5 - (25 / 30) - (10 * (\x - 6.5)) / 30 ))}) node[right]{$(1 - \lambda(x))p(x) -c$};
+  %\plotline{cline}{.5}{$c$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \draw[dashed, thin] (8, 4)  -- (8, -.75) node[below]{$\mpsl$} ;
+  % \dropline{1.66}{2}{$\underline{x^*}$}
+  % \dropline{5.63}{1}{$\overline{x^*}$}
 
-  \draw[domain = 0:10, samples=200, name path = filterwelfare] plot 
-  (\x,{.5 + (\x / 10) * (\x < 1.5 ? 4.5 : 
-   (\x < 6.5 ? 4.5 - (\x - 1.5)^2 / 20 : 
-   4.5 - (25 / 20) - (10 * (\x - 6.5)) / 20 ))}) node[right]{$s(x)\lambda(x) + c$};
   
-   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.4}];
-   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=5.4:7.5}];
-   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and filterprofit, soft clip={domain=7.5:10}];
-      
-   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=5.4:6.5}];   
-   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=6.5:7.5}];
-   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and filterwelfare, soft clip={domain=7.5:8}];
-   \addplot [pattern= north east lines, pattern color = red] fill between [of = filterwelfare and welfare, soft clip={domain=8:10}];
-    
+  % \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+  % \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  % \addplot [-, name path = investigateprofit, dashed,
+  % domain = 0:10,
+  % samples = 250] { (1 - (\x/10)) * (
+  %    \x < 1.5 ? 2 : 
+  %    (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
+  %    2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
+  % \addplot [-, name path = investigatewelfare, dashed,
+  %    domain = 0:10,
+  %    samples = 250] { (1 - (\x/10)) * (
+  %       \x < 1.5 ? 3.5 : 
+  %       (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
+  %       3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
+
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:1.66}];  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
+%  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
 \end{pgfecon}
 
-\subsection{Undermoderation: Strict Liability}
-
-We have seen that strict liability for platforms is not necessarily efficient. But it is possible to be more precise about how and why.
 
 
+Section \ref{sec:investigate} analyzed the platform's behavior if it chooses to moderate -- and thus commits to optimal investigations to maximize its profits in the presence of strict liability.  \autoref{fig:investigate1} shows the range of content for which the platform will investigate, and \autoref{fig:investigate2} shows the platform's profits (green gridded) and additional social welfare (blue dotted) that result.
+
+Compare that situation with \autoref{fig:investigate3}, which shows the platform's profits (green gridded) and losses (red striped) if it chooses simply to carry all content. While the platform ends up taking some losses on the spammy negative-revenue content at the right, it also makes substantial profits on the positive-revenue content at the left -- and since it no longer has to pay damages, it can pocket all of that revenue without concern for the resulting harms.
+
+Comparing \autoref{fig:investigate2} and \autoref{fig:investigate3}, it is visually clear that the platform is better off not moderating at all. This is contingent on the precise values of the parameters to the model, especially its profit function $p(x)$. For a different and lower $p(x)$, the platform might lose so much money hosting the worst of the worst content that it would be better off moderating and accepting liability.
+
+These diagrams also reinforce an important point about moderation: \emph{almost all platforms have their own strong incentives to engage in at least some moderation}. The platform here would moderate at $\mpsl$ even in the absence of liability, because the worst content is genuinely bad for the platform and its users. Liability is not the only incentive to moderation, and by putting the platform to the choice between voluntary moderation and immunity, the regulator runs the risk that the platform will choose to give up its voluntary moderation efforts.
 
 
-\subsection{Undermoderation: Liability on Notice}
+\begin{pgfecon}{Platform's profits if it carries all content}{fig:investigate3}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  %\plotline{hcline}{4.5}{$H - c$}
+  %\plotline{cline}{.5}{$c$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  \draw[dashed, thin] (8, 4)  -- (8, -.75) node[below]{$\mpsl$} ;
+  % \dropline{1.66}{2}{$\underline{x^*}$}
+  % \dropline{5.63}{1}{$\overline{x^*}$}
+
+  
+  % \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
+  % \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
+  
+  % \addplot [-, name path = investigateprofit, dashed,
+  % domain = 0:10,
+  % samples = 250] { (1 - (\x/10)) * (
+  %    \x < 1.5 ? 2 : 
+  %    (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
+  %    2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
+  % \addplot [-, name path = investigatewelfare, dashed,
+  %    domain = 0:10,
+  %    samples = 250] { (1 - (\x/10)) * (
+  %       \x < 1.5 ? 3.5 : 
+  %       (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
+  %       3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
+
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:1.66}];  
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
+%  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
+%  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
+\end{pgfecon}
+
+t/k
+
+
+\begin{pgfecon}{Social welfare if the platform carries all content}{fig:investigate5}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{profit}{2}{20}{$p(x)$}
+  \plotvalue{welfare}{3.5}{15}{$s(x)$}
+  
+  \dropline{5.2}{2.6}{$\ms$}
+  \draw[dashed, thin] (8, 4)  -- (8, -.75)node[below]{$\mpi$} ;
+
+  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:5.2}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.2:10}];  
+\end{pgfecon}
+
+\autoref{fig:investigate5} shows the resulting social welfare if the platform chooses to carry all content. The blue dotted region is positive and the red striped region is negative. The red striped is \ldots large. The additional social welfare loss from $\mpi$ to $\xmax$ is particularly substantial. Intuitively, the content that the platform is most selfishly interested in removing is also the content that the regulator most wants it to removed.
+
+Take a moment to let the implications sink in. The platform here is much better off carrying all content, society is much worse off as a result. Strict liability induces the platform to increase its moderation effort from $\mpi$, where it would moderate in the absence of liability at all. Society gains as a result. But when the platform has the option of not moderating at all -- or, put another way, when strict liability is the price it must pay for engaging in moderation -- it is better off turning off its moderation. It no longer has to pay damages for the content it carries, it no longer has to pay investigatory costs, and it can carry content that would have been unprofitably risky before. These gains are more than enough to outweigh the harms to its platform from the negative-value content at the right. From society's perspective, this is a disaster. In trying to encourage the platform to moderate, the regulator has perversely discouraged it from doing so.
+
+Eric Goldman refers the platform's choice as the \defterm{moderator's dilemma}. The platform wants to moderate in order to improve its offerings for its users. But when moderation also becomes the legal trigger for liability, the platform must consider whether moderation is still worthwhile.
+
+This is why Section 230(c) is titled ``Protection for `Good Samaritan' blocking and screening of offensive material.'' It was enacted to remove the perverse disincentive to moderation created by the rule of \emph{Cubby}. A platform protected by Section 230 is now free to move its moderation off of $\xmax$ without fear that it will now open itself to liability and be forced to move much further to the left.
+
+
+
+
+
+
+\section{Policy Responses to Undermoderation}
+\label{sec:undermoderation}
+
+The fundamental challenge of platform liability law is that content has both harms and benefits to society that the platform does not internalize. A profit-maximizing platform makes its decisions based on how much it can make from hosting content, paying no attention to either positive or negative spillovers. We have seen that under blanket immunity, either of these effects can dominate, so both overmoderation and undermoderation are possible. It is technically possible for these effects to cancel out, so that the platform arrives at an appropriate level of moderation on its own. But there is no particular reason to expect that this will be the case. Instead, a particular platform, hosting particular types of content, with particular harms and benefits, will typically fall on one side or the other.
+
+This Part gives a comparative analysis the ways that a regulator could respond to undermoderation; the next Part similarly considers responses to overmoderation. We have already discussed strict liability in detail; this Part 
+considers liability on notice, negligence, and conditional immunity. The point is not to definitely settle on one or another as optimal, but instead to bring out the intuitions behind each and to get a sense of the conditions they depend on.
+
+
+\subsection{Actual Knowledge}
+\label{sec:actualknowledge}
 
 At common law, a ``distributor'' of defamatory speech published by a third party (e.g. a bookstore) was liable ``if, but only if, [it] knows or has reason to know of its defamatory character.''\footnote{Restatment (Second) of Torts §~581(1).}  Section 512(c)(1)(A)(i) removes a platform's immunity as to specific material if it has ``actual knowledge that the material \ldots is infringing''\note{512 at /c1Ai} and the platform does not ``act[] expeditiously to remove, or disable access to, the material.''\note{512 at /c1A(iii)}
 
-These are examples of \emph{liability on notice}: a platform is liable for harmful content that it hosts, but only when it has specific knowledge that a particular item is harmful. The intuition behind a liability-on-notice regime is that while it might not be feasible to require a platform to \emph{acquire} the knowledge to show that an item of content is harmful on its own, once the platform \emph{has} such knowledge (from whatever source derived) it is reasonable to expect it to take action on it. If someone else is willing to bear the expense of investigating content, then from the platform's perspective, it receives investigation for free. Put another way, the value of a takedown notice is that it reduces the investigation costs as to specific content by narrowing the issues the platform must investigate. When investigation is expensive, as we have seen, a rational platform will not bother searching for the needle -- instead, it will overmoderate and throw out the entire haystack. But when someone points to an alleged needle, it is far easier for the platform to decide whether it is actually a needle.
+These are examples of \emph{actual knowledge}: a platform is liable for harmful content that it hosts, but only when it has specific knowledge that a particular item is harmful. The intuition behind a liability-on-notice regime is that while it might not be feasible to require a platform to \emph{acquire} the knowledge to show that an item of content is harmful on its own, once the platform \emph{has} such knowledge (from whatever source derived) it is reasonable to expect it to take action on it.
+
+In our model, actual knowledge corresponds to cases when the cost of investigation $c$ is $0$ as to a particular item of content. As we saw in Part \ref{sec:costless}, imposing liability for harmful content when $c=0$ does not distort the platform's incentives. The platform takes down harmful items as to which $c=0$, and it is socially optimal for it to do so, and this is a strict improvement over immunity. The platform leaves up harmless items when $p(x) > 0$, which is not socially optimal -- but adding an actual knowledge test to a baseline of immunity does not change matters.
+
+It is crucial, however, that ``actual knowledge'' actually mean actual knowledge. When investigation is costly because $c > 0$, imposing not-actually ``actual knowledge'' liability does distort the platform's incentives. In \ref{sec:negligence} below, we analyze the platform's responses to a rule that holds it liable when content has a \emph{high probability} of being harmful, and we observe some of the same potential distorting effects as strict liability.
+
+\subsection{Liability on Notice}
+\label{sec:notice}
+
+If someone else is willing to bear the expense of investigating content, then from the platform's perspective, it receives investigation for free. Put another way, the value of a takedown notice is that it reduces the investigation costs as to specific content by narrowing the issues the platform must investigate. When investigation is expensive, as we have seen, a rational platform will not bother searching for the needle -- instead, it will overmoderate and throw out the entire haystack. But when someone points to an alleged needle, it is far easier for the platform to decide whether it is actually a needle.
 
 The most straightforward way to model liability on notice in our framework is to introduce additional agents: the \emph{victims} of harm, who can investigate content and provide notice to the platform. In this modification, each individual item of content is indexed to a distinct victim; that victim suffers the harm $H$ per unit if that item is harmful and the platform carries it. The victims, like the platform, can investigate content at a cost of $c_v$ per unit. The victims are also able to send notices to the platform for any content they choose, and the platform is liable to the relevant victim for any harm that victim suffers from content about which the platform has received a notice.\footnote{All parties can observe the functions $p(x)$, $s(x)$, and $\lambda(x)$, and the parameters $H$, $c$, and $c_v$.}
 
@@ -595,110 +566,8 @@ But experience has shown that these three requirements stand on somewhat differe
 This analysis also shows why commentators have generally regarded liability on notice as producing similar chilling effects to strict liability, even outside the copyright space.\footnote{Wu, etc.} It is simply too easy to send a notice against content that is not actually harmful. Proposals to instate some kind of liability on notice need to affirmatively demonstrate that the notices they allow will be credible signals.
 
 
-\subsection{Interlude: The Passage of Section 230}
-\label{sec:passage}
 
-Now we are in a position to appreciate the crucial policy arguments at the heart. of Section 230. Famously, Section 230 was enacted against the backdrop of two judicial decisions on the liability of online intermediaries, \emph{Cubby v. Compuserve} and \emph{Stratton Oakmont v. Prodigy}. In \emph{Cubby}, the court held that CompuServe could not be held liable for user-posted content where it "neither knew nor had reason to know" that the content was defamatory.\footnote{Cubby at 141.} But in \emph{Stratton Oakmont}, the court held that Prodigy could be held liable for user-posted content, even where it lacked such knowledge. Both courts treated the cases involving imperfect information -- the issue was how a platform \emph{without} specific knowledge should be treated.
-
-Notoriously, the \emph{Stratton Oakmont} court distinguished \emph{Cubby} on the grounds that Prodigy's ``conscious choice, to gain the benefits of editorial control, has opened it up to a greater liability than CompuServe and other computer networks that make no such choice.''\footnote{Stratton Oakmont at t/k} On this reasoning, moderated services like Prodigy that exercise ``editorial contoll' face strict liability, whereas unmoderated services like CompuServe that exercise no editorial control are immune.
-
-In terms of our model, the rule in \emph{Stratton Oakmont} puts platforms to a choice. If they host \emph{all} content, they face no liability. But if they remove \emph{any} content, they are strictly liable for the harms caused by any content they do not remove.  
-
-\begin{pgfecon}{Platform's profits and social welfare with investigation}{fig:investigate3}
-  \lambdaline
-  \plotline{harmline}{5}{$H$}
-  %\plotline{hcline}{4.5}{$H - c$}
-  \plotline{cline}{.5}{$c$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \dropline{1.66}{2}{$\underline{x^*}$}
-  \dropline{5.63}{1}{$\overline{x^*}$}
-  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
-
-  
-  \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
-  \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
-  
-  \addplot [-, name path = investigateprofit, dashed,
-  domain = 0:10,
-  samples = 250] { (1 - (\x/10)) * (
-     \x < 1.5 ? 2 : 
-     (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
-     2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
-  \addplot [-, name path = investigatewelfare, dashed,
-     domain = 0:10,
-     samples = 250] { (1 - (\x/10)) * (
-        \x < 1.5 ? 3.5 : 
-        (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
-        3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
-
-  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:1.66}];  
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and lambda, soft clip={domain=0:1.66}];
-  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
-  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
-\end{pgfecon}
-
-
-\begin{pgfecon}{Platform's profits if it carries all content}{fig:investigate4}
-  \lambdaline
-  \plotline{harmline}{5}{$H$}
-  %\plotline{hcline}{4.5}{$H - c$}
-  \plotline{cline}{.5}{$c$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
-  % \dropline{1.66}{2}{$\underline{x^*}$}
-  % \dropline{5.63}{1}{$\overline{x^*}$}
-
-  
-  % \draw[domain = .9:10, samples=200, name path = lowerlimit] plot (\x,{5- 5/\x});
-  % \draw[domain = 0:9.1, samples=200, name path = upperlimit] plot (\x,{5 /(10 -\x)});
-  
-  % \addplot [-, name path = investigateprofit, dashed,
-  % domain = 0:10,
-  % samples = 250] { (1 - (\x/10)) * (
-  %    \x < 1.5 ? 2 : 
-  %    (\x < 6.5 ? 2 - (\x - 1.5)^2 / 20 : 
-  %    2 - (25 / 20) - (10 * (\x - 6.5)) / 20 )};
-  % \addplot [-, name path = investigatewelfare, dashed,
-  %    domain = 0:10,
-  %    samples = 250] { (1 - (\x/10)) * (
-  %       \x < 1.5 ? 3.5 : 
-  %       (\x < 6.5 ? 3.5 - (\x - 1.5)^2 / 15 : 
-  %       3.5 - (25 / 15) - (10 * (\x - 6.5)) / 15 )};
-
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and profit, soft clip={domain=0:1.66}];  
-  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:8}];
-%  \addplot [pattern= dots, pattern color = blue] fill between [of = investigatewelfare and cline, soft clip={domain=1.66:5.63}];
-%  \addplot [pattern= grid, pattern color = green] fill between [of = investigateprofit and cline, soft clip={domain=1.66:5.63}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=8:10}];
-\end{pgfecon}
-
-
-\begin{pgfecon}{Social welfare if the platform carries all content}{fig:investigate5}
-  \lambdaline
-  \plotline{harmline}{5}{$H$}
-  \plotvalue{profit}{2}{20}{$p(x)$}
-  \plotvalue{welfare}{3.5}{15}{$s(x)$}
-  
-  \dropline{5.2}{2.6}{$x^e$}
-  \draw[dashed, thin] (8, 4)  -- (8, -.75)node[below]{$x^p$} ;
-
-  \addplot [pattern= dots, pattern color = blue] fill between [of = welfare and lambda, soft clip={domain=0:5.2}];
-  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.2:10}];  
-\end{pgfecon}
-
-Figures \ref{fig:investigate3}, \ref{fig:investigate4}, and \ref{fig:investigate5} show the nature of the platform's choice and its consequences for society. \autoref{fig:investigate3} (which is the same as \autoref{fig:investigate2} but is repeated here for convenience) shows the platform's profits (green gridded) and additional social welfare (blue dotted) if it choses to moderate -- and thus commits to optimal investigations to maximize its profits in the presence of liability. \autoref{fig:investigate4} shows its profits (green gridded) and losses (red striped) if it chooses simply to carry all content. And \autoref{fig:investigate5} shows the resulting social welfare -- the blue dotted region is positive and the red striped region is negative.
-
-Take a moment to let the implications of these diagrams sink in. The platform here is much better off carrying all content, society is much worse off as a result. Strict liability induces the platform to increase its moderation effort from $\xsubi$, where it would moderate in the absence of liability at all. Society gains as a result. But when the platform has the option of not moderating at all -- or, put another way, when strict liability is the price it must pay for engaging in moderation -- it is better off turning off its moderation. It no longer has to pay damages for the content it carries, it no longer has to pay investigatory costs, and it can carry content that would have been unprofitably risky before. These gains are more than enough to outweigh the harms to its platform from the negative-value content at the right. From society's perspective, this is a disaster: the harmful region at the right of \autoref{fig:investigate5} is immense. In trying to encourage the platform to moderate, the regulator has perversely discouraged it from doing so.
-
-These diagrams also reinforce an important point about moderation: \emph{almost all platforms have their own strong incentives to engage in at least some moderation}. The platform here would moderate at $\xsubi$ even in the absence of liability, because the worst content is genuinely bad for the platform and its users. Liability is not the only incentive to moderation.
-
-This is why Section 230(c) is titled ``Protection for `Good Samaritan' blocking and screening of offensive material.'' It was enacted to remove the perverse disincentive to moderation created by the rule of \emph{Cubby}. A platform protected by Section 230 is now free to move its moderation off of $\xmax$ without fear that it will now open itself to liability and be forced to move much further to the left.
-
-
-
-\subsection{Undermoderation: Negligence}
+\subsection{Negligence}
 
 Strict liability is not the only form of liability. Another version, which is modeled on the negligence tort, sets an objective standard of care. If the actor complies with the standard of care, it is not liable, even if harm results. But if the actor's conduct falls beneath the standard of care, it is liable for any resulting harm. Although scholars dispute the extent to which the standard of care in negligence is actually defined mathematically, it is sometimes described in terms of the ``Hand formula,'' $B = PL$. Under this formula, an actor is liable for failure to invest in a precaution that would have prevented a harm if the cost of the precaution $B$ is less than the \emph{ex ante} probability of harm $B$ times the magnitude of the harm $L$.
 
@@ -767,7 +636,7 @@ There is an additional challenge. A negligence regime improves on strict liabili
 An example of a negligence rule in platform law is Section 512(c)(1)(A)(ii), which removes the platform's immunity as to specific content if it is ``aware of facts or circumstances from which infringing activity is apparent'' and fails to remove the content.\note{512 at /c3A(ii)} This exception, known in the caselaw and scholarship as the ``red flag'' provision, is best understood as a judgment that in certain cases, the probability of infringement is high enough to justify removal. In other words, the red flag provision is a negligence-style rule: beyond some threshold $t$ of high likelihood that content is infringing, the platform will be liable for all such infringing content. Caselaw confirms that $t$ is high. It is not enough that the platform is aware in general that some content is infringing; it must be awareness of ``facts that would have made the specific infringement `objectively' obvious to a reasonable person.''\footnote{Viacom v. YouTube at 31.} 
 
 
-\subsection{Undermoderation: Conditional Immunity}
+\subsection{Conditional Immunity}
 
 A hybrid of strict liability and immunity is \emph{conditional immunity}. Informally, the platform is immune  provided that it keeps total harm small enough. Formally, the regulator sets a harm threshold $t$. If the total harm caused by the content the platform hosts is less than or equal to $t$, the platform's liability is zero (\autoref{fig:conditional1}). But if the total harm exceeds this threshold, the factory loses its immunity and is liable for \emph{all} the harms it caused, even those that by themselves are beneath the threshold (\autoref{fig:conditional2}).
 
@@ -794,6 +663,120 @@ Despite this difference, conditional immunity and negligence have similar incent
 It follows, therefore, that the optimal level threshold level is $t = \int_0^{\underline{x^e}} H\lambda(x) dx$. If the regulator does so, the platform's behavior and social welfare are exactly the same as under negligence.
 
 There are, however, meta-level concerns about conditional immunity. The first is that the calculation problem is more difficult. The regulator must be able evaluate $\lambda(x)$ and $p(x)$ at every point in $[0, \underline{x}]$, not just at $x^e$. A second is that conditional immunity is much more sensitive to errors in this calculation process. Small errors in setting the negligence threshold lead to small changes in the platform's liability. But small errors in setting the conditional immunity threshold can lead to large changes in liability as a platform that thought it qualified for the immunity discovers it did not. The ISP Cox, for example, was hit with a \$1 billion damage award after the court held that its repeat-infringer policy was insufficient to qualify for the Section 512(a) safe harbor. Where a negligence regime acts as a price, a conditional immunity has characteristics of a sanction. Prices are more appropriate when the harm can be quantified but the appropriate level of activity is uncertain.\footnote{Cooter}
+
+
+\section{Policy Responses to Overmoderation}
+\label{sec:overmoderation}
+
+\subsection{Subsidies}
+
+Many responses to overmoderation are familiar from telecommunications and intellectual-property law. One of the most common is \emph{subsidies}, in which the government pays the platform to carry content. \autoref{fig:subsidies1} shows a case in which the government gives the platform a subsidy of $\epsilon$ for any content that it carries. This pushes the platform's profits up to the point that $x^* = x^e$ and it carries the socially optimal level of content. 
+
+There are at least three challenges in providing subsidies. First, the regulator must accurately estimate $x^e$, which requires an understanding both of the value of content $s(x)$ and its harms $H\lambda(x)$. Second, the regulator must choose an appropriate subsidy $\epsilon$, which requires an understanding of the platform's revenues $p(x)$. And third, the subsidy must be one that the regulator is willing to pay. The orange dotted region in \autoref{fig:subsidies1} is money that must come from somewhere. It is not a welfare loss to society, just a wealth transfer (ignoring administrative costs and the distortionary effects of taxation, that is). Below-cost mail service is an example of this type of subsidy.
+
+
+\begin{pgfecon}{Flat subsidies}{fig:subsidies1}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{12}{$s(x)$}
+  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
+  \plotvalue{profit}{.25}{30}{}
+  \draw (10, -2) node {$p(x)$};
+  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75) node[below]{$x^*$};
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
+  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=0:5.55}];
+\end{pgfecon}
+
+A partial solution to the third problem is \emph{targeted subsidies}. Here, the government subsidizes content only in the range where subsidies make a difference in the platform's decision of whether to carry it -- between $x^*$ and $x^e$. This reduces the size of the subsidies required, but it increases the difficulty of the regulatory problem, because now the regulator must be able to accurately estimate  $x^*$, and not just know the behavior of $p(x)$ in the neighborhood of $x^e$. The FCC's Universal Service Fund is a targeted subsidy. It helps make broadband Internet access more widely available by supporting its availability to people and communities who for whom it would not otherwise be profitable for telecom companies to provide it.
+
+\begin{pgfecon}{Targeted subsidies}{fig:subsidies2}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{12}{$s(x)$}
+  \plotvalue{profitplus}{.55}{30}{$p(x) + \epsilon$}
+  \plotvalue{profit}{.25}{30}{}
+  \draw (10, -2) node {$p(x)$};
+  \draw[dashed, thin] (4.25, 3.85) -- (4.25, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (5.55, 3.15) node[above]{$x^e$} -- (5.55, -.75);
+  %\draw[dashed, thin] (8, 0) node[below left]{$x^*=x^e$};
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=0:5.55}];
+  \addplot [pattern= crosshatch dots, pattern color = orange] fill between [of = profitplus and profit, soft clip={domain=4.25:5.55}];
+\end{pgfecon}
+
+Subsidies can also be provided indirectly, by subsidizing the users who create content and distribute it through platforms, and the consumers who receive it. The idea here is that if distribution is more valuable to creators and consumers, they will be willing to pay more to distributors, thus shifting the $p(x)$ curve upwards. There is an argument that the copyright system has some of these features, although it is not typically described in these terms.
+
+\subsection{Must-Carry}
+
+Another response to overmoderation is to impose a \emph{must-carry} rule, in which the platform must host all content submitted to it. Formally, the regulator forces the platform to set $\hat{x} = \xmax$, i.e. the far right of the diagram. Compared to subsidies, a must-carry system is simpler to design and almost by definition requires less outlay. It also removes discretion from the platform, which may be a concern if the platform has a conflict of interest due to other business lines or does not agree with the regulator's understanding of which content is valuable. Something like this, for example, is a commonly advanced argument for network neutrality.
+
+A must-carry rule, however, must satisfy two conditions to be justified compared with the baseline. First, it must actually result in hosting more worthwhile than worthless content. In \autoref{fig:mustcarry1}, the upper green gridded region is the positive-value content that must-carry causes to be hosted, and the upper red striped region is the negative-value content it also causes to be hosted. If the red region is larger than the green one, must-carry is counter-productive; the bad additional content outweighs the good.\footnote{This analysis omits the investigation option, because it is never rational for a platform to investigate content it is just going to leave up anyway.}
+
+\begin{pgfecon}{Must-carry}{fig:mustcarry1}
+  \lambdaplot
+  \plotline{harmline}{5}{$H$}
+  \plotvalue{welfare}{4.5}{20}{$s(x)$}
+  \plotvalue{profit}{.25}{30}{$p(x)$}
+  \draw[dashed, thin] (4.25, 4) -- (4.25, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (5.9, 3.5) node[above]{$x^e$} -- (5.9, 0) ;
+  
+  \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=4.25:5.9}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=5.9:10}];
+
+  \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:4.25}];
+  \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=4.25:10}];
+  
+\end{pgfecon}
+
+A little more subtly, must-carry can also counter-productively drive a platform out of the market. In \autoref{fig:mustcarry1}, the lower green gridded region is the profit's profits from hosting the content it wants to, and the lower red striped region it is losses from hosting the content it is forced to. If the red region is larger than the green one, it is unprofitable for the platform to operate at all, and it will rationally shut down rather than comply with a must-carry mandate.
+
+\subsection{Lawful Must-Carry}
+
+One common criticism of must-carry -- especially for application-layer platforms -- is that it compels platforms to carry content that society itself considers harmful, even illegal. So it is common to see must-carry mandates limited to ``lawful'' content. The FCC's Obama-era network neutrality regulations had such a carveout, as do the Texas and Florida social-media must-carry bills whose constitutionality is currently being litigated.\footnote{t/k}
+
+We can model a \emph{lawful must-carry} rule by stating that the platform \emph{must} host all harmless content, but has discretion whether or not to host harmful content. Of course, to know with certainty whether content is harmless, the platform must investigate it. Thus, under lawful must-carry, the platform has two choices: it can either leave the content up without investigation, or it can investigate it and take it down if harmful. 
+
+As \autoref{fig:mustcarry2} illustrates, the platform's marginal revenue from leaving up is $p(x)$, and its marginal revenue from investigation is $(1 - \lambda(x))p(x) -c $. Thus, the platform finds the two equivalent when $p(x) = \frac{-c}{\lambda(x)}$, which can only occur when the platform's profit $p(x)$ has gone negative. The intersection of these two curves (if they meet at all), which we call $\xsubi$, is to the right of $x^*$. To the left of $\xsubi$, the platform leaves up content, so its profits and social welfare are as above. But to the right of $\xsubi$, the platform investigates all content and takes down all harmful content. Compared with a flat must-carry requirement, the platform can reduce its losses from the content it is compelled to carry, and thus may be better able to keep operating in the face of a lawful must-carry requirement.
+
+Lawful must-carry can also be better for social welfare, because the platform will filter out some content that is both harmful and unprofitable.  \autoref{fig:mustcarry2} shows that the welfare effects can be subtle and complex. $\xsubi$ creates a discontinuity. To the left, social welfare is the benefits of all content $s(x)$ minus the harms of all content $H\lambda(x)$. To the right, 
+investigation eliminates the harms $H\lambda(x)$ but introduces two new costs: the cost of foregone benefits from removed harmful content $s(x)\lambda(x)$ and the costs of investigation $c$. 
+
+\begin{pgfecon}{Lawful must-carry}{fig:mustcarry2}
+  \lambdaline
+  \plotline{harmline}{5}{$H$}
+  %\plotline{hcline}{4.5}{$H - c$}
+  %\plotline{cline}{-.5}{$-c$}
+  \plotvalue{profit}{.5}{30}{$p(x)$}
+  \plotvalue{welfare}{4.5}{20}{$s(x)$}
+  \draw[dashed, thin] (5.4, 3.6)  -- (5.4, 0) node[below]{$x^*$};
+  \draw[dashed, thin] (6.5, 3.2) node[above]{$x^e$} -- (6.5, 0) ;
+  \draw[dashed, thin] (7.5, 3.75)  -- (7.5, -.75)node[below]{$\xsubi$} ;
+    
+  %\draw[domain = 2.5:10, samples=200, name path = lowerlimit] plot (\x,{-5/\x}) node[right]{$\frac{-c}{\lambda(x)$};
+  
+  \draw[domain = 0:10, samples=200, name path = filterprofit] plot 
+  (\x,{-.5 + (1 - (\x/10)) * (\x < 1.5 ? .5 : 
+   (\x < 6.5 ? .5 - (\x - 1.5)^2 / 30 : 
+   .5 - (25 / 30) - (10 * (\x - 6.5)) / 30 ))}) node[right]{$(1 - \lambda(x))p(x) -c$};
+
+  \draw[domain = 0:10, samples=200, name path = filterwelfare] plot 
+  (\x,{.5 + (\x / 10) * (\x < 1.5 ? 4.5 : 
+   (\x < 6.5 ? 4.5 - (\x - 1.5)^2 / 20 : 
+   4.5 - (25 / 20) - (10 * (\x - 6.5)) / 20 ))}) node[right]{$s(x)\lambda(x) + c$};
+  
+   \addplot [pattern= grid, pattern color = green] fill between [of = profit and axis, soft clip={domain=0:5.4}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and profit, soft clip={domain=5.4:7.5}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = axis and filterprofit, soft clip={domain=7.5:10}];
+      
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and lambda, soft clip={domain=5.4:6.5}];   
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = lambda and welfare, soft clip={domain=6.5:7.5}];
+   \addplot [pattern= grid, pattern color = green] fill between [of = welfare and filterwelfare, soft clip={domain=7.5:8}];
+   \addplot [pattern= north east lines, pattern color = red] fill between [of = filterwelfare and welfare, soft clip={domain=8:10}];
+    
+\end{pgfecon}
+
+
+
 
 \section{Existing and Proposed Laws}
 \label{sec:laws}
@@ -847,3 +830,5 @@ The DSA emphasizes that platforms remain eligible for the safe harbors even if t
 \section{Conclusion}
 
 This is not an empirical paper for economists. It is a conceptual paper for legal scholars. Our goal is to build intuition for the kinds of effects different intermediary-liability laws can be expected to have. Different liability regimes lead to different incentives, and it is a useful exercise to think through the details.
+
+\end{document}
