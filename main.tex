@@ -1,12 +1,10 @@
 \documentclass[openbib,12pt]{article}  % Comments shown
+\usepackage{amsmath,amssymb,amsthm,mathabx}
 \usepackage{linlib}
 \usepackage{lawreview}
 \usepackage[review]{hicite}
 
-\usepackage{amsmath,amssymb,amsthm,mathabx}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
+
 \usepackage{makeidx}
 \usepackage{arydshln}
 \usepackage{natbib}
@@ -15,7 +13,7 @@
 %\usepackage[margin=1in]{geometry}
 \usepackage{mathpazo}
 %\usepackage{dsfont}
-\usepackage[multiple]{footmisc}
+%\usepackage[multiple]{footmisc}
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{booktabs}
@@ -26,7 +24,7 @@
 %\usepackage{makecell}
 \usepackage{multirow}
 %\usepackage[flushleft]{threeparttable}
-\usepackage[pdftex]{color}
+%\usepackage[pdftex]{color}
 \usepackage[table]{xcolor}
 \usepackage{rotating}
 \usepackage{url}
@@ -91,14 +89,28 @@
 % \parindent=1cm
 % \baselineskip=25pt
 
+\setlength{\parindent}{2em}
+%\usepackage{indentfirst}
+\usepackage[bottom]{footmisc}
+\usepackage{scrextend}
+%\deffootnote[1.5em]{0em}{1.5em}{\textsuperscript{\thefootnotemark}\enskip} 
+\deffootnote[1.5em]{1.5em}{2.5em}{\thefootnotemark\enskip} 
+
+
 \input{citations}
 
 \title{An Economic Model of Intermediary Liability}
-\author{James Grimmelmann\footnote{Cornell Law School and Cornell Tech, Cornell University, james.grimmelmann@cornell.edu}
-\and Pengfei Zhang\footnote{School of Economic, Political and Policy Sciences, The University of Texas at Dallas, pengfei.zhang@utdallas.edu}}
-\date{June 2021}
+\journal{Berk. Tech. L.J. (forthcoming)}
+\author{James Grimmelmann\footnote{Cornell Law School and Cornell Tech, Cornell University. Acknowledgments and Creative Commons license t/k. }
+\and Pengfei Zhang\footnote{School of Economic, Political and Policy Sciences, The University of Texas at Dallas.}}
+\date{April 2023}
+
+\makeatletter
+\let\@afterindenttrue\@afterindentfalse
+\makeatother
 
 \begin{document}
+
 
 \maketitle
 
@@ -119,7 +131,7 @@ We analyze various plausible legal regimes, including strict liability, negligen
 
 \newpage
 
-\section{Introduction}\label{EMIL_Section:intro}
+\section*{Introduction}\label{EMIL_Section:intro}
 \input{intro.tex}
 
 \section{Background and Related Literature}\label{EMIL_Section:inst}
