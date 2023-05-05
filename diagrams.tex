@@ -52,7 +52,7 @@
   \addplot [-, name path = harmline,
   domain = 0:10,
   samples = 250] {5}
-  node[very near start, above]{$h$};
+  node[very near start, above]{$h(x)$};
 }
 
 \newcommand{\scurveplot}[1] {
@@ -67,7 +67,7 @@
 
 \newcommand{\hplot}{\scurveplot{$h(x)$}}
 
-\newcommand{\lambdaplot} {\scurveplot{$\lambda h$}}
+\newcommand{\lambdaplot} {\scurveplot{$\lambda(x) h$}}
 
 \newcommand{\lambdaline} {
  \addplot [-, name path = lambda, thick, domain = 0:10, samples = 250] { \x /2 )}  node[right]{$\lambda h$};
